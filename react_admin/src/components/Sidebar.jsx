@@ -33,7 +33,7 @@ const Sidebar = () => {
   //to manage menu access //it's static part. update part uploaded soon...
 	const authToken = localStorage.getItem("auth-token")
   const user = jwtDecode(authToken)
-console.log('user >>>', user);
+// console.log('user >>>', user);
   const userEmail = localStorage.getItem("userEmail");
   let hasAccess = true;
   if(user.userType == 'branch'){

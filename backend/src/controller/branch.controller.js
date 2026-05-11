@@ -23,7 +23,7 @@ let BranchController = {
             let branchIds = request.user.branchIds;
             
             let data = await branchService.getBranchList(true, userType, branchIds);
-            console.log('lit >>>>>>>:::', data);
+            // console.log('lit >>>>>>>:::', data);
                             
             let dataList =  { 'totalRecord': data.count, 'list': data.rows };
             return responder.sendFilterResponse(response, 200, "success", dataList, "List retrieved successfully.");
@@ -48,7 +48,7 @@ let BranchController = {
     },  
     createBranch: async (request, response, next) => {
         try {
-            console.log('create controller reached', request.body, request.user);
+            // console.log('create controller reached', request.body, request.user);
             if(request.body.branchCode.trim() == ''){
                 return responder.sendResponse(response, 200, "error", '', "Missing Required!");
             }
@@ -126,31 +126,49 @@ let BranchController = {
     },
 
     //////Branch Details ///////////////////////
-    createBranchDetails: async (request, response, next) => {
+    getDetailsById:async(request, response, next) =>{
         try {
-            console.log('create controller reached', request.body, request.user);
-            if(request.body.branchCode.trim() == ''){
-                return responder.sendResponse(response, 200, "error", '', "Missing Required!");
-            }
-            let checkIfExist = false;
-            checkIfExist = await branchService.checkExistBranch(request.body.branchCode);
-            if (checkIfExist == true) {
-                return responder.sendResponse(response, 200, "error", '', "Branch Already Exist");
-            } else {
-                const BranchData = {
-                    branchCode: request.body.branchCode.trim(),
-                    serialNumber: request.body.serialNumber ? request.body.serialNumber.trim() : '',
-                    category: 'Form',
-                    createdBy: request.user.userId
-                };
-                let branchCreate = await branchService.createBranch(BranchData);
-                return responder.sendResponse(response, 200, "success", branchCreate, "Branch created successfully.");                
+            let branchId = request.params.branchId;
+            // console.log('getDetailsById controller reached', request.params, request.user);
+            
+            const dataList = await branchService.getDetailsById(branchId);
+            if(dataList){
+                // console.log('fileUrl :::', dataList.fileUrl);
+                return responder.sendResponse(response, 200, "success", dataList, "BranchDetails retrieved successfully.");
+            }else{
+                return responder.sendResponse(response, 200, "error", {}, "No BranchDetails found");
             }
         } catch (error) {
             return next(error);
         }
     },
+    updateBranchInfo: async (request, response, next) => {
+        try {
+            // console.log('update controller reached', request.body);
+            const branchId = request.body.branchId;
+            const detailId = request.body?.detailId;
+            const formData = request.body?.data;
 
+            let checkIfExist = false;
+            checkIfExist = await branchService.checkExistBranchInfo(request.body.branchId);
+            if (checkIfExist == true) {     //for Edit
+                let branchData = {...formData, updatedBy: request.user.userId, updatedAt: new Date() };
+
+                let branchUpdate = await branchService.updateBranchDetails(branchData, detailId);
+
+                return responder.sendResponse(response, 200, "success", branchUpdate, "BranchInfo updated successfully");
+            } else {        // For create
+
+                let branchData = {...formData, branchId: branchId, createdBy: request.user.userId };
+                let branchCreate = await branchService.createBranchDetails(branchData);
+
+                return responder.sendResponse(response, 200, "success", branchCreate, "BranchInfo saved successfully");                
+            }
+        } catch (error) {
+            return next(error);
+        }
+    },
+    
 
 };
 

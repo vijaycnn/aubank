@@ -32,9 +32,9 @@ function BranchInfo() {
     setLoading(true);
     setPreviousData(null);
     await axiosInstance
-      .get(`/branch/getById/${id}`)
+      .get(`/branch/getDetailById/${id}`)
       .then((response) => {
-        console.log(">>> ", response.data);
+        // console.log(">>> ", response.data);
         setLoading(false);
         if (response.data.status === "success") {
           setPreviousData(response?.data?.data);
@@ -49,29 +49,47 @@ function BranchInfo() {
       });
   };
   useEffect(() => {
-    // getBranchDetails();
+    getBranchDetails();
   }, []);
 
   const [data, setData] = useState({
-    branchCode: "",
-    serialNumber: "",
+    managerName: "",
+    managerNameHindi: "",
+
+    address: "",
+    addressHindi: "",
+
+    contactNumber: "",
+    contactNumberHindi: "",
+
+    email: "",
+    emailHindi: "",
   });
   useEffect(() => {
     if (previousData) {
       setData({
-        branchCode: previousData.branchCode,
-        serialNumber: previousData.serialNumber,
+        managerName: previousData.managerName,
+        managerNameHindi: previousData.managerNameHindi,
+        
+        address: previousData.address,
+        addressHindi: previousData.addressHindi,
+
+        contactNumber: previousData.contactNumber,
+        contactNumberHindi: previousData.contactNumberHindi,
+
+        email: previousData.email,
+        emailHindi: previousData.emailHindi,
       });
     }
   }, [previousData]);
 
-//   const handleChange = (e) => {
-//     const { name, type, value } = e.target;
-//     setData((prev) => ({
-//       ...prev,
-//       [name]: type === "checkbox" ? checked : value,
-//     }));
-//   };
+  const handleChange = (e) => {
+    const { name, type, value } = e.target;
+    setData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const validation = (values) => {
     setError("");
@@ -93,24 +111,18 @@ function BranchInfo() {
     setIsSubmit(true);
     // console.log("formData >>", formData);
     try {
-      let hasError = validation(data);
-      if (!hasError && previousData.id > 0) {
+      if (id > 0) {
         setLoading(true);
+        let detailId = previousData?.id;
         let body = {
-            branchId: previousData.id,
-            branchCode: data.branchCode,
-            serialNumber: data.serialNumber,
+            branchId: id, detailId, data
         };
-        // console.log("data >>", data);
         await axiosInstance
-        .post(`/branch/update`, body)
+        .post(`/branch/updateBranchInfo`, body)
         .then((response) => {
             // console.log('response >>> ', response.data);
             if (response.data.status === "success") {
-            setData({
-                branchCode: "",
-                serialNumber: "",
-            });
+            setData({});
             setSuccessMsg(response?.data?.message);
             setLoading(false);
             setTimeout(() => {
@@ -121,7 +133,7 @@ function BranchInfo() {
             }
         })
         .catch((error) => {
-            console.log(">>> ", error.status, error);
+            // console.log(">>> ", error);
             if (error.status === 403) {
             handleLogout();
             }
@@ -138,27 +150,6 @@ function BranchInfo() {
       setLoading(false);
       setIsSubmit(false);
     }
-  };
-  ///////////////////////////
-  const [formData, setFormData] = useState({
-    managerName: "",
-    managerNameHindi: "",
-
-    address: "",
-    addressHindi: "",
-
-    contactNumber: "",
-    contactNumberHindi: "",
-
-    email: "",
-    emailHindi: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
   };
 
   const handleLogout = () => {
@@ -244,7 +235,7 @@ function BranchInfo() {
                     name="managerName"
                     placeholder="Branch Manager Name"
                     className="form-control mb-3"
-                    value={formData.managerName}
+                    value={data.managerName}
                     onChange={handleChange}
                 />
 
@@ -252,7 +243,7 @@ function BranchInfo() {
                     name="address"
                     placeholder="Address"
                     className="form-control mb-3"
-                    value={formData.address}
+                    value={data.address}
                     onChange={handleChange}
                 />
 
@@ -261,7 +252,7 @@ function BranchInfo() {
                     name="contactNumber"
                     placeholder="Contact Number"
                     className="form-control mb-3"
-                    value={formData.contactNumber}
+                    value={data.contactNumber}
                     onChange={handleChange}
                 />
 
@@ -270,7 +261,7 @@ function BranchInfo() {
                     name="email"
                     placeholder="Email"
                     className="form-control mb-3"
-                    value={formData.email}
+                    value={data.email}
                     onChange={handleChange}
                 />
             </div>
@@ -280,10 +271,10 @@ function BranchInfo() {
 
                 <ReactTransliterate
                     placeholder="शाखा प्रबंधक का नाम"
-                    value={formData.managerNameHindi}
+                    value={data.managerNameHindi}
                     onChangeText={(text) =>
-                        setFormData({
-                        ...formData,
+                        setData({
+                        ...data,
                         managerNameHindi: text,
                         })
                     }
@@ -293,10 +284,10 @@ function BranchInfo() {
 
                 <ReactTransliterate
                     placeholder="पता"
-                    value={formData.addressHindi}
+                    value={data.addressHindi}
                     onChangeText={(text) =>
-                        setFormData({
-                        ...formData,
+                        setData({
+                        ...data,
                         addressHindi: text,
                         })
                     }
@@ -314,10 +305,10 @@ function BranchInfo() {
 
                 <ReactTransliterate
                     placeholder="संपर्क संख्या"
-                    value={formData.contactNumberHindi}
+                    value={data.contactNumberHindi}
                     onChangeText={(text) =>
-                        setFormData({
-                        ...formData,
+                        setData({
+                        ...data,
                         contactNumberHindi: text,
                         })
                     }
@@ -327,10 +318,10 @@ function BranchInfo() {
 
                 <ReactTransliterate
                     placeholder="ईमेल आईडी"
-                    value={formData.emailHindi}
+                    value={data.emailHindi}
                     onChangeText={(text) =>
-                        setFormData({
-                        ...formData,
+                        setData({
+                        ...data,
                         emailHindi: text,
                         })
                     }
@@ -339,7 +330,7 @@ function BranchInfo() {
                     />
 
             </div>
-            
+                        
             <Col md={12}>
                 <Form.Group className="text-end">
                 <Button
