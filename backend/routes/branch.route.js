@@ -26,6 +26,12 @@ router.post("/update", [auth.login], function (request, response, next) {
 router.post("/changeStatus", [auth.login], function (request, response, next) {
     branchController.changeBranchStatus(request, response, next)
 });
-
+//////////////////BranchDetails ///////////////
+router.get("/getDetailById/:branchId", [auth.login], function (request, response, next) {
+    branchController.getDetailsById(request, response, next)
+});
+router.post("/updateBranchInfo", [auth.login], function (request, response, next) {
+    branchController.updateBranchInfo(request, response, next)
+});
 
 module.exports = router;

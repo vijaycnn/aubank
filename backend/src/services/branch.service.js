@@ -126,6 +126,69 @@ let BranchDataProvider = {
     });
   },
   
+  ///////BranchDetails ///////////
+  getDetailsById: async (branchId) => {
+    return new Promise(function (resolve, reject) {
+      conn.BranchDetails.findOne({
+        attributes: [ "*"],
+        where: { branchId: branchId, isdeleted: 0 },
+        raw:true
+      })
+        .then(data => {
+          if (data !== null) {
+            resolve(data);
+          } else {
+            resolve(false);
+          }
+        }).catch(err => {
+          reject(err);
+        });
+    });
+  },
+  checkExistBranchInfo: async (branchId) => {
+    return new Promise(function (resolve, reject) {
+      conn.BranchDetails.findOne({
+        where: { 
+          branchId : branchId,
+          isdeleted: 0,     
+        },
+      })
+        .then(data => {
+          if (data == null) {
+            resolve(false);
+          } else if (branchId && data) {
+            resolve(true);
+          }
+        }).catch(err => {
+          reject(err);
+        });
+    });
+  },
+  createBranchDetails: async (body) => {
+    return new Promise(function (resolve, reject) {
+      conn.BranchDetails.create(body)
+        .then(data => {
+          resolve(data);
+        }).catch(err => {
+          reject(err);
+        });
+    });
+  },
+  updateBranchDetails: async (body, detailId) => {
+                console.log('postBody Service', detailId);
+
+    return new Promise(function (resolve, reject) {
+      conn.BranchDetails.update(body, {
+        where: { id: detailId },
+      })
+        .then(data => {
+          resolve(data);
+        }).catch(err => {
+          reject(err);
+        });
+    });
+  },
   
+
 };
 module.exports = BranchDataProvider;
