@@ -64,6 +64,39 @@ function BranchInfo() {
 
     email: "",
     emailHindi: "",
+
+    regionalOfficer       : "",
+    regionalName          : "",
+    regionalAddress       : "",  
+    regionalContactNumber : "",
+    regionalEmail         : "",
+
+    regionalOfficerHindi  : "",
+    regionalNameHindi     : "",
+    regionalAddressHindi  : "",
+    regionalContactNumberHindi  : "",
+    regionalEmailHindi    : "",
+
+    principalOfficer      : "",
+    principalName         : "",
+    principalAddress      : "",
+    principalContactNumber      : "",
+    principalEmail        : "",
+
+    principalOfficerHindi : "",
+    principalNameHindi    : "",
+    principalAddressHindi : "",
+    principalContactNumberHindi : "",
+    principalEmailHindi   : "",
+
+    complainUrl           : "",
+    complainEmail         : "",
+    complainAddress       : "",  
+    complainUrlHindi      : "",
+    complainEmailHindi    : "",
+    complainAddressHindi  : "",
+
+
   });
   useEffect(() => {
     if (previousData) {
@@ -79,6 +112,39 @@ function BranchInfo() {
 
         email: previousData.email,
         emailHindi: previousData.emailHindi,
+
+        regionalOfficer       : previousData.regionalOfficer,
+        regionalName          : previousData.regionalName,
+        regionalAddress       : previousData.regionalAddress,  
+        regionalContactNumber : previousData.regionalContactNumber,
+        regionalEmail         : previousData.regionalEmail,
+
+        regionalOfficerHindi  : previousData.regionalOfficerHindi,
+        regionalNameHindi     : previousData.regionalNameHindi,
+        regionalAddressHindi  : previousData.regionalAddressHindi,
+        regionalContactNumberHindi  : previousData.regionalContactNumberHindi,
+        regionalEmailHindi    : previousData.regionalEmailHindi,
+
+        principalOfficer      : previousData.principalOfficer,
+        principalName         : previousData.principalName,
+        principalAddress      : previousData.principalAddress,
+        principalContactNumber      : previousData.principalContactNumber,
+        principalEmail        : previousData.principalEmail,
+
+        principalOfficerHindi : previousData.principalOfficerHindi,
+        principalNameHindi    : previousData.principalNameHindi,
+        principalAddressHindi : previousData.principalAddressHindi,
+        principalContactNumberHindi : previousData.principalContactNumberHindi,
+        principalEmailHindi   : previousData.principalEmailHindi,
+
+        complainUrl           : previousData.complainUrl,
+        complainEmail         : previousData.complainEmail,
+        complainAddress       : previousData.complainAddress,  
+        complainUrlHindi      : previousData.complainUrlHindi,
+        complainEmailHindi    : previousData.complainEmailHindi,
+        complainAddressHindi  : previousData.complainAddressHindi,
+
+
       });
     }
   }, [previousData]);
@@ -227,7 +293,7 @@ function BranchInfo() {
                 हम हमेशा सर्वश्रेष्ठ ग्राहक सेवा प्रदान करने का प्रयास करते हैं, परन्तु कई बार ऐसे अवसर हो सकते है, जब हमारे ग्राहकों की आवश्यकताओं को पूरा नही किया गया है। ऐसी घटनाओं को कृपया शाखा प्रबंधक के ध्यान में लेकर आये।
             </div>
 
-                {/* English */}
+            {/* English */}
             <div className="col-md-6">
 
                 <input
@@ -253,7 +319,7 @@ function BranchInfo() {
                     placeholder="Contact Number"
                     className="form-control mb-3"
                     value={data.contactNumber}
-                    onChange={handleChange}
+                    onChange={handleChange} maxLength={10}
                 />
 
                 <input
@@ -262,7 +328,7 @@ function BranchInfo() {
                     placeholder="Email"
                     className="form-control mb-3"
                     value={data.email}
-                    onChange={handleChange}
+                    onChange={handleChange}  maxLength={55}
                 />
             </div>
 
@@ -313,7 +379,7 @@ function BranchInfo() {
                         })
                     }
                     lang="hi" name="contactNumberHindi"
-                    className="form-control mb-3"
+                    className="form-control mb-3"  maxLength={10}
                 />
 
                 <ReactTransliterate
@@ -326,11 +392,340 @@ function BranchInfo() {
                         })
                     }
                     lang="hi" name="emailHindi"
-                    className="form-control mb-3"
+                    className="form-control mb-3"  maxLength={55}
                     />
 
             </div>
-                        
+            <div className="col-md-6 mb-2">
+                In case of non-resolution of grievances within 7 days to your satisfaction, our customers may escalate their grievance to the Regional Nodal Officer(s) and thereafter to the Principal Nodal Officer after expiry of further 7 days. .
+            </div>
+            <div className="col-md-6 mb-2">
+                यदि आपकी शिकायत ७ दिनो के भीतर हल नही होती हैं, तो आप हमारे क्षेत्रीए नोडल अधिकारी से संपर्क कर सकते हैं। अतिरिक्त ७ दिन की समाप्ति के बाद प्रमुख नोडल अिधकारी से संपर्क किया जा सकता है |
+            </div>
+            {/* English */}
+            <div className="col-md-6">
+                <input
+                    type="text"
+                    name="regionalOfficer"
+                    placeholder="Regional Nodal Officer"
+                    className="form-control mb-3"
+                    value={data.regionalOfficer}
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="text"
+                    name="regionalName"
+                    placeholder="Name"
+                    className="form-control mb-3"
+                    value={data.regionalName}
+                    onChange={handleChange}
+                />
+
+                <textarea
+                    name="regionalAddress"
+                    placeholder="Address"
+                    className="form-control mb-3"
+                    value={data.regionalAddress}
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="text"
+                    name="regionalContactNumber"
+                    placeholder="Contact Number"
+                    className="form-control mb-3"
+                    value={data.regionalContactNumber}
+                    onChange={handleChange}  maxLength={10}
+                />
+
+                <input
+                    type="text"
+                    name="regionalEmail"
+                    placeholder="Email"
+                    className="form-control mb-3"
+                    value={data.regionalEmail}
+                    onChange={handleChange}  maxLength={55}
+                />
+            </div>
+            {/* Hindi */}        
+            <div className="col-md-6">
+                <ReactTransliterate
+                    placeholder="क्षेत्रीय नोडल अधिकारी"
+                    value={data.regionalOfficerHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        regionalOfficerHindi: text,
+                        })
+                    }
+                    lang="hi" name="regionalOfficerHindi"
+                    className="form-control mb-3"
+                    />
+                <ReactTransliterate
+                    placeholder="नाम"
+                    value={data.regionalNameHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        regionalNameHindi: text,
+                        })
+                    }
+                    lang="hi" name="regionalNameHindi"
+                    className="form-control mb-3"
+                    />
+
+                <ReactTransliterate
+                    placeholder="पता"
+                    value={data.regionalAddressHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        regionalAddressHindi: text,
+                        })
+                    }
+                    lang="hi" name="regionalAddressHindi"
+                    className="form-control mb-3"
+                    renderComponent={(props) => (
+                        <textarea
+                        {...props}
+                        rows={4}
+                        className="form-control mb-3"
+                        placeholder="पता"
+                        />
+                    )}
+                />
+
+                <ReactTransliterate
+                    placeholder="संपर्क संख्या"
+                    value={data.regionalContactNumberHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        regionalContactNumberHindi: text,
+                        })
+                    }
+                    lang="hi" name="regionalContactNumberHindi"
+                    className="form-control mb-3"  maxLength={10}
+                />
+
+                <ReactTransliterate
+                    placeholder="ईमेल आईडी"
+                    value={data.regionalEmailHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        regionalEmailHindi: text,
+                        })
+                    }
+                    lang="hi" name="regionalEmailHindi"
+                    className="form-control mb-3"  maxLength={55}
+                    />
+
+            </div>
+            {/* English */}
+            <div className="col-md-6">
+                <input
+                    type="text"
+                    name="principalOfficer"
+                    placeholder="Principal Nodal Officer"
+                    className="form-control mb-3"
+                    value={data.principalOfficer}
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="text"
+                    name="principalName"
+                    placeholder="Name"
+                    className="form-control mb-3"
+                    value={data.principalName}
+                    onChange={handleChange}
+                />
+
+                <textarea
+                    name="principalAddress"
+                    placeholder="Address"
+                    className="form-control mb-3"
+                    value={data.principalAddress}
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="text"
+                    name="principalContactNumber"
+                    placeholder="Contact Number"
+                    className="form-control mb-3"
+                    value={data.principalContactNumber}
+                    onChange={handleChange} maxLength={10}
+                />
+
+                <input
+                    type="text"
+                    name="principalEmail"
+                    placeholder="Email"
+                    className="form-control mb-3"
+                    value={data.principalEmail}
+                    onChange={handleChange} maxLength={55}
+                />
+            </div>
+            {/* Hindi */}        
+            <div className="col-md-6">
+                <ReactTransliterate
+                    placeholder="प्रधान नोडल अधिकारी"
+                    value={data.principalOfficerHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        principalOfficerHindi: text,
+                        })
+                    }
+                    lang="hi" name="principalOfficerHindi"
+                    className="form-control mb-3"
+                    />
+                <ReactTransliterate
+                    placeholder="नाम"
+                    value={data.principalNameHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        principalNameHindi: text,
+                        })
+                    }
+                    lang="hi" name="principalNameHindi"
+                    className="form-control mb-3"
+                    />
+
+                <ReactTransliterate
+                    placeholder="पता"
+                    value={data.principalAddressHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        principalAddressHindi: text,
+                        })
+                    }
+                    lang="hi" name="principalAddressHindi"
+                    className="form-control mb-3"
+                    renderComponent={(props) => (
+                        <textarea
+                        {...props}
+                        rows={4}
+                        className="form-control mb-3"
+                        placeholder="पता"
+                        />
+                    )}
+                />
+
+                <ReactTransliterate
+                    placeholder="संपर्क संख्या"
+                    value={data.principalContactNumberHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        principalContactNumberHindi: text,
+                        })
+                    }
+                    lang="hi" name="principalContactNumberHindi"
+                    className="form-control mb-3" maxLength={10}
+                />
+
+                <ReactTransliterate
+                    placeholder="ईमेल आईडी"
+                    value={data.principalEmailHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        principalEmailHindi: text,
+                        })
+                    }
+                    lang="hi" name="principalEmailHindi"
+                    className="form-control mb-3" maxLength={55}
+                    />
+
+            </div>
+            <hr/>
+            <div className="col-md-6 mb-2">
+                Complaint can be lodged through below details.
+            </div>
+            <div className="col-md-6 mb-2">
+                निम्नलिखित विवरण के माध्यम से शिकायत दर्ज की जा सकती है 
+            </div>
+            {/* English */}
+            <div className="col-md-6">
+                <input
+                    type="text"
+                    name="complainUrl"
+                    placeholder="URL"
+                    className="form-control mb-3"
+                    value={data.complainUrl}
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="text"
+                    name="complainEmail"
+                    placeholder="Email"
+                    className="form-control mb-3"
+                    value={data.complainEmail}
+                    onChange={handleChange} maxLength={55}
+                />
+
+                <input
+                    type="text"
+                    name="complainAddress"
+                    placeholder="Address"
+                    className="form-control mb-3"
+                    value={data.complainAddress}
+                    onChange={handleChange}
+                />
+            </div>
+            {/* Hindi */}        
+            <div className="col-md-6">
+                <ReactTransliterate
+                    placeholder="यू. आर. एल."
+                    value={data.complainUrlHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        complainUrlHindi: text,
+                        })
+                    }
+                    lang="hi" name="complainUrlHindi"
+                    className="form-control mb-3"
+                    />
+                <ReactTransliterate
+                    placeholder="ईमेल आईडी"
+                    value={data.complainEmailHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        complainEmailHindi: text,
+                        })
+                    }
+                    lang="hi" name="complainEmailHindi"
+                    className="form-control mb-3" maxLength={55}
+                    />
+
+                <ReactTransliterate
+                    placeholder="पता"
+                    value={data.complainAddressHindi}
+                    onChangeText={(text) =>
+                        setData({
+                        ...data,
+                        complainAddressHindi: text,
+                        })
+                    }
+                    lang="hi" name="complainAddressHindi"
+                    className="form-control mb-3"
+                />
+
+                
+
+                
+
+            </div>
+            
             <Col md={12}>
                 <Form.Group className="text-end">
                 <Button

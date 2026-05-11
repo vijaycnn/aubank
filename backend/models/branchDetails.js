@@ -51,6 +51,112 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
 
+    regionalOfficer: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    regionalOfficerHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    regionalName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    regionalNameHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    regionalAddress: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
+    regionalAddressHindi: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
+    regionalContactNumber: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    regionalContactNumberHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    regionalEmail: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    regionalEmailHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+/////////////////////
+    principalOfficer: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    principalOfficerHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    principalName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    principalNameHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    principalAddress: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
+    principalAddressHindi: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
+    principalContactNumber: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    principalContactNumberHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    principalEmail: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    principalEmailHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    //////////////
+    complainUrl: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    complainUrlHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    complainEmail: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
+    complainEmailHindi: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
+    complainAddress: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    complainAddressHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
 
     status:{
       type:DataTypes.INTEGER,
