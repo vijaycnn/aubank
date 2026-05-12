@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
-import { BiPencil, BiTrash } from "react-icons/bi";
+import { BiLink, BiPencil, BiTrash } from "react-icons/bi";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import axiosInstance from "../../helper/constants/axiosInstance";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
@@ -19,10 +19,10 @@ function Branch() {
   const [items, setItems] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const authToken = localStorage.getItem("auth-token")
+  const authToken = localStorage.getItem("auth-token");
   const user = jwtDecode(authToken);
   let hasAccess = true;
-  if(user.userType == 'branch'){
+  if (user.userType == "branch") {
     hasAccess = false;
   }
 
@@ -144,7 +144,7 @@ function Branch() {
   const showItems = () => {
     return isLoading == false ? (
       <>
-        <Table responsive className="table v-align-middle table-striped medium">
+        <Table responsive className="table v-align-middle medium">
           <thead>
             <tr>
               <th style={{ width: "80px" }}>#</th>
@@ -171,11 +171,11 @@ function Branch() {
                       <Link
                         title="URL"
                         to={`${adminAlias}/branchInfo/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id
+                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
                         )}`}
-                        className="btn btn-icon"
+                        className="btn btn-icon btn-light"
                       >
-                        <BiPencil />
+                        <BiLink />
                       </Link>
                     </td>
                     <td>
@@ -189,9 +189,9 @@ function Branch() {
                       <Link
                         title="Edit"
                         to={`${adminAlias}/editBranch/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id
+                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
                         )}`}
-                        className="btn btn-icon"
+                        className="btn btn-icon btn-light"
                       >
                         <BiPencil />
                       </Link>
@@ -201,7 +201,7 @@ function Branch() {
                         onClick={() =>
                           changeStatus($index, item.status, item.id)
                         }
-                        className="btn btn-icon"
+                        className="btn btn-icon btn-light"
                       >
                         <BiTrash />
                       </Link>
@@ -229,20 +229,20 @@ function Branch() {
               {totalRecords ? totalRecords : 0}
             </span>
           </div>
-          {
-            hasAccess ? 
+          {hasAccess ? (
             <>
-            <div>
-              <Link
-                to={`${adminAlias}/addBranch`}
-                className="btn btn-primary btn-sm"
-              >
-                <span className="nav-link-text">Add Branch</span>
-              </Link>
-            </div>
-            </> : ''
-          }
-          
+              <div>
+                <Link
+                  to={`${adminAlias}/addBranch`}
+                  className="btn btn-primary btn-sm"
+                >
+                  <span className="nav-link-text">Add Branch</span>
+                </Link>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
         </div>
         {items && items.length > 0 ? (
           showItems()

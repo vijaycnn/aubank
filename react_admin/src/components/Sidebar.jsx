@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Nav, Image, Button } from "react-bootstrap";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.svg";
 import {
   BiGridAlt,
   BiGroup,
   BiLogOut,
   BiInfoSquare,
   BiListUl,
-  BiUser, BiImages, BiUpload, BiSliderAlt
+  BiUser,
+  BiImages,
+  BiUpload,
+  BiBuildings,
 } from "react-icons/bi";
 import { jwtDecode } from "jwt-decode";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
@@ -24,19 +27,19 @@ const Sidebar = () => {
   };
   const isActive = (paths) => {
     const currentPath = location.pathname;
-    
+
     const pathList = Array.isArray(paths) ? paths : [paths];
-    return pathList.some(path =>
-      currentPath === path || currentPath.startsWith(path + "/")
+    return pathList.some(
+      (path) => currentPath === path || currentPath.startsWith(path + "/"),
     );
   };
   //to manage menu access //it's static part. update part uploaded soon...
-	const authToken = localStorage.getItem("auth-token")
-  const user = jwtDecode(authToken)
-// console.log('user >>>', user);
+  const authToken = localStorage.getItem("auth-token");
+  const user = jwtDecode(authToken);
+  // console.log('user >>>', user);
   const userEmail = localStorage.getItem("userEmail");
   let hasAccess = true;
-  if(user.userType == 'branch'){
+  if (user.userType == "branch") {
     hasAccess = false;
   }
 
@@ -65,24 +68,30 @@ const Sidebar = () => {
               </span>
               <span className="nav-link-text">Branch</span>
             </Link> */}
-            <Link to={`${adminAlias}/branches`} className={`nav-link ${ isActive([`${adminAlias}/branches`, `${adminAlias}/addBranch`, `${adminAlias}/editBranch`]) ? "active" : "" }`} >
+            <Link
+              to={`${adminAlias}/branches`}
+              className={`nav-link ${isActive([`${adminAlias}/branches`, `${adminAlias}/addBranch`, `${adminAlias}/editBranch`]) ? "active" : ""}`}
+            >
               <span className="nav-link-icon">
-                <BiSliderAlt />
+                <BiBuildings />
               </span>
               <span className="nav-link-text">Branch</span>
-            </Link>              
-            {
-              (hasAccess) ?
+            </Link>
+            {hasAccess ? (
               <>
-              <Link to={`${adminAlias}/users`} className={`nav-link ${ isActive([`${adminAlias}/users`, `${adminAlias}/addUser`, `${adminAlias}/editUser`]) ? "active" : "" }`} >
-                <span className="nav-link-icon">
-                  <BiGroup />
-                </span>
-                <span className="nav-link-text">Users</span>
-              </Link>
-              
-              </>: ''
-            }            
+                <Link
+                  to={`${adminAlias}/users`}
+                  className={`nav-link ${isActive([`${adminAlias}/users`, `${adminAlias}/addUser`, `${adminAlias}/editUser`]) ? "active" : ""}`}
+                >
+                  <span className="nav-link-icon">
+                    <BiGroup />
+                  </span>
+                  <span className="nav-link-text">Users</span>
+                </Link>
+              </>
+            ) : (
+              ""
+            )}
           </Nav>
         </div>
         <div className="w-100 p-3">

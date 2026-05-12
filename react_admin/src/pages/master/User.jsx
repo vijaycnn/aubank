@@ -3,7 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
-import { BiAbacus, BiAlarmExclamation, BiAnalyse, BiBullseye, BiPencil, BiTrash } from "react-icons/bi";
+import {
+  BiUserCircle,
+  BiAlarmExclamation,
+  BiAnalyse,
+  BiBullseye,
+  BiPencil,
+  BiTrash,
+} from "react-icons/bi";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import axiosInstance from "../../helper/constants/axiosInstance";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
@@ -136,7 +143,7 @@ function User() {
   const showItems = () => {
     return isLoading == false ? (
       <>
-        <Table responsive className="table v-align-middle table-striped medium">
+        <Table responsive className="table v-align-middle medium">
           <thead>
             <tr>
               <th style={{ width: "80px" }}>#</th>
@@ -146,7 +153,7 @@ function User() {
               <th>Email</th>
               <th>Mobile No.</th>
               <th>Assign</th>
-              
+
               <th>Status</th>
               <th width="120" className="col-fixed">
                 Action
@@ -169,11 +176,11 @@ function User() {
                       <Link
                         title="Assign"
                         to={`${adminAlias}/assign-branch/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id
+                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
                         )}`}
-                        className="btn btn-icon"
+                        className="btn btn-icon btn-light"
                       >
-                        <BiAbacus />
+                        <BiUserCircle />
                       </Link>
                     </td>
                     <td>
@@ -187,9 +194,9 @@ function User() {
                       <Link
                         title="Edit"
                         to={`${adminAlias}/editUser/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id
+                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
                         )}`}
-                        className="btn btn-icon"
+                        className="btn btn-icon btn-light"
                       >
                         <BiPencil />
                       </Link>
@@ -199,7 +206,7 @@ function User() {
                         onClick={() =>
                           changeStatus($index, item.status, item.id)
                         }
-                        className="btn btn-icon"
+                        className="btn btn-icon btn-light"
                       >
                         <BiTrash />
                       </Link>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Image, Form, Button, Alert } from "react-bootstrap";
-import logo from "../assets/logo.jpg";
+import { Image, Form, Button, Alert, FloatingLabel } from "react-bootstrap";
+import logo from "../assets/logo.svg";
 import wallpaper from "../assets/wallpaper.jpg";
 import { login } from "../api";
 import { decode as base64_decode, encode as base64_encode } from "base-64";
@@ -20,18 +20,18 @@ const Login = ({ setIsAuthenticated, onAuthStateChange }) => {
       setError(null);
     }, 2000);
   };
-  const handleEmailLogin = async(e) => {
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
 
-    if (email != '' && password != '') {
+    if (email != "" && password != "") {
       const body = {
-        email: email, password: base64_encode(password)
-        };        
+        email: email,
+        password: base64_encode(password),
+      };
       let result = await login(body);
       // console.log('>>> ', result);
-      if(result?.status == "success" ){
-        if(result?.data){
-
+      if (result?.status == "success") {
+        if (result?.data) {
           const authToken = result.data.token;
           const userName = result.data.userName;
           const userEmail = result.data.userEmail;
@@ -50,13 +50,13 @@ const Login = ({ setIsAuthenticated, onAuthStateChange }) => {
           }
           navigate(`${adminAlias}/dashboard`);
         }
-      }else if(result?.status == "error"){
+      } else if (result?.status == "error") {
         showAlert(result?.message);
       }
-    }else{
+    } else {
       showAlert("Invalid email or password");
     }
-    
+
     // // ✅ Dummy credentials
     // const dummyEmail = "admin@gmail.com";
     // const dummyPassword = "admin123";
@@ -83,7 +83,7 @@ const Login = ({ setIsAuthenticated, onAuthStateChange }) => {
   return (
     <section className="h-100 app-login d-flex">
       <div className="app-login-left flex-grow-1">
-        {/* <Image src={wallpaper} alt="Login Wallpaper" /> */}
+        <Image src={wallpaper} alt="Login Wallpaper" />
       </div>
 
       <div className="app-login-right bg-white d-flex flex-column align-items-center justify-content-center p-5">
@@ -109,24 +109,30 @@ const Login = ({ setIsAuthenticated, onAuthStateChange }) => {
 
           {/* Email Field */}
           <Form.Group>
-            <Form.Control
-              type="email" name="email"
-              placeholder="Enter your Email ID"
-              value={email}
-              size="lg"
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <FloatingLabel label="Enter your Email ID">
+              <Form.Control
+                type="email"
+                name="email"
+                placeholder="Enter your Email ID"
+                value={email}
+                size="lg"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FloatingLabel>
           </Form.Group>
 
           {/* Password Field */}
           <Form.Group>
-            <Form.Control
-              type="password" name="password"
-              placeholder="Enter your Password"
-              value={password}
-              size="lg"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <FloatingLabel label="Enter your Password">
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Enter your Password"
+                value={password}
+                size="lg"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FloatingLabel>
           </Form.Group>
 
           {/* Submit Button */}
@@ -134,12 +140,7 @@ const Login = ({ setIsAuthenticated, onAuthStateChange }) => {
             <p className="text-end mb-3">
               {/* <Link to="/forgot-password">Forgot Password?</Link> */}
             </p>
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-100 pill"
-              size="lg"
-            >
+            <Button type="submit" variant="primary" className="w-100" size="lg">
               <span>Continue</span>
             </Button>
           </Form.Group>
