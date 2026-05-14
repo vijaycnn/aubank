@@ -12,7 +12,7 @@ import { jwtDecode } from "jwt-decode";
 
 function Branch() {
   const [offset, setOffset] = useState(0);
-  const [perPage, setPerPage] = useState(20);
+  const [perPage, setPerPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -163,7 +163,7 @@ function Branch() {
               return (
                 <>
                   <tr key={item.id}>
-                    <td>{$index + 1}</td>
+                    <td>{($index + offset)+ 1}</td>
                     <td>{item.branchCode}</td>
                     <td>{item.serialNumber}</td>
                     <td>{item.category}</td>
@@ -180,7 +180,7 @@ function Branch() {
 &nbsp;
                       <Link
                         title="URL"
-                        to={`${adminAlias}/viewVranchInfo/${base64_encode(
+                        to={`${adminAlias}/viewBranchInfo/${base64_encode(
                           `Hvg_myg8Bbg5vvdgvpp+` + item.id,
                         )}`}
                         className="btn btn-icon btn-light"

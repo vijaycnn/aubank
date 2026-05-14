@@ -43,9 +43,12 @@ let BranchDataProvider = {
     }
   },
   
-  getBranchList: async (all = false, userType =false, branchIds =false) => {
+  getBranchList: async (req, all = false, userType =false, branchIds =false) => {
     return new Promise(async function (resolve, reject) {
       // console.log('search', search);
+      let offset = req.query.offset;
+      let limit = req.query.perPage;
+      
       let filter = { isdeleted: 0 };
       let columns = ["id", "branchCode", "serialNumber", "category", "status", "createdAt"];
       if(!all){
@@ -60,6 +63,8 @@ let BranchDataProvider = {
         attributes:columns,
         where: filter,
         order: [['id', 'DESC']],
+        limit:limit,
+        offset:offset,
         raw: true,
         logging:console.log
       })
@@ -85,6 +90,28 @@ let BranchDataProvider = {
       conn.BankBranches.findOne({
         where: { 
           branchCode : branchCode.trim(),
+          isdeleted: 0,
+          id: { [Op.not]: id }       
+        },
+      })
+        .then(data => {
+          if (data == null) {
+            resolve(false);
+          } else if (id && data.length == 1) {
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        }).catch(err => {
+          reject(err);
+        });
+    });
+  },
+  checkExistBranchSerialNumber: async (serialNumber, id = 0) => {
+    return new Promise(function (resolve, reject) {
+      conn.BankBranches.findOne({
+        where: { 
+          serialNumber : serialNumber.trim(),
           isdeleted: 0,
           id: { [Op.not]: id }       
         },
