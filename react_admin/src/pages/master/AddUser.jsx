@@ -14,6 +14,7 @@ import "react-quill-new/dist/quill.snow.css";
 import axiosInstance from "../../helper/constants/axiosInstance";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
+import { jwtDecode } from "jwt-decode";
 
 function User() {
   const [error, setError] = useState("");
@@ -22,6 +23,12 @@ function User() {
   const [isSubmit, setIsSubmit] = useState(false);
   const navigate = useNavigate();
 
+  const authToken = localStorage.getItem("auth-token");
+  const user = jwtDecode(authToken);
+  if (user.userType == "branch") {
+    window.location.href = `${adminAlias}/dashboard`;
+  }
+  
   const [formData, setFormData] = useState({
     name: "",
     userRole : "",

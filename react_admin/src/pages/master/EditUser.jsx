@@ -15,12 +15,20 @@ import axiosInstance from "../../helper/constants/axiosInstance";
 import { decode as base64_decode, encode as base64_encode } from "base-64";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
+import { jwtDecode } from "jwt-decode";
 
 function EditUser() {
   const params = useParams();
   const decode = base64_decode(params.id);
   let id = decode.split("+")[1];
   id = parseInt(id);
+  
+  const authToken = localStorage.getItem("auth-token");
+  const user = jwtDecode(authToken);
+  
+  if (user.userType == "branch") {
+    window.location.href = `${adminAlias}/dashboard`;
+  }
 
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");

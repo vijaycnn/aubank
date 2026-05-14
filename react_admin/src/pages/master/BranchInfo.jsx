@@ -15,12 +15,16 @@ import { decode as base64_decode, encode as base64_encode } from "base-64";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
 import { ReactTransliterate } from "react-transliterate";
+import { jwtDecode } from "jwt-decode";
 
 function BranchInfo() {
   const params = useParams();
   const decode = base64_decode(params.id);
   let id = decode.split("+")[1];
   id = parseInt(id);
+
+  const authToken = localStorage.getItem("auth-token");
+  const user = jwtDecode(authToken);
 
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
@@ -35,11 +39,14 @@ function BranchInfo() {
     await axiosInstance
       .get(`/branch/getDetailById/${id}`)
       .then((response) => {
-        // console.log(">>> ", response.data);
+        console.log(">>> ", response);
         setLoading(false);
         if (response.data.status === "success") {
           setPreviousData(response?.data?.data);
-        }
+        }else if (response.data.status === "error" && user.userType == 'branch') {
+          // setPreviousData(response?.data?.data);
+          window.location.href = `${adminAlias}/dashboard`;
+        } 
       })
       .catch((error) => {
         // console.log('>>> ', error.status, error);

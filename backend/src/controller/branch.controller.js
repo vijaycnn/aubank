@@ -147,8 +147,15 @@ let BranchController = {
     //////Branch Details ///////////////////////
     getDetailsById:async(request, response, next) =>{
         try {
+            let userType = request.user.userType;
+            let branchIds = request.user.branchIds;
             let branchId = request.params.branchId;
-            // console.log('getDetailsById controller reached', request.params, request.user);
+            let userBranchIds = request?.user?.branchIds;
+            if(!userBranchIds.includes(branchId) && userType == 'branch'){
+
+                console.log('getDetailsById controller reached', request.params, request.user);
+                return responder.sendResponse(response, 200, "error", {}, "No BranchDetails found");
+            }
             
             const dataList = await branchService.getDetailsById(branchId);
             if(dataList){
@@ -187,7 +194,22 @@ let BranchController = {
             return next(error);
         }
     },
-    
+    getBranchDetailById:async(request, response, next) =>{
+        try {
+            let branchId = request.params.branchId;
+            // console.log('getDetailsById controller reached', request.params, request.user);
+            
+            const dataList = await branchService.getDetailsById(branchId);
+            if(dataList){
+                // console.log('fileUrl :::', dataList.fileUrl);
+                return responder.sendResponse(response, 200, "success", dataList, "BranchDetails retrieved successfully.");
+            }else{
+                return responder.sendResponse(response, 200, "error", {}, "No BranchDetails found");
+            }
+        } catch (error) {
+            return next(error);
+        }
+    },
 
 };
 
