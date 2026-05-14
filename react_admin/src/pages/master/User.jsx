@@ -1,15 +1,22 @@
-import { Badge, Row, Col, Button, Table } from "react-bootstrap";
+import {
+  Badge,
+  Row,
+  Col,
+  Button,
+  Table,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
 import {
-  BiUserCircle,
-  BiAlarmExclamation,
-  BiAnalyse,
-  BiBullseye,
+  BiBuildings,
   BiPencil,
   BiTrash,
+  BiSolidCheckCircle,
+  BiSolidXCircle,
 } from "react-icons/bi";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import axiosInstance from "../../helper/constants/axiosInstance";
@@ -18,7 +25,7 @@ import { decode as base64_decode, encode as base64_encode } from "base-64";
 
 function User() {
   const [offset, setOffset] = useState(0);
-  const [perPage, setPerPage] = useState(3);
+  const [perPage, setPerPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -165,7 +172,7 @@ function User() {
               return (
                 <>
                   <tr key={item.id}>
-                    <td>{($index +offset) + 1}</td>
+                    <td>{$index + offset + 1}</td>
                     <td>{item.userRole}</td>
                     <td>{item.name}</td>
                     <td>{item.employeeId}</td>
@@ -173,43 +180,54 @@ function User() {
                     <td>{item.userMobile}</td>
                     {/* <td>{moment(item.createdAt).format('DD-MM-YYYY')}</td> */}
                     <td>
-                      <Link
-                        title="Assign"
-                        to={`${adminAlias}/assign-branch/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
-                        )}`}
-                        className="btn btn-icon btn-light"
+                      <OverlayTrigger
+                        overlay={<Tooltip>Assign Branch</Tooltip>}
                       >
-                        <BiUserCircle />
-                      </Link>
+                        <Link
+                          to={`${adminAlias}/assign-branch/${base64_encode(
+                            `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                          )}`}
+                          className="btn btn-icon btn-light"
+                        >
+                          <BiBuildings />
+                        </Link>
+                      </OverlayTrigger>
                     </td>
                     <td>
-                      {item.status == 1 ? (
-                        <Badge bg="success">Active</Badge>
-                      ) : (
-                        <Badge bg="secondary">In-active</Badge>
-                      )}
+                      <OverlayTrigger
+                        overlay={<Tooltip>Click to Change Status</Tooltip>}
+                      >
+                        <Link
+                          title={item.status == 1 ? "Active" : "In-Active"}
+                          onClick={() =>
+                            changeStatus($index, item.status, item.id)
+                          }
+                          className="btn btn-icon btn-default"
+                        >
+                          {item.status == 1 ? (
+                            <BiSolidCheckCircle size={20} color="green" />
+                          ) : (
+                            <BiSolidXCircle size={20} color="red" />
+                          )}
+                        </Link>
+                      </OverlayTrigger>
                     </td>
                     <td className="col-fixed">
-                      <Link
-                        title="Edit"
-                        to={`${adminAlias}/editUser/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
-                        )}`}
-                        className="btn btn-icon btn-light"
-                      >
-                        <BiPencil />
-                      </Link>
-                      &nbsp;
-                      <Link
-                        title={item.status == 1 ? "In-Active" : "Active"}
-                        onClick={() =>
-                          changeStatus($index, item.status, item.id)
-                        }
-                        className="btn btn-icon btn-light"
-                      >
-                        <BiTrash />
-                      </Link>
+                      <OverlayTrigger overlay={<Tooltip>Edit User</Tooltip>}>
+                        <Link
+                          to={`${adminAlias}/editUser/${base64_encode(
+                            `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                          )}`}
+                          className="btn btn-icon btn-light"
+                        >
+                          <BiPencil />
+                        </Link>
+                      </OverlayTrigger>
+                      <OverlayTrigger overlay={<Tooltip>Delete User</Tooltip>}>
+                        <Link className="btn btn-icon btn-light">
+                          <BiTrash />
+                        </Link>
+                      </OverlayTrigger>
                     </td>
                   </tr>
                 </>

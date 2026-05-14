@@ -23,7 +23,7 @@ const Dashboard = () => {
     await axiosInstance
       .get(`/dashboard/getCount`)
       .then((response) => {
-        console.log('>>> ', response.data);
+        console.log(">>> ", response.data);
         setIsLoading(false);
         if (response.data.status === "success") {
           setBranchData(response.data?.data?.branchData);
@@ -53,7 +53,6 @@ const Dashboard = () => {
 
   return (
     <div className="d-flex align-items-center justify-content-center h-100 dash-widget">
-      
       <Row className="w-100 g-md-5 g-4">
         <Col md={4}>
           <Card>
@@ -64,12 +63,16 @@ const Dashboard = () => {
               <Card.Title>Branches</Card.Title>
               <Row className="mt-5">
                 <Col xs={6} className="d-flex flex-column">
-                  <small className="text-muted">ACTIVE BRANCHES</small>
-                  <span className="fs-3 fw-bold">{branchData?.activeCount } </span>
+                  <small className="text-muted">ACTIVE</small>
+                  <span className="fs-3 fw-bold">
+                    {branchData?.activeCount}{" "}
+                  </span>
                 </Col>
                 <Col xs={6} className="d-flex flex-column">
-                  <small className="text-muted">INACTIVE BRANCHES</small>
-                  <span className="fs-3 fw-bold">{branchData?.inactiveCount }</span>
+                  <small className="text-muted">INACTIVE</small>
+                  <span className="fs-3 fw-bold">
+                    {branchData?.inactiveCount}
+                  </span>
                 </Col>
               </Row>
             </Card.Body>
@@ -83,9 +86,9 @@ const Dashboard = () => {
           </Card>
         </Col>
 
-        {
-          userData?.map( (item, index) =>{
-            return (<>
+        {userData?.map((item, index) => {
+          return (
+            <>
               <Col md={4} key={index}>
                 <Card>
                   <Card.Body>
@@ -95,12 +98,14 @@ const Dashboard = () => {
                     <Card.Title>{item.userRole}</Card.Title>
                     <Row className="mt-5">
                       <Col xs={6} className="d-flex flex-column">
-                        <small className="text-muted">ACTIVE {item.userRole}</small>
+                        <small className="text-muted">ACTIVE</small>
                         <span className="fs-3 fw-bold">{item.activeCount}</span>
                       </Col>
                       <Col xs={6} className="d-flex flex-column">
-                        <small className="text-muted">INACTIVE {item.userRole}</small>
-                        <span className="fs-3 fw-bold">{item.inactiveCount}</span>
+                        <small className="text-muted">INACTIVE</small>
+                        <span className="fs-3 fw-bold">
+                          {item.inactiveCount}
+                        </span>
                       </Col>
                     </Row>
                   </Card.Body>
@@ -113,14 +118,10 @@ const Dashboard = () => {
                   </Card.Footer>
                 </Card>
               </Col>
-            </>)
-          })
-        }
-        
-
-        
+            </>
+          );
+        })}
       </Row>
-
     </div>
   );
 };
