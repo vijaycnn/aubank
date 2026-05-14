@@ -60,7 +60,7 @@ const Dashboard = () => {
               </Row>
             </Card.Body>
             <Card.Footer>
-              <Link to="/admin/branches" className="btn btn-primary w-100">
+              <Link to="/admin/users" className="btn btn-primary w-100">
                 <span>
                   View All <BiRightArrowAlt size={20} />
                 </span>
@@ -87,7 +87,7 @@ const Dashboard = () => {
               </Row>
             </Card.Body>
             <Card.Footer>
-              <Link to="/admin/branches" className="btn btn-primary w-100">
+              <Link to="/admin/users" className="btn btn-primary w-100">
                 <span>
                   View All <BiRightArrowAlt size={20} />
                 </span>
