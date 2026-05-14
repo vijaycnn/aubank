@@ -194,7 +194,7 @@ function EditBranch() {
             <Col md={6}>
                 <Form.Group className="mb-4">
                 <Form.Label className="fw-medium">
-                    Serial Number
+                    Serial Number<span className="text-danger">*</span>
                 </Form.Label>
                 <Form.Control
                   type="text"

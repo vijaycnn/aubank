@@ -340,7 +340,7 @@ let userController = {
           let checkExistEmployeeId = false;
           checkExistEmployeeId = await usersService.checkExistEmployeeId(request.body.employeeId);
           if (checkExistEmployeeId == true) {
-              return responder.sendResponse(response, 200, "error", '', "EmployeeId Already Exist");
+              return responder.sendResponse(response, 200, "error", '', "Employee Id Already Exist");
           }
 
           let checkExistEmail = false;
@@ -400,7 +400,7 @@ let userController = {
           let checkExistEmployeeId = false;
           checkExistEmployeeId = await usersService.checkExistEmployeeId(request.body.employeeId, request.body.userId);
           if (checkExistEmployeeId == true) {
-              return responder.sendResponse(response, 200, "error", '', "EmployeeId Already Exist");
+              return responder.sendResponse(response, 200, "error", '', "Employee Id Already Exist");
           } else {
               const userData = {
                 name        : request.body.name.trim(),
