@@ -2,6 +2,47 @@ const { QueryTypes } = require('sequelize');
 
 let BranchDataProvider = {
 
+  getBranchCount: async (userType =false, branchIds =false) => {
+    try {
+      // console.log('search', search);
+      let filter = { isdeleted: 0 };
+      if(userType != 'admin'){   
+        filter = {...filter,
+          id : { [conn.Sequelize.Op.in]: branchIds }
+         }
+      }
+
+      const result = await conn.BankBranches.findAll({
+        attributes: [
+          "status",
+          [
+            conn.Sequelize.literal(
+              `COUNT(*) FILTER (WHERE "status" = 1 and "isdeleted" = 0)`
+            ),
+            "activeCount",
+          ],
+          [
+            conn.Sequelize.literal(
+              `COUNT(*) FILTER (WHERE "status" = 0 and "isdeleted" = 0)`
+            ),
+            "inactiveCount",
+          ],
+        ],
+        where: filter,
+        group: ["status"],
+        raw: true,
+        // logging: console.log
+      });
+
+      return result.map((item) => ({
+        activeCount: Number(item.activeCount) || 0,
+        inactiveCount: Number(item.inactiveCount) || 0
+      }));
+    } catch (error) {
+      throw error;
+    }
+  },
+  
   getBranchList: async (all = false, userType =false, branchIds =false) => {
     return new Promise(async function (resolve, reject) {
       // console.log('search', search);
