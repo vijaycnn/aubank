@@ -57,7 +57,6 @@ function EditUser() {
     name: "",
     userRole : "",
     employeeId: "",
-    userEmail: "",
     userMobile: "",
   });
   useEffect(() => {
@@ -85,14 +84,14 @@ function EditUser() {
     let hasError = false;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    if (!values.name || values.name == "" || !values.userRole || values.userRole == "") {
+    if (!values.name || values.name == "" || !values.userRole || values.userRole == ""|| !values.employeeId || values.employeeId == "") {
       setError("Mandatory fields are missing");
       hasError = true;
-    }else if (values.email) {
-      if (!regex.test(values.userEmail)) {
-        setError("Please enter a valid email");
-        hasError = true;
-      }
+    // }else if (values.email) {
+    //   if (!regex.test(values.userEmail)) {
+    //     setError("Please enter a valid email");
+    //     hasError = true;
+    //   }
     }else if (values.userMobile) {
        if (values.userMobile.length !== 10) {
         setError("Please fill the correct contact number !"); hasError = true;
@@ -115,7 +114,7 @@ function EditUser() {
           name: data.name,
           userRole: data.userRole,
           employeeId: data.employeeId,
-          userEmail: data.userEmail,
+          // userEmail: data.userEmail,
           userMobile: data.userMobile,
         };
 
@@ -128,7 +127,7 @@ function EditUser() {
                 name: "",
                 userRole : "",
                 employeeId: "",
-                userEmail: "",
+                // userEmail: "",
                 userMobile: "",
               });
               setSuccessMsg(response?.data?.message);
@@ -244,28 +243,14 @@ function EditUser() {
                 <Col md={6}>
                   <Form.Group className="mb-4">
                     <Form.Label className="fw-medium">
-                      Employee Id
+                      Employee Id<span className="text-danger">*</span>
                     </Form.Label>
                     <Form.Control
-                        type="text"
-                        name="employeeId"
-                        value={data.employeeId}
-                        placeholder="Enter Employee Id"
-                        onChange={handleChange}
-                      />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group className="mb-4">
-                    <Form.Label className="fw-medium">
-                      Email
-                    </Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="userEmail"
-                      value={data.userEmail}
-                      placeholder="Enter Email"
-                      onChange={handleChange} onKeyPress={avoidSpace} maxLength={155}
+                      type="text"
+                      name="employeeId"
+                      value={data.employeeId}
+                      placeholder="Enter Employee Id"
+                      onChange={handleChange} maxLength={35}
                     />
                   </Form.Group>
                 </Col>

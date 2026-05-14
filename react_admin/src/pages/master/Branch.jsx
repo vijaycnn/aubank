@@ -237,13 +237,13 @@ function Branch() {
                         </Link>
                       </OverlayTrigger>
                       &nbsp;
-                      <OverlayTrigger
+                      {/* <OverlayTrigger
                         overlay={<Tooltip>Delete Branch</Tooltip>}
                       >
                         <Link className="btn btn-icon btn-light">
                           <BiTrash />
                         </Link>
-                      </OverlayTrigger>
+                      </OverlayTrigger> */}
                     </td>
                   </tr>
                 </>

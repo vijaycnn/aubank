@@ -142,7 +142,7 @@ let userDataProvider = {
         where: filter,
         limit:limit,
         offset:offset,
-        order: [['name', 'ASC'], ['id', 'ASC']],
+        order: [ ['id', 'DESC']],
         // raw: true,
         // logging:console.log
       })
@@ -194,6 +194,28 @@ let userDataProvider = {
       conn.Users.findOne({
         where: { 
           userEmail : userEmail.trim(),  
+          isDeleted : 0,
+          id: { [Op.not]: id }       
+        },
+      })
+        .then(data => {
+          if (data == null) {
+            resolve(false);
+          } else if (id && data.length == 1) {
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        }).catch(err => {
+          reject(err);
+        });
+    });
+  },
+  checkExistEmployeeId: async (employeeId, id = 0) => {
+    return new Promise(function (resolve, reject) {
+      conn.Users.findOne({
+        where: { 
+          employeeId : employeeId.trim(),  
           isDeleted : 0,
           id: { [Op.not]: id }       
         },

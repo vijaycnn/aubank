@@ -312,7 +312,9 @@ let userController = {
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
           }else if(!request.body.userRole || request.body.userRole.trim() == ''){
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
-          }else if(!request.body.userName || request.body.userName.trim() == ''){
+          }else if(!request.body.employeeId || request.body.employeeId.trim() == ''){
+              return responder.sendResponse(response, 200, "error", '', "Missing Required!");
+          }else if(!request.body.userEmail || request.body.userEmail.trim() == ''){
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
           }else if(!request.body.userPassword || request.body.userPassword.trim() == ''){
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
@@ -330,17 +332,24 @@ let userController = {
             return responder.sendResponse(response, 200, "error", '', "Password and confirm password not matched.");
           }
 
-          let checkIfExistUserName = false; let checkExistEmail = false;
-          checkIfExistUserName = await usersService.checkExistUserName(request.body.userName);
-          if (checkIfExistUserName == true) {
-              return responder.sendResponse(response, 200, "error", '', "Username Already Exist");
-          } 
+          // let checkIfExistUserName = false; 
+          // checkIfExistUserName = await usersService.checkExistUserName(request.body.userName);
+          // if (checkIfExistUserName == true) {
+          //   return responder.sendResponse(response, 200, "error", '', "Username Already Exist");
+          // } 
+          let checkExistEmployeeId = false;
+          checkExistEmployeeId = await usersService.checkExistEmployeeId(request.body.employeeId);
+          if (checkExistEmployeeId == true) {
+              return responder.sendResponse(response, 200, "error", '', "EmployeeId Already Exist");
+          }
+
+          let checkExistEmail = false;
           checkExistEmail = await usersService.checkExistUserEmail(request.body.userEmail);
           if (checkExistEmail == true) {
               return responder.sendResponse(response, 200, "error", '', "Email Already Exist");
           } 
            
-          if(!checkIfExistUserName && !checkExistEmail) {
+          if(!checkExistEmployeeId && !checkExistEmail) {
             var hash = md5(password).toString();
               const userData = {
                   name        : request.body.name.trim(),
@@ -348,7 +357,7 @@ let userController = {
                   employeeId  : request.body.employeeId ? request.body.employeeId.trim() : '',
                   userEmail   : request.body.userEmail ? request.body.userEmail.trim() : '',
                   userMobile  : request.body.userMobile ? request.body.userMobile.trim() : '',
-                  userName    : request.body.userName ? request.body.userName.trim() : '',
+                  userName    : request.body.userEmail ? request.body.userEmail.trim() : '',
                   userPassword: hash,
                   userType    : 'branch',
                   isDeleted   : 0,
@@ -384,18 +393,19 @@ let userController = {
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
           }else if(!request.body.userRole || request.body.userRole.trim() == ''){
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
+          }else if(!request.body.employeeId || request.body.employeeId.trim() == ''){
+              return responder.sendResponse(response, 200, "error", '', "Missing Required!");
           }
 
-          let checkExistEmail = false;
-          checkExistEmail = await usersService.checkExistUserEmail(request.body.userEmail, request.body.userId);
-          if (checkExistEmail == true) {
-              return responder.sendResponse(response, 200, "error", '', "Email Already Exist");
+          let checkExistEmployeeId = false;
+          checkExistEmployeeId = await usersService.checkExistEmployeeId(request.body.employeeId, request.body.userId);
+          if (checkExistEmployeeId == true) {
+              return responder.sendResponse(response, 200, "error", '', "EmployeeId Already Exist");
           } else {
               const userData = {
                 name        : request.body.name.trim(),
                 userRole    : request.body.userRole,
                 employeeId  : request.body.employeeId ? request.body.employeeId.trim() : '',
-                userEmail   : request.body.userEmail ? request.body.userEmail.trim() : '',
                 userMobile  : request.body.userMobile ? request.body.userMobile.trim() : '',
                 updatedBy: request.user.userId,
                 updatedAt: new Date(),

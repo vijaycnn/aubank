@@ -4,8 +4,8 @@ let BranchDataProvider = {
 
   getBranchCount: async (userType =false, branchIds =false) => {
     try {
-      // console.log('search', search);
-      let filter = { isdeleted: 0 };
+      // console.log('search', userType, branchIds);
+      let filter = {  };
       if(userType != 'admin'){   
         filter = {...filter,
           id : { [conn.Sequelize.Op.in]: branchIds }
@@ -14,7 +14,6 @@ let BranchDataProvider = {
 
       const result = await conn.BankBranches.findAll({
         attributes: [
-          "status",
           [
             conn.Sequelize.literal(
               `COUNT(*) FILTER (WHERE "status" = 1 and "isdeleted" = 0)`
@@ -29,7 +28,6 @@ let BranchDataProvider = {
           ],
         ],
         where: filter,
-        group: ["status"],
         raw: true,
         // logging: console.log
       });
