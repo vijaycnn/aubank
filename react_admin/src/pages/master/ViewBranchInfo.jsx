@@ -17,6 +17,7 @@ import { decode as base64_decode, encode as base64_encode } from "base-64";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
 import { ReactTransliterate } from "react-transliterate";
+import  axios  from "axios";
 
 function BranchInfo() {
   const params = useParams();
@@ -33,8 +34,8 @@ function BranchInfo() {
   const getBranchDetails = async () => {
     setLoading(true);
     setPreviousData(null);
-    await axiosInstance
-      .get(`/branch/getBranchDetailById/${id}`)
+    await axios
+      .get(`${baseURL}/branch/getBranchDetailById/${id}`)
       .then((response) => {
         // console.log(">>> ", response.data);
         setLoading(false);
@@ -43,9 +44,9 @@ function BranchInfo() {
         }
       })
       .catch((error) => {
-        // console.log('>>> ', error.status, error);
+        console.log('Error>>> ', error.status, error);
         if (error.status === 403) {
-          handleLogout();
+          // handleLogout();
         }
         setLoading(false);
       });
@@ -177,12 +178,12 @@ function BranchInfo() {
     }
   }, [previousData]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("isAuthenticated");
-    localStorage.clear("auth-token");
-    localStorage.clear();
-    navigate(adminAlias);
-  };
+  // const handleLogout = () => {
+  //   sessionStorage.removeItem("isAuthenticated");
+  //   localStorage.clear("auth-token");
+  //   localStorage.clear();
+  //   navigate(adminAlias);
+  // };
 
   return (
     <>
