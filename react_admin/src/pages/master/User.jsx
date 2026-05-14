@@ -18,7 +18,7 @@ import { decode as base64_decode, encode as base64_encode } from "base-64";
 
 function User() {
   const [offset, setOffset] = useState(0);
-  const [perPage, setPerPage] = useState(20);
+  const [perPage, setPerPage] = useState(3);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -165,7 +165,7 @@ function User() {
               return (
                 <>
                   <tr key={item.id}>
-                    <td>{$index + 1}</td>
+                    <td>{($index +offset) + 1}</td>
                     <td>{item.userRole}</td>
                     <td>{item.name}</td>
                     <td>{item.employeeId}</td>

@@ -7,7 +7,7 @@ let BranchController = {
     //use this for frontend list
     getList: async (request, response, next) => {
         try {
-            let data = await branchService.getBranchList();
+            let data = await branchService.getBranchList(request);
             
             let dataList =  { 'totalRecord': data.count, 'list': data.rows };
             return responder.sendFilterResponse(response, 200, "success", dataList, "List retrieved successfully.");
@@ -22,7 +22,7 @@ let BranchController = {
             let userId = request.user.userId;
             let branchIds = request.user.branchIds;
             
-            let data = await branchService.getBranchList(true, userType, branchIds);
+            let data = await branchService.getBranchList(request, true, userType, branchIds);
             // console.log('lit >>>>>>>:::', data);
                             
             let dataList =  { 'totalRecord': data.count, 'list': data.rows };
@@ -52,11 +52,20 @@ let BranchController = {
             if(request.body.branchCode.trim() == ''){
                 return responder.sendResponse(response, 200, "error", '', "Missing Required!");
             }
-            let checkIfExist = false;
+            if(request.body.serialNumber.trim() == ''){
+                return responder.sendResponse(response, 200, "error", '', "Missing Required!");
+            }
+            let checkIfExist = false; let checkIfSerialNumberExist = false;
             checkIfExist = await branchService.checkExistBranch(request.body.branchCode);
             if (checkIfExist == true) {
                 return responder.sendResponse(response, 200, "error", '', "Branch Already Exist");
-            } else {
+            }
+            checkIfSerialNumberExist = await branchService.checkExistBranchSerialNumber(request.body.serialNumber);
+            if (checkIfSerialNumberExist == true) {
+                return responder.sendResponse(response, 200, "error", '', "SerialNumber Already Exist");
+            }
+
+            if(checkIfExist !== true && checkIfSerialNumberExist !== true) {
                 const BranchData = {
                     branchCode: request.body.branchCode.trim(),
                     serialNumber: request.body.serialNumber ? request.body.serialNumber.trim() : '',
@@ -92,11 +101,21 @@ let BranchController = {
             if(request.body.branchCode.trim() == ''){
                 return responder.sendResponse(response, 200, "error", '', "Missing Required!");
             }
-            let checkIfExist = false;
+            if(request.body.serialNumber.trim() == ''){
+                return responder.sendResponse(response, 200, "error", '', "Missing Required!");
+            }
+            let checkIfExist = false; let checkIfSerialNumberExist = false;
             checkIfExist = await branchService.checkExistBranch(request.body.branchCode, request.body.branchId);
+
             if (checkIfExist == true) {
                 return responder.sendResponse(response, 200, "error", '', "Branch Already Exist");
-            } else {
+            }
+            checkIfSerialNumberExist = await branchService.checkExistBranchSerialNumber(request.body.serialNumber, request.body.branchId);
+            if (checkIfSerialNumberExist == true) {
+                return responder.sendResponse(response, 200, "error", '', "SerialNumber Already Exist");
+            }
+
+            if(checkIfExist !== true && checkIfSerialNumberExist !== true) {
                 const BranchData = {
                     branchCode: request.body.branchCode.trim(),
                     serialNumber: request.body.serialNumber ? request.body.serialNumber.trim() : '',

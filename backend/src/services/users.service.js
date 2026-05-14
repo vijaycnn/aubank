@@ -125,9 +125,12 @@ let userDataProvider = {
     }
   },
 
-  getUserList: async (all = false) => {
+  getUserList: async (req, all = false) => {
     return new Promise(async function (resolve, reject) {
       // console.log('search', search);
+      let offset = req.query.offset;
+      let limit = req.query.perPage;
+      
       let filter = { isDeleted: 0, userType: 'branch' };
       let columns = ["id", "name", "userName", "userRole", "userEmail", "userMobile", "employeeId", "status", "createdAt"];
       if(!all){
@@ -137,6 +140,8 @@ let userDataProvider = {
       await conn.Users.findAndCountAll({
         attributes:columns,
         where: filter,
+        limit:limit,
+        offset:offset,
         order: [['name', 'ASC'], ['id', 'ASC']],
         // raw: true,
         // logging:console.log

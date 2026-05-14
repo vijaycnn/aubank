@@ -280,7 +280,7 @@ let userController = {
   //use this for backend list
   getUserList: async (request, response, next) => {
       try {
-          let data = await usersService.getUserList(true);
+          let data = await usersService.getUserList(request, true);
           // const rows = data.rows.map((r) => r.get({ plain: true }));
                         
           // console.log('lit >>>>>>>:::', users);

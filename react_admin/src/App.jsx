@@ -117,7 +117,7 @@ function App() {
             }
           />
           <Route
-            path={`${adminAlias}/viewVranchInfo/:id`}
+            path={`${adminAlias}/viewBranchInfo/:id`}
             element={
               // <ProtectedRoute isAuthenticated={isAuthenticated}>
                   <ViewBranchInfo />
