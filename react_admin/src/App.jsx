@@ -23,6 +23,7 @@ import Branches from "./pages/master/Branch";
 import AddBranch from "./pages/master/AddBranch";
 import EditBranch from "./pages/master/EditBranch";
 import BranchInfo from "./pages/master/BranchInfo";
+import ViewBranchInfo from "./pages/master/ViewBranchInfo";
 
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 
@@ -113,6 +114,14 @@ function App() {
                   <BranchInfo />
                 </Layout>
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path={`${adminAlias}/viewVranchInfo/:id`}
+            element={
+              // <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <ViewBranchInfo />
+              // </ProtectedRoute>
             }
           />
           <Route

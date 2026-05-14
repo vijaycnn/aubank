@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
-import { BiLink, BiPencil, BiTrash } from "react-icons/bi";
+import { BiBullseye, BiLink, BiPencil, BiTrash } from "react-icons/bi";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import axiosInstance from "../../helper/constants/axiosInstance";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
@@ -176,6 +176,16 @@ function Branch() {
                         className="btn btn-icon btn-light"
                       >
                         <BiLink />
+                      </Link>
+&nbsp;
+                      <Link
+                        title="URL"
+                        to={`${adminAlias}/viewVranchInfo/${base64_encode(
+                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                        )}`}
+                        className="btn btn-icon btn-light"
+                      >
+                        <BiBullseye />
                       </Link>
                     </td>
                     <td>

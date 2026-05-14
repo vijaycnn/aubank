@@ -157,6 +157,63 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       type: DataTypes.STRING,
     },
+    ///////////////////////////
+    officerName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    branchName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    branchMangerName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    branchMangerContact: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    branchServiceMangerName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    branchServiceMangerContact: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    policeName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    policeContact: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    fireName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    fireContact: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    hospitalName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    hospitalContact: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    ambulanceName: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
+    ambulanceContact: {
+      allowNull: true, 
+      type: DataTypes.STRING,
+    },
 
     status:{
       type:DataTypes.INTEGER,
