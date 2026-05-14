@@ -6,8 +6,10 @@ import {
   Row,
   Col,
   Button,
+  ListGroup,
 } from "react-bootstrap";
 import sign from "../../assets/sign.jpg";
+import logo from "../../assets/logo.svg";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../helper/constants/axiosInstance";
@@ -96,21 +98,20 @@ function BranchInfo() {
     complainEmailHindi: "",
     complainAddressHindi: "",
 
-    officerName : "",
-    branchName : "",
-    branchMangerName : "",
-    branchMangerContact : "",
-    branchServiceMangerName : "",
-    branchServiceMangerContact : "",
-    policeName : "",
-    policeContact : "",
-    fireName : "",
-    fireContact : "",
-    hospitalName : "",
-    hospitalContact : "",
-    ambulanceName : "",
-    ambulanceContact : "",
-
+    officerName: "",
+    branchName: "",
+    branchMangerName: "",
+    branchMangerContact: "",
+    branchServiceMangerName: "",
+    branchServiceMangerContact: "",
+    policeName: "",
+    policeContact: "",
+    fireName: "",
+    fireContact: "",
+    hospitalName: "",
+    hospitalContact: "",
+    ambulanceName: "",
+    ambulanceContact: "",
   });
   useEffect(() => {
     if (previousData) {
@@ -158,21 +159,20 @@ function BranchInfo() {
         complainEmailHindi: previousData.complainEmailHindi,
         complainAddressHindi: previousData.complainAddressHindi,
 
-        officerName : previousData.officerName,
-        branchName : previousData.branchName,
-        branchMangerName : previousData.branchMangerName,
-        branchMangerContact : previousData.branchMangerContact,
-        branchServiceMangerName : previousData.branchServiceMangerName,
-        branchServiceMangerContact : previousData.branchServiceMangerContact,
-        policeName : previousData.policeName,
-        policeContact : previousData.policeContact,
-        fireName : previousData.fireName,
-        fireContact : previousData.fireContact,
-        hospitalName : previousData.hospitalName,
-        hospitalContact : previousData.hospitalContact,
-        ambulanceName : previousData.ambulanceName,
-        ambulanceContact : previousData.ambulanceContact,
-
+        officerName: previousData.officerName,
+        branchName: previousData.branchName,
+        branchMangerName: previousData.branchMangerName,
+        branchMangerContact: previousData.branchMangerContact,
+        branchServiceMangerName: previousData.branchServiceMangerName,
+        branchServiceMangerContact: previousData.branchServiceMangerContact,
+        policeName: previousData.policeName,
+        policeContact: previousData.policeContact,
+        fireName: previousData.fireName,
+        fireContact: previousData.fireContact,
+        hospitalName: previousData.hospitalName,
+        hospitalContact: previousData.hospitalContact,
+        ambulanceName: previousData.ambulanceName,
+        ambulanceContact: previousData.ambulanceContact,
       });
     }
   }, [previousData]);
@@ -195,659 +195,373 @@ function BranchInfo() {
       ) : (
         ""
       )}
-      <div className="mb-3 d-flex justify-content-between align-items-center">
-        <h1 className="h4 mb-0 font-secondary fw-medium">
-          GRIEVANCE REDRESSAL MECHANISM
-        </h1>
-        <div>
-          {/* <Link
-            to={`${adminAlias}/branches`}
-            className="btn btn-primary btn-sm"
-          >
-            <span className="nav-link-text">Back</span>
-          </Link> */}
-        </div>
-      </div>
-      <div className="table-view bg-white rounded-4 p-4">
-        {error && <Alert variant="danger">⚠️{error}</Alert>}
-        {successMsg && <Alert variant="success">{successMsg}</Alert>}
+      <section className="container py-5">
+        <img src={logo} alt="logo" />
 
-        <Form className="login-form p-xl-0 p-md-5 p-4 col-xl-12 m-auto" >
-          <Row>
-            <div className="col-md-12 mb-2 justify text-center">
-              <h2>Notice - C</h2>
-            </div>
-            <Col md={6} className="mb-4 fw-bold">
-              While we always strive to provide the best of customer service,
-              there may be occasions, when our customers’ requirement might not
-              be fully met. Such incidents may please be brought to the notice
-              of the Branch Manager.
-            </Col>
-            <Col md={6} className="mb-4 fw-bold">
-              हम हमेशा सर्वश्रेष्ठ ग्राहक सेवा प्रदान करने का प्रयास करते हैं,
-              परन्तु कई बार ऐसे अवसर हो सकते है, जब हमारे ग्राहकों की आवश्यकताओं
-              को पूरा नही किया गया है। ऐसी घटनाओं को कृपया शाखा प्रबंधक के ध्यान
-              में लेकर आये।
-            </Col>
+        <div className="table-view bg-white rounded-4 p-5 mt-4">
+          {error && <Alert variant="danger">⚠️{error}</Alert>}
+          {successMsg && <Alert variant="success">{successMsg}</Alert>}
 
-            {/* English */}
-            <div className="col-md-6">
-              <input
-                type="text"
-                name="managerName"
-                placeholder="Branch Manager Name"
-                className="form-control mb-3"
-                value={data.managerName}
-                disabled 
-              />
-
-              <textarea
-                name="address"
-                placeholder="Address"
-                className="form-control mb-3"
-                value={data.address}
-                disabled
-              />
-
-              <input
-                type="text"
-                name="contactNumber"
-                placeholder="Contact Number"
-                className="form-control mb-3"
-                value={data.contactNumber}
-                disabled
-                maxLength={10}
-              />
-
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                className="form-control mb-3"
-                value={data.email}
-                disabled
-                maxLength={55}
-              />
+          <Form>
+            <div className="text-center mb-4 bg-light rounded-4 p-3 h3 fw-normal">
+              <b>NOTICE - C</b>
+              <h1
+                className="h6 opacity-50 text-center fw-medium mt-2 mb-0"
+                style={{ letterSpacing: "2px" }}
+              >
+                GRIEVANCE REDRESSAL MECHANISM
+              </h1>
             </div>
 
-            {/* Hindi */}
-            <div className="col-md-6">
-              <ReactTransliterate
-                placeholder="शाखा प्रबंधक का नाम"
-                value={data.managerNameHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    managerNameHindi: text,
-                  })
-                }
-                lang="hi"
-                name="managerNameHindi"
-                className="form-control mb-3" disabled
-              />
+            <Row>
+              <Col md={6} className="mb-4 fw-bold">
+                While we always strive to provide the best of customer service,
+                there may be occasions, when our customers’ requirement might
+                not be fully met. Such incidents may please be brought to the
+                notice of the Branch Manager.
+              </Col>
+              <Col md={6} className="mb-4 fw-bold">
+                हम हमेशा सर्वश्रेष्ठ ग्राहक सेवा प्रदान करने का प्रयास करते हैं,
+                परन्तु कई बार ऐसे अवसर हो सकते है, जब हमारे ग्राहकों की
+                आवश्यकताओं को पूरा नही किया गया है। ऐसी घटनाओं को कृपया शाखा
+                प्रबंधक के ध्यान में लेकर आये।
+              </Col>
+            </Row>
 
-              <ReactTransliterate
-                placeholder="पता"
-                value={data.addressHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    addressHindi: text,
-                  })
-                }
-                lang="hi"
-                name="addressHindi"
-                className="form-control mb-3"
-                renderComponent={(props) => (
-                  <textarea
-                    {...props}
-                    rows={4}
-                    className="form-control mb-3"
-                    placeholder="पता" disabled
-                  />
-                )}
-              />
+            <ListGroup as="ul" variant="flush" className="mb-5">
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Branch Manager Name</small>
+                    <p className="fw-medium m-0">{data.managerName}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">शाखा प्रबंधक का नाम</small>
+                    <p className="fw-medium m-0">{data.managerNameHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Address</small>
+                    <p className="fw-medium m-0">{data.address}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">पता</small>
+                    <p className="fw-medium m-0">{data.addressHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Contact Number</small>
+                    <p className="fw-medium m-0">{data.contactNumber}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">संपर्क संख्या</small>
+                    <p className="fw-medium m-0">{data.contactNumberHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Email</small>
+                    <p className="fw-medium m-0">{data.email}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">ईमेल</small>
+                    <p className="fw-medium m-0">{data.emailHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
+            <Row>
+              <Col md={6} className="mb-4 fw-bold">
+                In case of non-resolution of grievances within 7 days to your
+                satisfaction, our customers may escalate their grievance to the
+                Regional Nodal Officer(s) and thereafter to the Principal Nodal
+                Officer after expiry of further 7 days.
+              </Col>
+              <Col md={6} className="mb-4 fw-bold">
+                यदि आपकी शिकायत ७ दिनो के भीतर हल नही होती हैं, तो आप हमारे
+                क्षेत्रीए नोडल अधिकारी से संपर्क कर सकते हैं। अतिरिक्त ७ दिन की
+                समाप्ति के बाद प्रमुख नोडल अिधकारी से संपर्क किया जा सकता है |
+              </Col>
+            </Row>
+            <ListGroup as="ul" variant="flush" className="mb-5">
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Regional Nodal Officer</small>
+                    <p className="fw-medium m-0">{data.regionalOfficer}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">क्षेत्रीय नोडल अधिकारी</small>
+                    <p className="fw-medium m-0">{data.regionalOfficerHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Name</small>
+                    <p className="fw-medium m-0">{data.regionalName}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">नाम</small>
+                    <p className="fw-medium m-0">{data.regionalNameHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Address</small>
+                    <p className="fw-medium m-0">{data.regionalAddress}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">पता</small>
+                    <p className="fw-medium m-0">{data.regionalAddressHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Contact Number</small>
+                    <p className="fw-medium m-0">
+                      {data.regionalContactNumber}
+                    </p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">संपर्क संख्या</small>
+                    <p className="fw-medium m-0">
+                      {data.regionalContactNumberHindi}
+                    </p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Email</small>
+                    <p className="fw-medium m-0">{data.regionalEmail}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">ईमेल</small>
+                    <p className="fw-medium m-0">{data.regionalEmailHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
 
-              <ReactTransliterate
-                placeholder="संपर्क संख्या"
-                value={data.contactNumberHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    contactNumberHindi: text,
-                  })
-                }
-                lang="hi"
-                name="contactNumberHindi"
-                className="form-control mb-3"
-                maxLength={10} disabled
-              />
+            <ListGroup as="ul" variant="flush" className="mb-5">
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">
+                      Principal Nodal Officer
+                    </small>
+                    <p className="fw-medium m-0">{data.principalOfficer}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">क्षेत्रीय नोडल अधिकारी</small>
+                    <p className="fw-medium m-0">
+                      {data.principalOfficerHindi}
+                    </p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Name</small>
+                    <p className="fw-medium m-0">{data.principalName}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">नाम</small>
+                    <p className="fw-medium m-0">{data.principalNameHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Address</small>
+                    <p className="fw-medium m-0">{data.principalAddress}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">पता</small>
+                    <p className="fw-medium m-0">
+                      {data.principalAddressHindi}
+                    </p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Contact Number</small>
+                    <p className="fw-medium m-0">
+                      {data.principalContactNumber}
+                    </p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">संपर्क संख्या</small>
+                    <p className="fw-medium m-0">
+                      {data.principalContactNumberHindi}
+                    </p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Email</small>
+                    <p className="fw-medium m-0">{data.principalEmail}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">ईमेल</small>
+                    <p className="fw-medium m-0">{data.principalEmailHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
 
-              <ReactTransliterate
-                placeholder="ईमेल आईडी"
-                value={data.emailHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    emailHindi: text,
-                  })
-                }
-                lang="hi"
-                name="emailHindi"
-                className="form-control mb-3"
-                maxLength={55} disabled
-              />
+            <Row>
+              <Col md={6} className="mb-4 fw-bold">
+                Complaint can be lodged through below details.
+              </Col>
+              <Col md={6} className="mb-4 fw-bold">
+                निम्नलिखित विवरण के माध्यम से शिकायत दर्ज की जा सकती है
+              </Col>
+            </Row>
+            <ListGroup as="ul" variant="flush" className="mb-5">
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Complain URL</small>
+                    <p className="fw-medium m-0">{data.complainUrl}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">यू. आर. एल.</small>
+                    <p className="fw-medium m-0">{data.complainUrlHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Email</small>
+                    <p className="fw-medium m-0">{data.complainEmail}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">ईमेल</small>
+                    <p className="fw-medium m-0">{data.complainEmailHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={6}>
+                    <small className="text-muted">Address</small>
+                    <p className="fw-medium m-0">{data.complainAddress}</p>
+                  </Col>
+                  <Col sm={6}>
+                    <small className="text-muted">पता</small>
+                    <p className="fw-medium m-0">{data.complainAddressHindi}</p>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
+
+            <h5 className="mb-2 text-primary">
+              Authority to receive notices on behalf of AU Small Finance
+              Bank{" "}
+            </h5>
+            <div className="mb-4">
+              It is hereby notified that all notices under the payment of
+              GratuityAct, 1972 may be sent to <b>{data.officerName}</b>{" "}
+              (Officer’s Name) associated with the Bank as Bank Manager
+              (Designation), who is authorized to receive all such Notices on
+              behalf of AU Small Finance Bank (Company). This may be treated as
+              Notice under Rule 4 of the Payment of Gratuity (Central Rules),
+              1972.
             </div>
-            <Col md={6} className="mb-4 fw-bold">
-              In case of non-resolution of grievances within 7 days to your
-              satisfaction, our customers may escalate their grievance to the
-              Regional Nodal Officer(s) and thereafter to the Principal Nodal
-              Officer after expiry of further 7 days. .
-            </Col>
-            <Col md={6} className="mb-4 fw-bold">
-              यदि आपकी शिकायत ७ दिनो के भीतर हल नही होती हैं, तो आप हमारे
-              क्षेत्रीए नोडल अधिकारी से संपर्क कर सकते हैं। अतिरिक्त ७ दिन की
-              समाप्ति के बाद प्रमुख नोडल अिधकारी से संपर्क किया जा सकता है |
-            </Col>
-            {/* English */}
-            <div className="col-md-6">
-              <input
-                type="text"
-                name="regionalOfficer"
-                placeholder="Regional Nodal Officer"
-                className="form-control mb-3"
-                value={data.regionalOfficer}
-                disabled
-              />
 
-              <input
-                type="text"
-                name="regionalName"
-                placeholder="Name"
-                className="form-control mb-3"
-                value={data.regionalName}
-                disabled
-              />
-
-              <textarea
-                name="regionalAddress"
-                placeholder="Address"
-                className="form-control mb-3"
-                value={data.regionalAddress}
-                disabled
-              />
-
-              <input
-                type="text"
-                name="regionalContactNumber"
-                placeholder="Contact Number"
-                className="form-control mb-3"
-                value={data.regionalContactNumber}
-                disabled
-                maxLength={10}
-              />
-
-              <input
-                type="text"
-                name="regionalEmail"
-                placeholder="Email"
-                className="form-control mb-3"
-                value={data.regionalEmail}
-                disabled
-                maxLength={55}
-              />
-            </div>
-            {/* Hindi */}
-            <div className="col-md-6">
-              <ReactTransliterate
-                placeholder="क्षेत्रीय नोडल अधिकारी"
-                value={data.regionalOfficerHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    regionalOfficerHindi: text,
-                  })
-                }
-                lang="hi"
-                name="regionalOfficerHindi"
-                className="form-control mb-3" disabled
-              />
-              <ReactTransliterate
-                placeholder="नाम"
-                value={data.regionalNameHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    regionalNameHindi: text,
-                  })
-                }
-                lang="hi"
-                name="regionalNameHindi"
-                className="form-control mb-3" disabled
-              />
-
-              <ReactTransliterate
-                placeholder="पता"
-                value={data.regionalAddressHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    regionalAddressHindi: text,
-                  })
-                }
-                lang="hi"
-                name="regionalAddressHindi"
-                className="form-control mb-3"
-                renderComponent={(props) => (
-                  <textarea
-                    {...props}
-                    rows={4}
-                    className="form-control mb-3"
-                    placeholder="पता" disabled
-                  />
-                )}
-              />
-
-              <ReactTransliterate
-                placeholder="संपर्क संख्या"
-                value={data.regionalContactNumberHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    regionalContactNumberHindi: text,
-                  })
-                }
-                lang="hi"
-                name="regionalContactNumberHindi"
-                className="form-control mb-3"
-                maxLength={10} disabled
-              />
-
-              <ReactTransliterate
-                placeholder="ईमेल आईडी"
-                value={data.regionalEmailHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    regionalEmailHindi: text,
-                  })
-                }
-                lang="hi"
-                name="regionalEmailHindi"
-                className="form-control mb-3"
-                maxLength={55} disabled
-              />
-            </div>
-            {/* English */}
-            <div className="col-md-6">
-              <input
-                type="text"
-                name="principalOfficer"
-                placeholder="Principal Nodal Officer"
-                className="form-control mb-3"
-                value={data.principalOfficer}
-                disabled
-              />
-
-              <input
-                type="text"
-                name="principalName"
-                placeholder="Name"
-                className="form-control mb-3"
-                value={data.principalName}
-                disabled
-              />
-
-              <textarea
-                name="principalAddress"
-                placeholder="Address"
-                className="form-control mb-3"
-                value={data.principalAddress}
-                disabled
-              />
-
-              <input
-                type="text"
-                name="principalContactNumber"
-                placeholder="Contact Number"
-                className="form-control mb-3"
-                value={data.principalContactNumber}
-                disabled
-                maxLength={10}
-              />
-
-              <input
-                type="text"
-                name="principalEmail"
-                placeholder="Email"
-                className="form-control mb-3"
-                value={data.principalEmail}
-                disabled
-                maxLength={55}
-              />
-            </div>
-            {/* Hindi */}
-            <div className="col-md-6">
-              <ReactTransliterate
-                placeholder="प्रधान नोडल अधिकारी"
-                value={data.principalOfficerHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    principalOfficerHindi: text,
-                  })
-                }
-                lang="hi"
-                name="principalOfficerHindi"
-                className="form-control mb-3" disabled
-              />
-              <ReactTransliterate
-                placeholder="नाम"
-                value={data.principalNameHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    principalNameHindi: text,
-                  })
-                }
-                lang="hi"
-                name="principalNameHindi"
-                className="form-control mb-3" disabled
-              />
-
-              <ReactTransliterate
-                placeholder="पता"
-                value={data.principalAddressHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    principalAddressHindi: text,
-                  })
-                }
-                lang="hi"
-                name="principalAddressHindi"
-                className="form-control mb-3"
-                renderComponent={(props) => (
-                  <textarea
-                    {...props}
-                    rows={4}
-                    className="form-control mb-3"
-                    placeholder="पता" disabled
-                  />
-                )}
-              />
-
-              <ReactTransliterate
-                placeholder="संपर्क संख्या"
-                value={data.principalContactNumberHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    principalContactNumberHindi: text,
-                  })
-                }
-                lang="hi"
-                name="principalContactNumberHindi"
-                className="form-control mb-3"
-                maxLength={10} disabled
-              />
-
-              <ReactTransliterate
-                placeholder="ईमेल आईडी"
-                value={data.principalEmailHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    principalEmailHindi: text,
-                  })
-                }
-                lang="hi"
-                name="principalEmailHindi"
-                className="form-control mb-3"
-                maxLength={55} disabled
-              />
-            </div>
-            <hr />
-            <Col md={6} className="mb-4 fw-bold">
-              Complaint can be lodged through below details.
-            </Col>
-            <Col md={6} className="mb-4 fw-bold">
-              निम्नलिखित विवरण के माध्यम से शिकायत दर्ज की जा सकती है
-            </Col>
-            {/* English */}
-            <div className="col-md-6">
-              <input
-                type="text"
-                name="complainUrl"
-                placeholder="URL"
-                className="form-control mb-3"
-                value={data.complainUrl}
-                disabled
-              />
-
-              <input
-                type="text"
-                name="complainEmail"
-                placeholder="Email"
-                className="form-control mb-3"
-                value={data.complainEmail}
-                disabled
-                maxLength={55}
-              />
-
-              <input
-                type="text"
-                name="complainAddress"
-                placeholder="Address"
-                className="form-control mb-3"
-                value={data.complainAddress}
-                disabled
-              />
-            </div>
-            {/* Hindi */}
-            <div className="col-md-6">
-              <ReactTransliterate
-                placeholder="यू. आर. एल."
-                value={data.complainUrlHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    complainUrlHindi: text,
-                  })
-                }
-                lang="hi"
-                name="complainUrlHindi"
-                className="form-control mb-3" disabled
-              />
-              <ReactTransliterate
-                placeholder="ईमेल आईडी"
-                value={data.complainEmailHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    complainEmailHindi: text,
-                  })
-                }
-                lang="hi"
-                name="complainEmailHindi"
-                className="form-control mb-3"
-                maxLength={55} disabled
-              />
-
-              <ReactTransliterate
-                placeholder="पता"
-                value={data.complainAddressHindi}
-                onChangeText={(text) =>
-                  setData({
-                    ...data,
-                    complainAddressHindi: text,
-                  })
-                }
-                lang="hi"
-                name="complainAddressHindi"
-                className="form-control mb-3" disabled
-              />
-            </div>
-            <Col md={6} className="mb-4">
-              <h5 className="mb-4 text-primary">
-                Authority to receive notices on behalf of AU Small Finance
-                Bank{" "}
-              </h5>
-              <div className="">
-                It is hereby notified that all notices under the payment of
-                GratuityAct, 1972 may be sent to{" "}
-                <Form.Control
-                  type="text"
-                  className="d-inline-block w-auto"
-                  placeholder="Officer's Name"
-                  name="officerName"
-                  value={data.officerName}
-                  disabled maxLength={55}
-                />{" "}
-                (Officer’s Name) associated with the Bank as Bank Manager
-                (Designation), who is authorized to receive all such Notices on
-                behalf of AU Small Finance Bank (Company). This may be treated
-                as Notice under Rule 4 of the Payment of Gratuity (Central
-                Rules), 1972.
-              </div>
-            </Col>
-            <Col md={6} className="mb-3">
-              <h5 className="mb-4 text-primary">Emergency Contact Number </h5>
-              <Form.Group className="mb-3">
-                <Form.Control 
-                name="branchName"
-                value={data.branchName}
-                disabled maxLength={155} placeholder="Branch Name / शाखा" />
-              </Form.Group>
-              <Row className="g-3">
-                <Col md={4}>
-                  <label htmlFor="">Particulars / विवरण</label>
-                </Col>
-                <Col md={4}>
-                  <label htmlFor=""> Name / नाम </label>
-                </Col>
-                <Col md={4}>
-                  <label htmlFor="">Phone No. / फोन नंबर</label>
-                </Col>
-                <Col md={4}>
-                  <label htmlFor=""> Branch Manager / शाखा प्रबंधक </label>
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="branchMangerName"
-                  value={data.branchMangerName}
-                  disabled maxLength={155} placeholder="Name / नाम" />
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="branchMangerContact"
-                  value={data.branchMangerContact}
-                  disabled maxLength={10} placeholder="Phone No. / फोन नंबर" />
-                </Col>
-                <Col md={4}>
-                  <label htmlFor="">
-                    Branch Operations & Service Manager शाखा संचालन एवं सेवा
+            <h5 className="mb-4 text-primary">Emergency Contact Number </h5>
+            <ListGroup as="ul" variant="flush" className="mb-5">
+              <ListGroup.Item as="li">
+                <small className="text-muted">Branch Name / शाखा नाम</small>
+                <p className="fw-medium m-0">{data.branchName}</p>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={4}>Particulars / विवरण</Col>
+                  <Col sm={4}>Name / नाम</Col>
+                  <Col sm={4}>Phone No. / फोन नंबर</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={4}>Branch Manager / शाखा प्रबंधक</Col>
+                  <Col sm={4}>{data.branchMangerName}</Col>
+                  <Col sm={4}>{data.branchMangerContact}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={4}>
+                    Branch Operations & Service Manager / शाखा संचालन एवं सेवा
                     प्रबंधक
-                  </label>
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="branchServiceMangerName"
-                  value={data.branchServiceMangerName}
-                  disabled maxLength={155} placeholder="Name / नाम" />
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="branchServiceMangerContact"
-                  value={data.branchServiceMangerContact}
-                  disabled maxLength={10} placeholder="Phone No. / फोन नंबर" />
-                </Col>
-                <Col md={4}>
-                  <label htmlFor="">Police / पुलिस</label>
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="policeName"
-                  value={data.policeName}
-                  disabled maxLength={155} placeholder="Name / नाम" />
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="policeContact"
-                  value={data.policeContact}
-                  disabled maxLength={10} placeholder="Phone No. / फोन नंबर" />
-                </Col>
-                <Col md={4}>
-                  <label htmlFor="">Fire / आग </label>
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="fireName"
-                  value={data.fireName}
-                  disabled maxLength={155} placeholder="Name / नाम" />
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="fireContact"
-                  value={data.fireContact}
-                  disabled maxLength={10} placeholder="Phone No. / फोन नंबर" />
-                </Col>
-                <Col md={4}>
-                  <label htmlFor="">Nearest Hospital / निकटतम अस्पताल </label>
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="hospitalName"
-                  value={data.hospitalName}
-                  disabled maxLength={155} placeholder="Name / नाम" />
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="hospitalContact"
-                  value={data.hospitalContact}
-                  disabled maxLength={10} placeholder="Phone No. / फोन नंबर" />
-                </Col>
-                <Col md={4}>
-                  <label htmlFor="">Ambulance / रोगी वाहन</label>
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="ambulanceName"
-                  value={data.ambulanceName}
-                  disabled maxLength={155} placeholder="Name / नाम" />
-                </Col>
-                <Col md={4}>
-                  <Form.Control 
-                  name="ambulanceContact"
-                  value={data.ambulanceContact}
-                  disabled maxLength={10} placeholder="Phone No. / फोन नंबर" />
-                </Col>
-              </Row>
-            </Col>
+                  </Col>
+                  <Col sm={4}>{data.branchServiceMangerName}</Col>
+                  <Col sm={4}>{data.branchServiceMangerContact}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={4}>Police / पुलिस</Col>
+                  <Col sm={4}>{data.policeName}</Col>
+                  <Col sm={4}>{data.policeContact}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={4}>Fire / आग</Col>
+                  <Col sm={4}>{data.fireName}</Col>
+                  <Col sm={4}>{data.fireContact}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={4}>Nearest Hospital / निकटतम अस्पताल</Col>
+                  <Col sm={4}>{data.hospitalName}</Col>
+                  <Col sm={4}>{data.hospitalContact}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item as="li">
+                <Row className="g-4">
+                  <Col sm={4}>Ambulance / रोगी वाहन</Col>
+                  <Col sm={4}>{data.ambulanceName}</Col>
+                  <Col sm={4}>{data.ambulanceContact}</Col>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
 
-            <Col md={6}>
+            <div className="text-end">
               <img src={sign} alt="Signature" />
               <p>
                 <strong>Name: Mr. Yogesh Soni</strong> <br />
                 Designation: Head of Branch Banking Operations
               </p>
-            </Col>
-            {/* <Col md={6}>
-              <Form.Group className="text-end mt-4">
-                <Button
-                  type="submit"
-                  variant="primary"
-                  disabled={isSubmit}
-                  className="pill"
-                  size="lg"
-                >
-                  <span>Submit</span>
-                </Button>
-              </Form.Group>
-            </Col> */}
-          </Row>
-        </Form>
-      </div>
+            </div>
+          </Form>
+        </div>
+      </section>
     </>
   );
 }

@@ -1,9 +1,24 @@
-import { Badge, Row, Col, Button, Table } from "react-bootstrap";
+import {
+  Badge,
+  Row,
+  Col,
+  Button,
+  Table,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
-import { BiBullseye, BiLink, BiPencil, BiTrash } from "react-icons/bi";
+import {
+  BiFile,
+  BiLink,
+  BiPencil,
+  BiTrash,
+  BiSolidCheckCircle,
+  BiSolidXCircle,
+} from "react-icons/bi";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import axiosInstance from "../../helper/constants/axiosInstance";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
@@ -151,7 +166,7 @@ function Branch() {
               <th>Branch Code</th>
               <th>Serial Number</th>
               <th>Category</th>
-              <th>Url</th>
+              <th>Form Url</th>
               <th>Status</th>
               <th width="120" className="col-fixed">
                 Action
@@ -163,58 +178,72 @@ function Branch() {
               return (
                 <>
                   <tr key={item.id}>
-                    <td>{($index + offset)+ 1}</td>
+                    <td>{$index + offset + 1}</td>
                     <td>{item.branchCode}</td>
                     <td>{item.serialNumber}</td>
                     <td>{item.category}</td>
                     <td>
-                      <Link
-                        title="URL"
-                        to={`${adminAlias}/branchInfo/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
-                        )}`}
-                        className="btn btn-icon btn-light"
-                      >
-                        <BiLink />
-                      </Link>
-&nbsp;
-                      <Link
-                        title="URL"
-                        to={`${adminAlias}/viewBranchInfo/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
-                        )}`}
-                        className="btn btn-icon btn-light"
-                      >
-                        <BiBullseye />
-                      </Link>
+                      <OverlayTrigger overlay={<Tooltip>Form URL</Tooltip>}>
+                        <Link
+                          to={`${adminAlias}/branchInfo/${base64_encode(
+                            `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                          )}`}
+                          className="btn btn-icon btn-light"
+                        >
+                          <BiLink />
+                        </Link>
+                      </OverlayTrigger>
+                      &nbsp;
+                      <OverlayTrigger overlay={<Tooltip>Form Preview</Tooltip>}>
+                        <Link
+                          target="_blank"
+                          to={`${adminAlias}/viewBranchInfo/${base64_encode(
+                            `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                          )}`}
+                          className="btn btn-icon btn-light"
+                        >
+                          <BiFile />
+                        </Link>
+                      </OverlayTrigger>
                     </td>
                     <td>
-                      {item.status == 1 ? (
-                        <Badge bg="success">Active</Badge>
-                      ) : (
-                        <Badge bg="secondary">In-active</Badge>
-                      )}
+                      <OverlayTrigger
+                        overlay={<Tooltip>Click to Change Status</Tooltip>}
+                      >
+                        <Link
+                          title={item.status == 1 ? "Active" : "In-Active"}
+                          onClick={() =>
+                            changeStatus($index, item.status, item.id)
+                          }
+                          className="btn btn-icon btn-default"
+                        >
+                          {item.status == 1 ? (
+                            <BiSolidCheckCircle size={20} color="green" />
+                          ) : (
+                            <BiSolidXCircle size={20} color="red" />
+                          )}
+                        </Link>
+                      </OverlayTrigger>
                     </td>
                     <td className="col-fixed">
-                      <Link
-                        title="Edit"
-                        to={`${adminAlias}/editBranch/${base64_encode(
-                          `Hvg_myg8Bbg5vvdgvpp+` + item.id,
-                        )}`}
-                        className="btn btn-icon btn-light"
-                      >
-                        <BiPencil />
-                      </Link>
+                      <OverlayTrigger overlay={<Tooltip>Edit Branch</Tooltip>}>
+                        <Link
+                          to={`${adminAlias}/editBranch/${base64_encode(
+                            `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                          )}`}
+                          className="btn btn-icon btn-light"
+                        >
+                          <BiPencil />
+                        </Link>
+                      </OverlayTrigger>
                       &nbsp;
-                      <Link
-                        title={item.status == 1 ? "In-Active" : "Active"}
-                        onClick={() =>
-                          changeStatus($index, item.status, item.id)
-                        }
-                        className="btn btn-icon btn-light"
+                      <OverlayTrigger
+                        overlay={<Tooltip>Delete Branch</Tooltip>}
                       >
-                        <BiTrash />
-                      </Link>
+                        <Link className="btn btn-icon btn-light">
+                          <BiTrash />
+                        </Link>
+                      </OverlayTrigger>
                     </td>
                   </tr>
                 </>
