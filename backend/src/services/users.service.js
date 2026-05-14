@@ -282,9 +282,9 @@ let userDataProvider = {
   deleteUser: async (userId) => {
     return new Promise(function (resolve, reject) {
       conn.Users.update({
-        isdeleted : 1
+        isDeleted : 1
       },{
-        where: { id: userId },
+        where: { id: userId, userType : 'branch' },
       })
         .then(data => {
           if (data !== null) {

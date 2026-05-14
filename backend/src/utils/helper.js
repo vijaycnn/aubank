@@ -91,7 +91,7 @@ module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto 
             ccto.push(ceroInfoMail);
             // var finalHtml = emailer;    
             var finalHtml = await emailerTemplate(emailer,mailerIconsUrl);
-            console.log("MAil Data  Reached 3:::",finalHtml);
+            // console.log("MAil Data  Reached 3:::",finalHtml);
             let mailDetails = {
                 from: ceroInfoMailUser, // sender address
                 to: to,

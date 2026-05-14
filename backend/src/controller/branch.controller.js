@@ -143,6 +143,15 @@ let BranchController = {
             return next(error);
         }
     },
+    deleteBranch: async (request, response, next) => {
+        try {
+            // console.log('deleteBranch reached', request.body, request.user);        
+            let BranchUpdate = await branchService.deleteBranch(request.body.branchId);
+            return responder.sendResponse(response, 200, "success", BranchUpdate, "Branch deleted successfully.");            
+        } catch (error) {
+            return next(error);
+        }
+    },
 
     //////Branch Details ///////////////////////
     getDetailsById:async(request, response, next) =>{

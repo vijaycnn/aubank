@@ -431,6 +431,14 @@ let userController = {
           return next(error);
       }
   },
+  deleteUser: async (request, response, next) => {
+      try {
+          let userUpdate = await usersService.deleteUser( request.body.userId);
+          return responder.sendResponse(response, 200, "success", userUpdate, "User deleted successfully.");            
+      } catch (error) {
+          return next(error);
+      }
+  },
 
   assignBranches: async (request, response, next) => {
       try {
