@@ -11,6 +11,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const userRouter = require('./routes/users.route');
 const branchRouter = require('./routes/branch.route');
+const dashboardRouter = require('./routes/dashboard.route');
 
 conn = require("./models");  
 Op = conn.Sequelize.Op;  
@@ -74,6 +75,7 @@ app.use(async function (req, res, next) {
 // let routePrefix = process.env.ROUTE_PREFIX.trim();
 app.use('/api/user',  userRouter);
 app.use('/api/branch',  branchRouter);
+app.use('/api/dashboard',  dashboardRouter);
 /**
  * Get port from environment and store in Express.
  */

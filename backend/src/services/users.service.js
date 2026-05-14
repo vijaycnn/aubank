@@ -89,6 +89,42 @@ let userDataProvider = {
     });
   },
   ////User CRUD
+  getUsersCount: async () => {
+    try {
+      const result = await conn.Users.findAll({
+        attributes: [
+          "userRole",
+          [
+            conn.Sequelize.literal(
+              `COUNT(*) FILTER (WHERE "status" = 1 and "isDeleted" = 0)`
+            ),
+            "activeCount",
+          ],
+          [
+            conn.Sequelize.literal(
+              `COUNT(*) FILTER (WHERE "status" = 0 and "isDeleted" = 0)`
+            ),
+            "inactiveCount",
+          ],
+        ],
+        where:{ userType: 'branch'},
+        group: ["userRole"],
+        order: [["userRole", "ASC"]],
+        raw: true,
+        // logging: console.log
+      });
+
+      return result.map((item) => ({
+        userRole: item.userRole,
+        activeCount: Number(item.activeCount) || 0,
+        inactiveCount: Number(item.inactiveCount) || 0
+      }));
+      
+    } catch (error) {
+      throw error;
+    }
+  },
+
   getUserList: async (all = false) => {
     return new Promise(async function (resolve, reject) {
       // console.log('search', search);
