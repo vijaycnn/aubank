@@ -39,7 +39,7 @@ module.exports.stringReplace = async function (str, replaceObj=null) {
      return str1;
 }
 
-module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto = [],attachments =[]){
+module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto = [],attachments =[], BaseApiUrl = null){
     try{
         console.log("MAil Data :::",to, subject, emailer,ccto,attachments);
 
@@ -48,7 +48,7 @@ module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto 
         let ceroInfoMailPass = null;
         let mailerIconsUrl= null;
         let  whereconsearch = { settingsKey: {
-         [Op.or]: ['myousic-info-email', 'email-sender-id','email-sender-password','mailer-icons-url']
+         [Op.or]: ['info-email', 'email-sender-id','email-sender-password','mailer-icons-url']
         }};
          let ceroInfoMaildata = await conn.Settings.findAll({where: whereconsearch, raw:true});
      
@@ -56,7 +56,7 @@ module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto 
          {     
             for(let i=0;i<ceroInfoMaildata.length;i++)
             {
-                if(ceroInfoMaildata[i] && ceroInfoMaildata[i].settingsKey && ceroInfoMaildata[i].settingsKey=='cero-info-email')
+                if(ceroInfoMaildata[i] && ceroInfoMaildata[i].settingsKey && ceroInfoMaildata[i].settingsKey=='info-email')
                 {
                     ceroInfoMail =  ceroInfoMaildata[i].settingsValue?ceroInfoMaildata[i].settingsValue:"";
                 }
@@ -73,7 +73,7 @@ module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto 
 
                 if(ceroInfoMaildata[i] && ceroInfoMaildata[i].settingsKey && ceroInfoMaildata[i].settingsKey=='mailer-icons-url')
                 {
-                    mailerIconsUrl =  ceroInfoMaildata[i].settingsValue?ceroInfoMaildata[i].settingsValue:"";
+                    mailerIconsUrl =  ceroInfoMaildata[i].settingsValue?ceroInfoMaildata[i].settingsValue: BaseApiUrl;
                 }
             }     
          }
@@ -89,8 +89,9 @@ module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto 
                 }
             }));
             ccto.push(ceroInfoMail);
-            console.log("MAil Data  Reached 3:::");
-            var finalHtml = emailer;    //await emailerTemplate(emailer,mailerIconsUrl);
+            // var finalHtml = emailer;    
+            var finalHtml = await emailerTemplate(emailer,mailerIconsUrl);
+            console.log("MAil Data  Reached 3:::",finalHtml);
             let mailDetails = {
                 from: ceroInfoMailUser, // sender address
                 to: to,
@@ -101,7 +102,7 @@ module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto 
                 html: finalHtml
             };
 
-            console.log("MAil Data  Reached 4:::");
+            // console.log("MAil Data  Reached 4:::");
             if(attachments.length > 0){
                 mailDetails.attachments = attachments;
             }
@@ -117,7 +118,8 @@ module.exports.send_mail_byEmailer = async function (to, subject, emailer, ccto 
                 }).catch(err => {
                     console.log('Error Occurs when send email:' + err);
                     return resolve(true);
-                });                                
+                });     
+
             }
             else{
                 console.log("MAil Data  Reached 7:::");
@@ -219,12 +221,12 @@ async function emailerTemplate(myhtml, root=null){
    +' </style>'
   +'</head>'
   +'<body>'
-  	+'<table cellspacing="0" cellpadding="0" width="100%;" style="font-family: "Montserrat", Arial, sans-serif; color:#2d2c2b; border-spacing: 0; border-collapse: collapse; border: none; overflow:hidden; background:#6db784;">'
+  	+'<table cellspacing="0" cellpadding="0" width="100%;" style="font-family: "Montserrat", Arial, sans-serif; color:#2d2c2b; border-spacing: 0; border-collapse: collapse; border: none; overflow:hidden; background:#e2e1e1;">'
   		+'<tr>'
-  			+'<td align="center" style="background:#6db784;">'
+  			+'<td align="center" style="background:#e2e1e1;">'
   				+'<table width="620" cellspacing="0" cellpadding="0" align="center" border="0" style="font-family: "Montserrat", Arial, sans-serif; color:#2d2c2b; border-spacing: 0; border-collapse: collapse; border: none; overflow:hidden;" bgcolor="#ffffff">'
     	 +'<tr>'
-			 		+'<td height="40" style="background:#6db784;">&nbsp;</td>'
+			 		+'<td height="40" style="background:#e2e1e1;">&nbsp;</td>'
 			 	+'</tr>'
     	+'<tr>'
     		+'<td>'
@@ -234,7 +236,7 @@ async function emailerTemplate(myhtml, root=null){
     			 	+'</tr>'
   			 		 +'<tr>'
 			      	+'<td width="30">&nbsp;</td>'
-			      	+'<td><img src="'+root+'/img/logo.jpg" alt="cero image" width="80"></td>'
+			      	+'<td><img src="'+root+'/src/assets/logo.jpg" alt="image" width="80"></td>'
 			      	+'<td width="30">&nbsp;</td>'
 			     +'</tr>'
 			      +'<tr>'
@@ -267,43 +269,15 @@ async function emailerTemplate(myhtml, root=null){
            +' <td align="center" style=" background:#0484C4;">'
                + '<table width="60%" cellpadding="10" style="background: #0484C4; text-align: center">'
                     +'<tr>'
-                        +'<td colspan="2">&nbsp;'
-                                                      
-                        +'</td> '                       
+                        +'<td style="text-align: center; font-size: 12px; color: #fff;">&copy; 2026 AU Bank. All Rights Reserved</td>'                       
                     +'</tr>'
                 +'</table>'
                               
           +  '</td>  '                 
-       +' </tr>'
-       +' <tr>'
-          +'  <td align="center" style=" background:#0484C4;">'
-                +'<table width="50%" cellpadding="0" style="background: #ffffff; text-align: center">'
-                    
-                  + ' <tr>'
-                       +' <td align="center">'
-                           +' <img src="'+root+'/img/mahindraAcceloLogo.svg" width="160" alt=""> '                           
-                        +'</td>'
-                        +'<td align="center">'
-                            +'<img src="'+root+'/img/mstcLogo.svg" width="90" alt="">'  
-                       +' </td>'
-                    +'</tr>'
-                    
-                +'</table> '                             
-           +' </td>'                   
-        +'</tr>'
-       + '<tr>'
-            +'<td style="text-align: center; font-size: 12px; background:#0484C4; color: #fff"><br>A Mahindra Accelo &amp; MSTC Venture <br><br><br></td>'
-       +' </tr>'
-        
-    	+'<tr>'
-			 		+'<td height="10" style="background:#6db784;">&nbsp;</td>'
-			 	+'</tr>'	
-    	+'<tr>'
-		 		+'<td style="background:#6db784; text-align: center; font-size: 12px; color: #fff;">&copy; 2022 Mahindra MSTC Recycling Pvt. Ltd. All Rights Reserved</td>'
-		 	+'</tr>'
-    		+'<tr>'
-			 		+'<td height="40" style="background:#6db784;">&nbsp;</td>'
-			 	+'</tr>'	
+       +' </tr>' 
+        +'<tr>'
+            +'<td height="40" style="background:#e2e1e1;">&nbsp;</td>'
+        +'</tr>'	
 		
   +'  </table>'
   		+'	</td>'

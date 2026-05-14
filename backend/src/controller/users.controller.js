@@ -143,7 +143,7 @@ let userController = {
         let  userdata= await usersService.checkExistByEmail(emailId);       
          if(userdata){
              let userId= userdata.id;
-             let userName= userdata.userName;
+             let userName= (userdata.userName == userdata.userEmail) ? userdata?.name : userdata.userName;
              crypto.randomBytes(20, async function (err, buf) {
              var token = buf.toString("hex");
 
@@ -177,7 +177,7 @@ let userController = {
                     }
                     emailTemplate= await helper.stringReplace(emailTemplate,replaceObj)
                     //send mail to all assign mail
-                    helper.send_mail_byEmailer(emailId,templateDetails.subjectLine, emailTemplate,[])
+                    helper.send_mail_byEmailer(emailId,templateDetails.subjectLine, emailTemplate,[], [], BackEndBaseUrl)
                  }
                  return responder.sendResponse(response, 200, "success", { token: token, da: linkCreated }, "Forgot password link sent successfully your registered email.");
                }
