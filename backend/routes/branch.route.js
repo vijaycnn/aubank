@@ -34,7 +34,7 @@ router.post("/updateBranchInfo", [auth.login], function (request, response, next
     branchController.updateBranchInfo(request, response, next)
 });
 router.get("/getBranchDetailById/:branchId", function (request, response, next) {
-    branchController.getDetailsById(request, response, next)
+    branchController.getBranchDetailById(request, response, next)
 });
 
 module.exports = router;

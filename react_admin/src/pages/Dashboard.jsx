@@ -17,6 +17,10 @@ const Dashboard = () => {
 
   const authToken = localStorage.getItem("auth-token");
   const user = jwtDecode(authToken);
+  let hasAccess = true;
+  if (user.userType == "branch") {
+    hasAccess = false;
+  }
 
   const getDashboardCount = async () => {
     setIsLoading(true);
@@ -86,7 +90,7 @@ const Dashboard = () => {
           </Card>
         </Col>
 
-        {userData?.map((item, index) => {
+        { hasAccess && userData?.map((item, index) => {
           return (
             <>
               <Col md={4} key={index}>

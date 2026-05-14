@@ -22,6 +22,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import axiosInstance from "../../helper/constants/axiosInstance";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 import { decode as base64_decode, encode as base64_encode } from "base-64";
+import { jwtDecode } from "jwt-decode";
 
 function User() {
   const [offset, setOffset] = useState(0);
@@ -33,7 +34,12 @@ function User() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-
+  const authToken = localStorage.getItem("auth-token");
+  const user = jwtDecode(authToken);
+  if (user.userType == "branch") {
+    
+    window.location.href = `${adminAlias}/dashboard`;
+  }
   const [filteredData, setFilteredData] = useState({});
   const [search, setSearch] = useState({
     startDate: "",
