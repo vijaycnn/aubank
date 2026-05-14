@@ -223,11 +223,11 @@ function User() {
                           <BiPencil />
                         </Link>
                       </OverlayTrigger>
-                      <OverlayTrigger overlay={<Tooltip>Delete User</Tooltip>}>
+                      {/* <OverlayTrigger overlay={<Tooltip>Delete User</Tooltip>}>
                         <Link className="btn btn-icon btn-light">
                           <BiTrash />
                         </Link>
-                      </OverlayTrigger>
+                      </OverlayTrigger> */}
                     </td>
                   </tr>
                 </>

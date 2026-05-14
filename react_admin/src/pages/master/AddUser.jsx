@@ -28,7 +28,7 @@ function User() {
     employeeId: "",
     userEmail: "",
     userMobile: "",
-    userName : "",
+    // userName : "",
     userPassword: "",
     confirmPassword: "",
   });
@@ -45,7 +45,7 @@ function User() {
     let hasError = false;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    if (!values.name || values.name == "" || !values.userRole || values.userRole == "" || values.userName == "" || !values.userName ||  values.userPassword == "" || !values.userPassword ||  values.confirmPassword == "" || !values.confirmPassword) {
+    if (!values.name || values.name == "" || !values.userRole || values.userRole == "" || values.employeeId == "" || !values.employeeId || values.userEmail == "" || !values.userEmail ||  values.userPassword == "" || !values.userPassword ||  values.confirmPassword == "" || !values.confirmPassword) {
       setError("Mandatory fields are missing");
       hasError = true;
     }else if (values.email) {
@@ -87,7 +87,7 @@ function User() {
           employeeId: formData.employeeId,
           userEmail: formData.userEmail,
           userMobile: formData.userMobile,
-          userName: formData.userName,
+          // userName: formData.userName,
           userPassword: formData.userPassword,
           confirmPassword: formData.confirmPassword,
         };
@@ -103,7 +103,7 @@ function User() {
                 employeeId: "",
                 userEmail: "",
                 userMobile: "",
-                userName : "",
+                // userName : "",
                 userPassword: "",
                 confirmPassword: "",
               });
@@ -217,28 +217,14 @@ function User() {
             <Col md={6}>
               <Form.Group className="mb-4">
                 <Form.Label className="fw-medium">
-                  Employee Id
+                  Employee Id<span className="text-danger">*</span>
                 </Form.Label>
                 <Form.Control
                   type="text"
                   name="employeeId"
                   value={formData.employeeId}
                   placeholder="Enter Employee Id"
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group className="mb-4">
-                <Form.Label className="fw-medium">
-                  Email
-                </Form.Label>
-                <Form.Control
-                  type="email"
-                  name="userEmail"
-                  value={formData.userEmail}
-                  placeholder="Enter Email"
-                  onChange={handleChange} onKeyPress={avoidSpace} maxLength={155}
+                  onChange={handleChange} maxLength={35}
                 />
               </Form.Group>
             </Col>
@@ -259,6 +245,20 @@ function User() {
             <Col md={6}>
               <Form.Group className="mb-4">
                 <Form.Label className="fw-medium">
+                  Email / UserName<span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="email"
+                  name="userEmail"
+                  value={formData.userEmail}
+                  placeholder="Enter Email / UserName"
+                  onChange={handleChange} onKeyPress={avoidSpace} maxLength={155}
+                />
+              </Form.Group>
+            </Col>
+            {/* <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="fw-medium">
                   UserName<span className="text-danger">*</span>
                 </Form.Label>
                 <Form.Control
@@ -269,7 +269,7 @@ function User() {
                   onChange={handleChange}
                 />
               </Form.Group>
-            </Col>
+            </Col> */}
 
             <Col md={6}>
               <Form.Group className="mb-4">
