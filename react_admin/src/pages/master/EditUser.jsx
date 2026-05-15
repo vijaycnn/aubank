@@ -90,17 +90,22 @@ function EditUser() {
   const validation = (values) => {
     setError("");
     let hasError = false;
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const regex = /^[a-zA-Z0-9\s,./()-]+$/;
 
     if (!values.name || values.name == "" || !values.userRole || values.userRole == ""|| !values.employeeId || values.employeeId == "") {
       setError("Mandatory fields are missing");
       hasError = true;
-    // }else if (values.email) {
-    //   if (!regex.test(values.userEmail)) {
-    //     setError("Please enter a valid email");
-    //     hasError = true;
-    //   }
-    }else if (values.userMobile) {
+    }else{
+      if (!regex.test(values.name)) {
+        setError("Invalid Name!");
+        hasError = true;
+      }
+      if (!regex.test(values.employeeId)) {
+        setError("Invalid Employee Id!");
+        hasError = true;
+      }
+    }    
+    if (values.userMobile) {
        if (values.userMobile.length !== 10) {
         setError("Please fill the correct contact number !"); hasError = true;
        }
@@ -232,7 +237,7 @@ function EditUser() {
                       name="name"
                       value={data.name}
                       placeholder="Enter Name"
-                      onChange={handleChange}
+                      onChange={handleChange} maxLength={55}
                     />
                   </Form.Group>
                 </Col>

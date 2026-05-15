@@ -50,19 +50,31 @@ function User() {
   const validation = (values) => {
     setError("");
     let hasError = false;
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!values.name || values.name == "" || !values.userRole || values.userRole == "" || values.employeeId == "" || !values.employeeId || values.userEmail == "" || !values.userEmail ||  values.userPassword == "" || !values.userPassword ||  values.confirmPassword == "" || !values.confirmPassword) {
       setError("Mandatory fields are missing");
-      hasError = true;
-    }else if (values.email) {
-      if (!regex.test(values.userEmail)) {
+      return hasError = true;
+    }else{
+      if (!regex.test(values.name)) {
+        setError("Invalid Name!");
+        return hasError = true;
+      }
+      if (!regex.test(values.employeeId)) {
+        setError("Invalid Employee Id!");
+        return hasError = true;
+      }
+    }
+      
+    if (values.email) {
+      if (!emailRegex.test(values.userEmail.trim())) {
         setError("Please enter a valid email");
-        hasError = true;
+        hasError = true; return;
       }
     }else if (values.userMobile) {
        if (values.userMobile.length !== 10) {
-        setError("Please fill the correct contact number !"); hasError = true;
+        setError("Please fill the correct contact number !"); hasError = true;return 
        }
     }
 
@@ -205,7 +217,7 @@ function User() {
                   name="name"
                   value={formData.name}
                   placeholder="Enter Name"
-                  onChange={handleChange}
+                  onChange={handleChange} maxLength={55}
                 />
               </Form.Group>
             </Col>
@@ -255,11 +267,11 @@ function User() {
                   Email / UserName<span className="text-danger">*</span>
                 </Form.Label>
                 <Form.Control
-                  type="email"
+                  type="text"
                   name="userEmail"
                   value={formData.userEmail}
                   placeholder="Enter Email / UserName"
-                  onChange={handleChange} onKeyPress={avoidSpace} maxLength={155}
+                  onChange={handleChange} onKeyPress={avoidSpace} maxLength={55}
                 />
               </Form.Group>
             </Col>
@@ -302,7 +314,7 @@ function User() {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   placeholder="Enter Confirm Password"
-                  onChange={handleChange}
+                  onChange={handleChange} maxLength={25}
                 />
               </Form.Group>
             </Col>

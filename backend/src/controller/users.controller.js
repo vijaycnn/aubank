@@ -320,6 +320,18 @@ let userController = {
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
           }
 
+          const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+          if (!regex.test(request.body.name)) {
+            return responder.sendResponse(response, 200, "error", '', "Invalid Name!");
+          }
+          if (!regex.test(request.body.employeeId)) {
+            return responder.sendResponse(response, 200, "error", '', "Invalid Employee Id!");
+          }
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(request.body?.userEmail.trim())) {
+            return responder.sendResponse(response, 200, "error", '', "Invalid Email!");
+          }
+
           let password=  request.body.userPassword;
           let confirmPassword=  request.body.confirmPassword;
           const pwdRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -395,6 +407,14 @@ let userController = {
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
           }else if(!request.body.employeeId || request.body.employeeId.trim() == ''){
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
+          }
+
+          const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+          if (!regex.test(request.body.name)) {
+            return responder.sendResponse(response, 200, "error", '', "Invalid Name!");
+          }
+          if (!regex.test(request.body.employeeId)) {
+            return responder.sendResponse(response, 200, "error", '', "Invalid Employee Id!");
           }
 
           let checkExistEmployeeId = false;
