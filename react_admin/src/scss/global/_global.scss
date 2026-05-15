@@ -498,6 +498,7 @@ textarea {
     }
     &.active .page-link {
       background: variables.$primary;
+      color: variables.$white;
     }
   }
   & .page-link {
@@ -508,6 +509,7 @@ textarea {
     text-transform: uppercase;
     font-weight: 500;
     background: none;
+    color: variables.$default;
     &:focus {
       box-shadow: none;
     }
