@@ -55,6 +55,13 @@ let BranchController = {
             if(request.body.serialNumber.trim() == ''){
                 return responder.sendResponse(response, 200, "error", '', "Missing Required!");
             }
+            const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+            if (!regex.test(request.body.branchCode)) {
+                return responder.sendResponse(response, 200, "error", '', "Invalid BranchCode!");
+            }
+            if (!regex.test(request.body.serialNumber)) {
+                return responder.sendResponse(response, 200, "error", '', "Invalid SerialNumber!");
+            }
             let checkIfExist = false; let checkIfSerialNumberExist = false;
             checkIfExist = await branchService.checkExistBranch(request.body.branchCode);
             if (checkIfExist == true) {
@@ -103,6 +110,14 @@ let BranchController = {
             }
             if(request.body.serialNumber.trim() == ''){
                 return responder.sendResponse(response, 200, "error", '', "Missing Required!");
+            }
+            const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+
+            if (!regex.test(request.body.branchCode)) {
+                return responder.sendResponse(response, 200, "error", '', "Invalid BranchCode!");
+            }
+            if (!regex.test(request.body.serialNumber)) {
+                return responder.sendResponse(response, 200, "error", '', "Invalid SerialNumber!");
             }
             let checkIfExist = false; let checkIfSerialNumberExist = false;
             checkIfExist = await branchService.checkExistBranch(request.body.branchCode, request.body.branchId);

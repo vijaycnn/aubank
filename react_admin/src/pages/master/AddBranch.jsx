@@ -34,6 +34,7 @@ function Branch() {
   const validation = (values) => {
     setError("");
     let hasError = false;
+    const regex = /^[a-zA-Z0-9\s,./()-]+$/;
     
     if (!values.branchCode || values.branchCode == "" ) {
       setError("Branch Code field is missing");
@@ -41,6 +42,14 @@ function Branch() {
     }else if((!values.serialNumber || values.serialNumber == "")){
       setError("SerialNumber field is missing");
       hasError = true;
+    }
+    if (!regex.test(values.branchCode)) {
+      setError("Invalid Branch Code!");
+      return hasError = true;
+    }
+    if (!regex.test(values.serialNumber)) {
+      setError("Invalid SerialNumber!");
+      return hasError = true;
     }
     return hasError;
   };
@@ -144,7 +153,7 @@ function Branch() {
                   name="branchCode"
                   value={formData.branchCode}
                   placeholder="Enter Here"
-                  onChange={handleChange}
+                  onChange={handleChange} maxLength={25}
                 />
               </Form.Group>
             </Col>
@@ -158,7 +167,7 @@ function Branch() {
                   name="serialNumber"
                   value={formData.serialNumber}
                   placeholder="Enter Here"
-                  onChange={handleChange}
+                  onChange={handleChange} maxLength={25}
                 />
               </Form.Group>
             </Col>
