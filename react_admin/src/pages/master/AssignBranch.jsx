@@ -8,12 +8,10 @@ const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
 
 const AssignBranch = () => {
-  
   const params = useParams();
   const decode = base64_decode(params.id);
   let id = decode.split("+")[1];
   id = parseInt(id);
-
 
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
@@ -75,9 +73,7 @@ const AssignBranch = () => {
   // Checkbox change
   const handleCheckbox = (branchId) => {
     if (selectedBranches.includes(branchId)) {
-      setSelectedBranches(
-        selectedBranches.filter((id) => id !== branchId)
-      );
+      setSelectedBranches(selectedBranches.filter((id) => id !== branchId));
     } else {
       setSelectedBranches([...selectedBranches, branchId]);
     }
@@ -93,11 +89,13 @@ const AssignBranch = () => {
     }
   };
 
-  const isAllSelected = branchList.length > 0 && selectedBranches.length === branchList.length;
+  const isAllSelected =
+    branchList.length > 0 && selectedBranches.length === branchList.length;
 
   const handleSubmit = async () => {
-    if(selectedBranches.length == 0){
-      setError("Select one branch atleast"); return;
+    if (selectedBranches.length == 0) {
+      setError("Select one branch atleast");
+      return;
     }
 
     const payload = {
@@ -107,7 +105,7 @@ const AssignBranch = () => {
     setSuccessMsg("");
     setIsSubmit(true);
     setIsLoading(true);
-    
+
     await axiosInstance
       .post(`/user/assign-branches/${id}`, payload)
       .then((response) => {
@@ -136,72 +134,82 @@ const AssignBranch = () => {
 
   return (
     <>
-    {isLoading == true ? (
-      <>
-        <div className="loader">
-          <div className="loader-spinner"></div>
+      {isLoading == true ? (
+        <>
+          <div className="loader">
+            <div className="loader-spinner"></div>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
+      <div className="mb-3 d-flex justify-content-between align-items-center">
+        <h1 className="h4 mb-0 font-secondary fw-medium">Assign Branches</h1>
+        <div>
+          <Link to={`${adminAlias}/users`} className="btn btn-primary btn-sm">
+            <span className="nav-link-text">Back</span>
+          </Link>
         </div>
-      </>
-    ) : (
-      ""
-    )}
-    <div className="mb-3 d-flex justify-content-between align-items-center">
-      <h1 className="h4 mb-0 font-secondary fw-medium">Assign Branches</h1>
-      <div>
-        <Link to={`${adminAlias}/users`} className="btn btn-primary btn-sm">
-          <span className="nav-link-text">Back</span>
-        </Link>
       </div>
-    </div>
-    <div className="table-view bg-white rounded-4 p-4">
-      {error && <Alert variant="danger">⚠️{error}</Alert>}
-      {successMsg && <Alert variant="success">{successMsg}</Alert>}
+      <div className="table-view bg-white rounded-4 p-4">
+        {error && <Alert variant="danger">⚠️{error}</Alert>}
+        {successMsg && <Alert variant="success">{successMsg}</Alert>}
 
-      <Table bordered striped responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>
-              <input type="checkbox"
-              checked={isAllSelected} onChange={handleSelectAll}
-            />
-            &nbsp; Select All
-            </th>
-            <th>Branch Code</th>
-            <th>Serial Number</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {branchList.map((item, index) => (
-            <tr key={item.id}>
-              <td>{index + 1}</td>
-
-              <td>
-                {/* <Form.Check
+        <Table bordered striped responsive>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>
+                <Form.Check
                   type="checkbox"
-                  checked={selectedBranches.includes(item.id)}
-                  onChange={() => handleCheckbox(item.id)}
-                /> */}
-                <input
+                  checked={isAllSelected}
+                  onChange={handleSelectAll}
+                  label="Select All"
+                  id="selectAll"
+                />
+              </th>
+              <th>Branch Code</th>
+              <th>Serial Number</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {branchList.map((item, index) => (
+              <tr key={item.id}>
+                <td>{index + 1}</td>
+
+                <td>
+                  <Form.Check
                     type="checkbox"
                     checked={selectedBranches.includes(item.id)}
                     onChange={() => handleCheckbox(item.id)}
+                    label=""
+                    id={`branch${item.id}`}
                   />
-              </td>
+                  {/* <input
+                    type="checkbox"
+                    checked={selectedBranches.includes(item.id)}
+                    onChange={() => handleCheckbox(item.id)}
+                  /> */}
+                </td>
 
-              <td>{item.branchCode}</td>
-              <td>{item.serialNumber}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Form.Group className="text-end">
-      <Button onClick={handleSubmit} disabled={isSubmit} className="pill" size="lg">
-        Submit
-      </Button>
-      </Form.Group>    
-    </div>
+                <td>{item.branchCode}</td>
+                <td>{item.serialNumber}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <Form.Group className="text-end">
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmit}
+            className="pill"
+            size="lg"
+          >
+            <span>Submit</span>
+          </Button>
+        </Form.Group>
+      </div>
     </>
   );
 };

@@ -70,7 +70,7 @@ const Sidebar = () => {
             </Link> */}
             <Link
               to={`${adminAlias}/branches`}
-              className={`nav-link ${isActive([`${adminAlias}/branches`, `${adminAlias}/addBranch`, `${adminAlias}/editBranch`]) ? "active" : ""}`}
+              className={`nav-link ${isActive([`${adminAlias}/branches`, `${adminAlias}/addBranch`, `${adminAlias}/editBranch`, `${adminAlias}/branchInfo`]) ? "active" : ""}`}
             >
               <span className="nav-link-icon">
                 <BiBuildings />
@@ -81,7 +81,7 @@ const Sidebar = () => {
               <>
                 <Link
                   to={`${adminAlias}/users`}
-                  className={`nav-link ${isActive([`${adminAlias}/users`, `${adminAlias}/addUser`, `${adminAlias}/editUser`]) ? "active" : ""}`}
+                  className={`nav-link ${isActive([`${adminAlias}/users`, `${adminAlias}/addUser`, `${adminAlias}/editUser`, `${adminAlias}/assign-branch`]) ? "active" : ""}`}
                 >
                   <span className="nav-link-icon">
                     <BiGroup />
