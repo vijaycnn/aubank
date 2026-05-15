@@ -24,6 +24,7 @@ import axiosInstance from "../../helper/constants/axiosInstance";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 import { decode as base64_decode, encode as base64_encode } from "base-64";
 import { jwtDecode } from "jwt-decode";
+import Swal from "sweetalert2";
 
 function Branch() {
   const [offset, setOffset] = useState(0);
@@ -90,7 +91,7 @@ function Branch() {
     setCurrentPage(selectedPage);
     setOffset(offset);
   };
-  const getBranchs = async () => {
+  const getBranches = async () => {
     setIsLoading(true);
 
     const body = {
@@ -143,6 +144,45 @@ function Branch() {
     setIsLoading(false);
   };
 
+  const deleteBranch = async (index, branchId) => {
+    
+    const result = await Swal.fire({
+      title: "Are you sure to delete Branch?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    });
+    if (!result.isConfirmed) {
+      return;
+    }
+    setIsLoading(true);
+    const body = { branchId };
+    // console.log('body>>> ', body);
+    await axiosInstance
+      .post(`/branch/delete`, body)
+      .then((response) => {
+        // console.log('>>> ', response.data);
+        setIsLoading(false);
+        if (response.data.status === "success") {
+          // items[index].status = currentStatus == 1 ? 0 : 1;
+          getBranches();
+        }
+      })
+      .catch((error) => {
+        console.log(">>> ", error.status, error);
+        if (error.status === 403) {
+          // alert('Session Timeout');
+          handleLogout();
+        }
+        setIsLoading(false);
+      });
+    setIsLoading(false);
+  };
+
   const handleLogout = () => {
     sessionStorage.removeItem("isAuthenticated");
     localStorage.clear("auth-token");
@@ -152,7 +192,7 @@ function Branch() {
 
   useEffect(() => {
     if (!isLoading) {
-      getBranchs();
+      getBranches();
     }
   }, [offset, perPage, filteredData]);
 
@@ -237,13 +277,18 @@ function Branch() {
                         </Link>
                       </OverlayTrigger>
                       &nbsp;
-                      {/* <OverlayTrigger
+                      {
+                        hasAccess && 
+                        <OverlayTrigger
                         overlay={<Tooltip>Delete Branch</Tooltip>}
-                      >
-                        <Link className="btn btn-icon btn-light">
-                          <BiTrash />
-                        </Link>
-                      </OverlayTrigger> */}
+                        >
+                          <Link className="btn btn-icon btn-light"  onClick={() =>
+                            deleteBranch($index, item.id)
+                          }>
+                            <BiTrash />
+                          </Link>
+                        </OverlayTrigger>
+                      }
                     </td>
                   </tr>
                 </>

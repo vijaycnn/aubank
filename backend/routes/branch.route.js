@@ -26,6 +26,9 @@ router.post("/update", [auth.login], function (request, response, next) {
 router.post("/changeStatus", [auth.login], function (request, response, next) {
     branchController.changeBranchStatus(request, response, next)
 });
+router.post("/delete", [auth.login], function (request, response, next) {
+    branchController.deleteBranch(request, response, next)
+});
 //////////////////BranchDetails ///////////////
 router.get("/getDetailById/:branchId", [auth.login], function (request, response, next) {
     branchController.getDetailsById(request, response, next)

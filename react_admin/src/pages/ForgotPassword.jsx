@@ -81,7 +81,7 @@ const Forgot = () => {
   return (
     <section className="h-100 app-login d-flex">
       <div className="app-login-left flex-grow-1">
-        {/* <Image src={wallpaper} alt="Login Wallpaper" /> */}
+        <Image src={wallpaper} alt="Login Wallpaper" />
       </div>
 
       <div className="app-login-right bg-white d-flex flex-column align-items-center justify-content-center p-5">

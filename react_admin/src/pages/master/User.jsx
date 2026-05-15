@@ -23,6 +23,7 @@ import axiosInstance from "../../helper/constants/axiosInstance";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 import { decode as base64_decode, encode as base64_encode } from "base-64";
 import { jwtDecode } from "jwt-decode";
+import Swal from "sweetalert2";
 
 function User() {
   const [offset, setOffset] = useState(0);
@@ -36,8 +37,9 @@ function User() {
   const navigate = useNavigate();
   const authToken = localStorage.getItem("auth-token");
   const user = jwtDecode(authToken);
+  let hasAccess = true;
   if (user.userType == "branch") {
-    
+    hasAccess = false;
     window.location.href = `${adminAlias}/dashboard`;
   }
   const [filteredData, setFilteredData] = useState({});
@@ -127,6 +129,45 @@ function User() {
         setIsLoading(false);
         if (response.data.status === "success") {
           items[index].status = currentStatus == 1 ? 0 : 1;
+        }
+      })
+      .catch((error) => {
+        console.log(">>> ", error.status, error);
+        if (error.status === 403) {
+          // alert('Session Timeout');
+          handleLogout();
+        }
+        setIsLoading(false);
+      });
+    setIsLoading(false);
+  };
+  
+  const deleteUser = async (index, userId) => {
+    const result = await Swal.fire({
+      title: "Are you sure to delete User?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    });
+    if (!result.isConfirmed) {
+      return;
+    }
+    
+    setIsLoading(true);
+    const body = { userId };
+    // console.log('body>>> ', body);
+    await axiosInstance
+      .post(`/user/delete`, body)
+      .then((response) => {
+        // console.log('>>> ', response.data);
+        setIsLoading(false);
+        if (response.data.status === "success") {
+          // items[index].status = currentStatus == 1 ? 0 : 1;
+          getUsers();
         }
       })
       .catch((error) => {
@@ -229,11 +270,16 @@ function User() {
                           <BiPencil />
                         </Link>
                       </OverlayTrigger>
-                      {/* <OverlayTrigger overlay={<Tooltip>Delete User</Tooltip>}>
-                        <Link className="btn btn-icon btn-light">
-                          <BiTrash />
+                      {
+                        hasAccess && 
+                       <OverlayTrigger overlay={<Tooltip>Delete User</Tooltip>}>
+                        <Link className="btn btn-icon btn-light"  onClick={() =>
+                            deleteUser($index, item.id)
+                          }>
+                        <BiTrash />
                         </Link>
-                      </OverlayTrigger> */}
+                        </OverlayTrigger>
+                      }
                     </td>
                   </tr>
                 </>

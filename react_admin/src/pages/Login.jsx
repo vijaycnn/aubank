@@ -138,7 +138,7 @@ const Login = ({ setIsAuthenticated, onAuthStateChange }) => {
           {/* Submit Button */}
           <Form.Group>
             <p className="text-end mb-3">
-              {/* <Link to="/forgot-password">Forgot Password?</Link> */}
+              <Link to="/forgot-password">Forgot Password?</Link>
             </p>
             <Button type="submit" variant="primary" className="w-100" size="lg">
               <span>Continue</span>
