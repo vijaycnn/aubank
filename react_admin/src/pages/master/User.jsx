@@ -152,6 +152,14 @@ function User() {
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes",
       cancelButtonText: "No",
+      reverseButtons: true, // change order
+
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-outline-secondary me-2",
+      },
+
+      buttonsStyling: false, // important for custom classes
     });
     if (!result.isConfirmed) {
       return;
@@ -260,6 +268,7 @@ function User() {
                       </OverlayTrigger>
                     </td>
                     <td className="col-fixed">
+                      <div className="d-flex gap-2">
                       <OverlayTrigger overlay={<Tooltip>Edit User</Tooltip>}>
                         <Link
                           to={`${adminAlias}/editUser/${base64_encode(
@@ -280,6 +289,7 @@ function User() {
                         </Link>
                         </OverlayTrigger>
                       }
+                      </div>
                     </td>
                   </tr>
                 </>

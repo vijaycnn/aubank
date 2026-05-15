@@ -155,6 +155,14 @@ function Branch() {
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes",
       cancelButtonText: "No",
+      reverseButtons: true, // change order
+
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-outline-secondary me-2",
+      },
+
+      buttonsStyling: false, // important for custom classes
     });
     if (!result.isConfirmed) {
       return;
@@ -266,6 +274,7 @@ function Branch() {
                       </OverlayTrigger>
                     </td>
                     <td className="col-fixed">
+                      <div className="d-flex gap-2">
                       <OverlayTrigger overlay={<Tooltip>Edit Branch</Tooltip>}>
                         <Link
                           to={`${adminAlias}/editBranch/${base64_encode(
@@ -289,6 +298,7 @@ function Branch() {
                           </Link>
                         </OverlayTrigger>
                       }
+                      </div>
                     </td>
                   </tr>
                 </>
