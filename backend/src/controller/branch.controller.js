@@ -178,10 +178,12 @@ let BranchController = {
             let branchIds = request.user.branchIds;
             let branchId = request.params.branchId;
             let userBranchIds = request?.user?.branchIds;
-            if(!userBranchIds.includes(branchId) && userType == 'branch'){
 
-                console.log('getDetailsById controller reached', request.params, request.user);
-                return responder.sendResponse(response, 200, "error", {}, "No BranchDetails found");
+            if(userType == 'branch'){
+                if(!userBranchIds.includes(Number(branchId))){
+                    console.log('getDetailsById controller reached', request.params, request.user);
+                    return responder.sendResponse(response, 200, "error", {}, "No BranchDetails found");
+                }
             }
             
             const dataList = await branchService.getDetailsById(branchId);

@@ -228,6 +228,10 @@ function BranchInfo() {
             if (response.data.status === "success") {
               setData({});
               setSuccessMsg(response?.data?.message);
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
               setLoading(false);
               setTimeout(() => {
                 navigate(`${adminAlias}/branches`);
@@ -239,6 +243,11 @@ function BranchInfo() {
           .catch((error) => {
             // console.log(">>> ", error);
             if (error.status === 403) {
+              setError(error?.message);
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
               handleLogout();
             }
             setLoading(false);
