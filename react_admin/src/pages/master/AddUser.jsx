@@ -50,15 +50,17 @@ function User() {
   const validation = (values) => {
     setError("");
     let hasError = false;
-    const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+    // const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+    const nameRegex = /^[A-Za-z\s]+$/;
+    const regex = /^[a-zA-Z0-9\s._()-]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!values.name || values.name == "" || !values.userRole || values.userRole == "" || values.employeeId == "" || !values.employeeId || values.userEmail == "" || !values.userEmail ||  values.userPassword == "" || !values.userPassword ||  values.confirmPassword == "" || !values.confirmPassword) {
       setError("Mandatory fields are missing");
       return hasError = true;
     }else{
-      if (!regex.test(values.name)) {
-        setError("Invalid Name!");
+      if (!nameRegex.test(values.name)) {
+        setError("Invalid Name (allow only alphabets)!");
         return hasError = true;
       }
       if (!regex.test(values.employeeId)) {
@@ -217,7 +219,7 @@ function User() {
                   name="name"
                   value={formData.name}
                   placeholder="Enter Name"
-                  onChange={handleChange} maxLength={55}
+                  onChange={handleChange} maxLength={35} minLength={4}
                 />
               </Form.Group>
             </Col>

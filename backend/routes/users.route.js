@@ -59,7 +59,7 @@ router.post("/changeStatus", [auth.login], function (request, response, next) {
     userController.changeUserStatus(request, response, next)
 });
 router.post("/delete", [auth.login], function (request, response, next) {
-    branchController.deleteUser(request, response, next)
+    userController.deleteUser(request, response, next)
 });
 
 router.post("/assign-branches/:userId", [auth.login], function (request, response, next) {

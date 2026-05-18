@@ -76,7 +76,8 @@ function EditBranch() {
   const validation = (values) => {
     setError("");
     let hasError = false;
-    const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+    // const regex = /^[a-zA-Z0-9\s./()-]+$/;
+    const regex = /^[a-zA-Z0-9\s._()-]+$/;
     
     if (!values.branchCode || values.branchCode == "" ) {
       setError("Branch Code field is missing");
@@ -84,6 +85,14 @@ function EditBranch() {
     }else if((!values.serialNumber || values.serialNumber == "")){
       setError("SerialNumber field is missing");
       hasError = true;
+    }
+    if (values.branchCode && values.branchCode.length < 4) {
+      setError("Branch Code Minimum Length should be 4");
+      return hasError = true;
+    }
+    if (values.serialNumber && values.serialNumber.length < 4) {
+      setError("Serial Number Minimum Length should be 4");
+      return hasError = true;
     }
     if (!regex.test(values.branchCode)) {
       setError("Invalid Branch Code!");
@@ -196,7 +205,7 @@ function EditBranch() {
                     name="branchCode"
                     value={data.branchCode}
                     placeholder="Enter Here" 
-                    onChange={handleChange} maxLength={25}
+                    onChange={handleChange} maxLength={25} minLength={4}
                 />
                 </Form.Group>
             </Col>
@@ -210,7 +219,7 @@ function EditBranch() {
                   name="serialNumber"
                   value={data.serialNumber}
                   placeholder="Enter Here"
-                  onChange={handleChange} maxLength={25}
+                  onChange={handleChange} maxLength={25} minLength={4}
                 />
                 </Form.Group>
             </Col>

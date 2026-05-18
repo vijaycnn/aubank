@@ -90,14 +90,16 @@ function EditUser() {
   const validation = (values) => {
     setError("");
     let hasError = false;
-    const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+    // const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+    const nameRegex = /^[A-Za-z\s]+$/;
+    const regex = /^[a-zA-Z0-9\s._()-]+$/;
 
     if (!values.name || values.name == "" || !values.userRole || values.userRole == ""|| !values.employeeId || values.employeeId == "") {
       setError("Mandatory fields are missing");
       hasError = true;
     }else{
-      if (!regex.test(values.name)) {
-        setError("Invalid Name!");
+      if (!nameRegex.test(values.name)) {
+        setError("Invalid Name (allow only alphabets)!");
         hasError = true;
       }
       if (!regex.test(values.employeeId)) {
@@ -237,7 +239,7 @@ function EditUser() {
                       name="name"
                       value={data.name}
                       placeholder="Enter Name"
-                      onChange={handleChange} maxLength={55}
+                      onChange={handleChange} maxLength={35} minLength={4} 
                     />
                   </Form.Group>
                 </Col>
