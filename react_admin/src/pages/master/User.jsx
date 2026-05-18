@@ -1,5 +1,6 @@
 import {
   Badge,
+  Alert,
   Row,
   Col,
   Button,
@@ -26,6 +27,8 @@ import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
 
 function User() {
+  const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [offset, setOffset] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
@@ -172,6 +175,7 @@ function User() {
       .post(`/user/delete`, body)
       .then((response) => {
         // console.log('>>> ', response.data);
+        setSuccessMsg(response?.data?.message);
         setIsLoading(false);
         if (response.data.status === "success") {
           // items[index].status = currentStatus == 1 ? 0 : 1;
@@ -182,6 +186,7 @@ function User() {
         console.log(">>> ", error.status, error);
         if (error.status === 403) {
           // alert('Session Timeout');
+          setError(error?.message);
           handleLogout();
         }
         setIsLoading(false);
@@ -189,6 +194,23 @@ function User() {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    if (successMsg) {
+      const timer = setTimeout(() => {
+        setSuccessMsg("");
+      }, 5000); // 5 sec
+
+      return () => clearTimeout(timer);
+    }
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("");
+      }, 5000); // 5 sec
+
+      return () => clearTimeout(timer);
+    }
+  }, [successMsg, error]);
+  
   const handleLogout = () => {
     sessionStorage.removeItem("isAuthenticated");
     localStorage.clear("auth-token");
@@ -306,6 +328,8 @@ function User() {
     <>
       <h1 className="h4 mb-4 font-secondary fw-medium">Users</h1>
 
+      {error && <Alert variant="danger">⚠️{error}</Alert>}
+      {successMsg && <Alert variant="success">{successMsg}</Alert>}
       <div className="table-view bg-white rounded-4 p-4">
         <div className="mb-3 d-flex justify-content-between align-items-center">
           <div className="text-muted">

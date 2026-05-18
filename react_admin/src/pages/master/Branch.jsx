@@ -1,5 +1,5 @@
 import {
-  Badge,
+  Badge, Alert,
   Row,
   Col,
   Button,
@@ -34,7 +34,9 @@ function Branch() {
   const [totalRecords, setTotalRecords] = useState(0);
   const [items, setItems] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  
   const authToken = localStorage.getItem("auth-token");
   const user = jwtDecode(authToken);
   let hasAccess = true;
@@ -173,7 +175,8 @@ function Branch() {
     await axiosInstance
       .post(`/branch/delete`, body)
       .then((response) => {
-        // console.log('>>> ', response.data);
+        console.log('>>> ', response.data);
+        setSuccessMsg(response?.data?.message);
         setIsLoading(false);
         if (response.data.status === "success") {
           // items[index].status = currentStatus == 1 ? 0 : 1;
@@ -184,6 +187,8 @@ function Branch() {
         console.log(">>> ", error.status, error);
         if (error.status === 403) {
           // alert('Session Timeout');
+
+          setError(error?.message);
           handleLogout();
         }
         setIsLoading(false);
@@ -197,6 +202,23 @@ function Branch() {
     localStorage.clear();
     navigate(adminAlias);
   };
+
+  useEffect(() => {
+    if (successMsg) {
+      const timer = setTimeout(() => {
+        setSuccessMsg("");
+      }, 5000); // 5 sec
+
+      return () => clearTimeout(timer);
+    }
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("");
+      }, 5000); // 5 sec
+
+      return () => clearTimeout(timer);
+    }
+  }, [successMsg, error]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -315,6 +337,8 @@ function Branch() {
     <>
       <h1 className="h4 mb-4 font-secondary fw-medium">Branch List</h1>
 
+      {error && <Alert variant="danger">⚠️{error}</Alert>}
+      {successMsg && <Alert variant="success">{successMsg}</Alert>}
       <div className="table-view bg-white rounded-4 p-4">
         <div className="mb-3 d-flex justify-content-between align-items-center">
           <div className="text-muted">

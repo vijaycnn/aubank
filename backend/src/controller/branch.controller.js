@@ -55,7 +55,9 @@ let BranchController = {
             if(request.body.serialNumber.trim() == ''){
                 return responder.sendResponse(response, 200, "error", '', "Missing Required!");
             }
-            const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+            // const regex = /^[a-zA-Z0-9\s./()-]+$/;
+            const regex = /^[a-zA-Z0-9\s._()-]+$/;
+
             if (!regex.test(request.body.branchCode)) {
                 return responder.sendResponse(response, 200, "error", '', "Invalid BranchCode!");
             }
@@ -111,7 +113,8 @@ let BranchController = {
             if(request.body.serialNumber.trim() == ''){
                 return responder.sendResponse(response, 200, "error", '', "Missing Required!");
             }
-            const regex = /^[a-zA-Z0-9\s,./()-]+$/;
+            // const regex = /^[a-zA-Z0-9\s./()-]+$/;
+            const regex = /^[a-zA-Z0-9\s._()-]+$/;
 
             if (!regex.test(request.body.branchCode)) {
                 return responder.sendResponse(response, 200, "error", '', "Invalid BranchCode!");

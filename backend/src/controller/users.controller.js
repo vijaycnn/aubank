@@ -320,9 +320,12 @@ let userController = {
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
           }
 
-          const regex = /^[a-zA-Z0-9\s,./()-]+$/;
-          if (!regex.test(request.body.name)) {
-            return responder.sendResponse(response, 200, "error", '', "Invalid Name!");
+          // const regex = /^[a-zA-Z0-9\s./()-]+$/;
+          const regex = /^[a-zA-Z0-9\s._()-]+$/;
+          const nameRegex = /^[A-Za-z\s]+$/;
+          const contactRegex = /^[6-9]\d{9}$/;
+          if (!nameRegex.test(request.body.name)) {
+            return responder.sendResponse(response, 200, "error", '', "Invalid Name (allow only alphabets)!");
           }
           if (!regex.test(request.body.employeeId)) {
             return responder.sendResponse(response, 200, "error", '', "Invalid Employee Id!");
@@ -330,6 +333,11 @@ let userController = {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(request.body?.userEmail.trim())) {
             return responder.sendResponse(response, 200, "error", '', "Invalid Email!");
+          }
+          if(request.body.userMobile){
+            if (!contactRegex.test(request.body.userMobile)) {
+              return responder.sendResponse(response, 200, "error", '', "Invalid Mobile Number!");
+            }            
           }
 
           let password=  request.body.userPassword;
@@ -409,12 +417,20 @@ let userController = {
               return responder.sendResponse(response, 200, "error", '', "Missing Required!");
           }
 
-          const regex = /^[a-zA-Z0-9\s,./()-]+$/;
-          if (!regex.test(request.body.name)) {
-            return responder.sendResponse(response, 200, "error", '', "Invalid Name!");
+          // const regex = /^[a-zA-Z0-9\s./()-]+$/;
+          const regex = /^[a-zA-Z0-9\s._()-]+$/;
+          const nameRegex = /^[A-Za-z\s]+$/;
+          const contactRegex = /^[6-9]\d{9}$/;
+          if (!nameRegex.test(request.body.name)) {
+            return responder.sendResponse(response, 200, "error", '', "Invalid Name (allow only alphabets)!");
           }
           if (!regex.test(request.body.employeeId)) {
             return responder.sendResponse(response, 200, "error", '', "Invalid Employee Id!");
+          }
+          if(request.body.userMobile){
+            if (!contactRegex.test(request.body.userMobile)) {
+              return responder.sendResponse(response, 200, "error", '', "Invalid Mobile Number!");
+            }            
           }
 
           let checkExistEmployeeId = false;
