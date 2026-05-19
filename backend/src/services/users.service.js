@@ -17,7 +17,7 @@ let userDataProvider = {
   checkExistByEmail: async (userEmail) => {
     return new Promise(function (resolve, reject) {
       conn.Users.findOne({
-        where: { userEmail: userEmail },
+        where: { userEmail: userEmail, isDeleted : 0 },
       })
         .then(data => {
           if (data == null) {
