@@ -81,7 +81,7 @@ const UpdatePassword = () => {
         console.log("submit datat ",values)
         const formErrors = {}
         if (!values.emailId) {
-            formErrors.emailId  = "Please Enter a email"
+            formErrors.emailId  = "Please Enter an email"
         }
 
         if (!values.newPassword) {
@@ -132,7 +132,7 @@ const UpdatePassword = () => {
             <div className="app-login-form d-grid gap-4">
                 <div className="sec-head mb-4">
                 <Image className="app-login-logo mb-5 d-block" src={logo} alt="Logo"/>
-                <h2 className="sec-title fs-2">Update Password?</h2>
+                <h2 className="sec-title fs-2">Update Password</h2>
                 </div>
                 {/* Error Message */}
                 {error && error.message  && <Alert variant="danger">{error.message}</Alert>}
