@@ -47,7 +47,7 @@ const Forgot = () => {
       let formErr = ""
       const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
       if (!values) {
-          formErr = "Please Enter a email"
+          formErr = "Please Enter an email"
       }
       else if (!regex.test(values)) {
           formErr = "Please enter a valid email";

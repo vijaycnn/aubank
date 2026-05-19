@@ -66,7 +66,7 @@ let userController = {
                 }   
             }
             else{
-                return responder.sendResponse(response, 200, "error", {type:"Unauthorized"}, "Unauthorized User.");
+                return responder.sendResponse(response, 200, "error", {type:"Unauthorized"}, "Unauthorized access. Your account is inactive.");
             }              
        }    
     } catch (error) {
@@ -124,7 +124,7 @@ let userController = {
             return responder.sendResponse(response, 200, "true", {type:"activated",token:refreshToken}, "Token Not expired");
           }
         }else{
-            return responder.sendResponse(response, 200, "false", {type:"Unauthorized"}, "Unauthorized User.");
+            return responder.sendResponse(response, 200, "false", {type:"Unauthorized"}, "Unauthorized access. Your account is inactive.");
         }              
        }    
     } catch (error) {
@@ -189,7 +189,7 @@ let userController = {
            })
          }
         else{
-            return responder.sendResponse(response, 200, "false", {type:"Unauthorized"}, "Unauthorized User.");
+            return responder.sendResponse(response, 200, "false", {type:"Unauthorized"}, "Unauthorized access. Your account is inactive.");
         }
               
        }    
