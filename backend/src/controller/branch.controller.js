@@ -182,7 +182,7 @@ let BranchController = {
             if(userType == 'branch'){
                 if(!userBranchIds.includes(Number(branchId))){
                     console.log('getDetailsById controller reached', request.params, request.user);
-                    return responder.sendResponse(response, 200, "error", {}, "No BranchDetails found");
+                    return responder.sendResponse(response, 200, "false", {}, "No BranchDetails found");
                 }
             }
             

@@ -39,11 +39,11 @@ function BranchInfo() {
     await axiosInstance
       .get(`/branch/getDetailById/${id}`)
       .then((response) => {
-        console.log(">>> ", response);
+        // console.log(">>> ", response);
         setLoading(false);
         if (response.data.status === "success") {
           setPreviousData(response?.data?.data);
-        }else if (response.data.status === "error" && user.userType == 'branch') {
+        }else if (response.data.status === "false" && user.userType == 'branch') {
           // setPreviousData(response?.data?.data);
           window.location.href = `${adminAlias}/dashboard`;
         } 
