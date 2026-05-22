@@ -17,6 +17,7 @@ import { jwtDecode } from "jwt-decode";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 
 const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -42,10 +43,28 @@ const Sidebar = () => {
   if (user.userType == "branch") {
     hasAccess = false;
   }
+  useEffect(() => {
+    // Only for mobile
+    if (window.innerWidth < 992) {
+      setIsOpen(false);
+      document.body.classList.remove("sidebar-collapse");
+    }
+  }, [location.pathname]);
+  const handleCollapseBtn = () => {
+    setIsOpen((prev) => !prev);
+    document.body.classList.toggle("sidebar-collapse");
+  };
 
   return (
     <>
       <aside className="app-sidebar">
+        <Button
+          variant="dark"
+          className="app-collapse-btn d-lg-none"
+          onClick={handleCollapseBtn}
+        >
+          &nbsp;
+        </Button>
         <Link className="app-sidebar-logo" to={`${adminAlias}/dashboard`}>
           <Image src={logo} alt="" />
         </Link>
@@ -94,7 +113,7 @@ const Sidebar = () => {
             )}
           </Nav>
         </div>
-        <div className="w-100 p-3">
+        <div className="w-100 p-lg-3 d-lg-flex btn-logout">
           <Button
             variant="primary btn-icon"
             title="Logout"

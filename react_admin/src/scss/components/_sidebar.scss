@@ -13,6 +13,13 @@
   top: 0;
   left: 0;
   transition-duration: 0.3s;
+  z-index: 100;
+  @include mixins.respond(deviceMd) {
+    width: 100%;
+    height: auto;
+    background-color: variables.$purple;
+    padding-left: 50px;
+  }
   &-logo {
     font-size: 1.5rem;
     font-weight: bold;
@@ -27,6 +34,10 @@
     width: 100%;
     transition-duration: 0.3s;
     background: variables.$purple;
+    @include mixins.respond(deviceMd) {
+      width: auto;
+      padding: 0;
+    }
     & img {
       max-height: 60px;
     }
@@ -38,6 +49,18 @@
     position: relative;
     height: 100%;
     width: 100%;
+    @include mixins.respond(deviceMd) {
+      position: fixed;
+      left: -250px;
+      top: 60px;
+      opacity: 0;
+      visibility: hidden;
+      background: variables.$white;
+      width: 250px;
+      height: calc(100% - 60px);
+      box-shadow: 5px 0 10px 0 rgba(0, 0, 0, 0.1);
+      transition-duration: 0.4s;
+    }
     & .nav {
       padding: 1rem 0;
       overflow-y: auto;
@@ -80,30 +103,6 @@
     }
   }
 
-  &-theme {
-    color: #636d79;
-    font-size: 0.875rem;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    text-decoration: none;
-    border-color: color.adjust(variables.$black, $lightness: 75%);
-    & .icon {
-      min-width: 2rem;
-      font-size: 1.25rem;
-      display: inline-flex;
-      transition-duration: 0.3s;
-    }
-    & .text {
-      color: #636d79;
-      font-size: 0.875rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      transition-duration: 0.3s;
-    }
-  }
   & .toggle-overlay {
     position: absolute;
     width: 100%;
@@ -116,36 +115,18 @@
 
 .sidebar-collapse {
   & .app-sidebar {
-    width: 80px;
-    & .nav {
-      &-link-text {
-        opacity: 0;
-        visibility: hidden;
-      }
-      &-link-icon {
-        justify-content: center;
-      }
-    }
-    &-theme {
-      & .text {
-        opacity: 0;
-        visibility: hidden;
-      }
-      & .icon {
-        justify-content: center;
-      }
-    }
-    &-logo {
-      font-size: 1rem;
-      & .is-logo {
-        display: none;
-      }
-      & .is-icon {
-        display: block;
-      }
+    &-nav {
+      left: 0;
+      opacity: 1;
+      visibility: visible;
     }
   }
-  & .toggle-overlay {
-    display: block;
+}
+.btn-logout {
+  @include mixins.respond(deviceMd) {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    width: auto !important;
   }
 }

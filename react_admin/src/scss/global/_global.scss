@@ -14,6 +14,10 @@ body {
   background-color: #ede9de;
   min-height: 100vh;
 }
+.container {
+  max-width: 1400px;
+  width: 100%;
+}
 #root {
   @include mixins.wh100;
 }
@@ -408,6 +412,9 @@ textarea {
   padding-left: 250px;
   transition-duration: 0.3s;
   background: var(--bg-color);
+  @include mixins.respond(deviceMd) {
+    padding: 60px 0 0;
+  }
   &-wrapper {
     display: flex;
     flex-direction: column;
@@ -420,6 +427,9 @@ textarea {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    @include mixins.respond(deviceMd) {
+      padding: 1.5rem;
+    }
   }
   &-login {
     min-height: 100vh;
@@ -432,15 +442,44 @@ textarea {
       & img {
         @include mixins.cover;
       }
+      @include mixins.respond(deviceLg) {
+        padding-bottom: 50%;
+      }
+      @include mixins.respond(deviceSm) {
+        padding-bottom: 70%;
+      }
+    }
+    &-right {
+      background: variables.$white;
+      @include mixins.respond(deviceLg) {
+        background: none;
+      }
     }
     &-form {
       width: 500px;
+      @include mixins.respond(deviceLg) {
+        width: auto;
+        max-width: 500px;
+        margin: -5rem auto 0;
+        background: variables.$white;
+        padding: 2rem;
+        border-radius: 1rem;
+        position: relative;
+        z-index: 2;
+      }
     }
     &-logo {
       position: absolute;
       top: 1rem;
       left: 1rem;
       width: 150px;
+      z-index: 2;
+      @include mixins.respond(deviceSm) {
+        position: static;
+        background: variables.$purple;
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 }
@@ -538,6 +577,9 @@ textarea {
       border: none;
       background: none;
       margin-top: 3rem;
+      @include mixins.respond(deviceMd) {
+        margin-top: 1rem;
+      }
       & .btn span {
         display: flex;
         justify-content: space-between;
@@ -545,6 +587,18 @@ textarea {
         text-decoration: none;
         width: 100%;
       }
+    }
+  }
+}
+
+.branch-form-preview {
+  & .list-group-flush > .list-group-item {
+    @include mixins.respond(deviceSm) {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     }
   }
 }
