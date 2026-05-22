@@ -92,33 +92,49 @@
   }
   &-collapse-btn {
     position: absolute;
-    width: 40px;
-    height: 30px;
-    left: -20px;
-    border-color: variables.$black;
-    color: variables.$black;
+    width: 60px;
+    height: 60px;
+    left: 0;
+    border: none;
     padding: 0;
     border-radius: 0.25rem;
-    font-size: 1.25rem;
-    background-color: variables.$white;
-    display: inline-flex;
+    background: none;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+    line-height: 0;
     transition-duration: 0.3s;
+    z-index: 10;
     &:hover,
     &:focus {
+      background: none;
+    }
+    &:before,
+    &:after {
+      content: "";
+      width: 50%;
+      height: 2px;
       background-color: variables.$white;
-      border-color: variables.$black;
+      display: block;
+      position: relative;
+      transform-origin: 0.3s;
+      transform: rotate(0deg);
+      transition-duration: 0.3s;
     }
   }
 }
 
 .sidebar-collapse {
   & .app-collapse-btn {
-    left: 0.5rem;
-    transform: scaleX(-1);
-  }
-  & .app-header {
-    padding-left: 4rem;
+    &:before {
+      transform: rotate(45deg);
+      top: 7px;
+    }
+    &:after {
+      transform: rotate(-45deg);
+      top: -5px;
+    }
   }
 }

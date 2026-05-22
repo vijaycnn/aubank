@@ -22,10 +22,10 @@ function EditUser() {
   const decode = base64_decode(params.id);
   let id = decode.split("+")[1];
   id = parseInt(id);
-  
+
   const authToken = localStorage.getItem("auth-token");
   const user = jwtDecode(authToken);
-  
+
   if (user.userType == "branch") {
     window.location.href = `${adminAlias}/dashboard`;
   }
@@ -63,7 +63,7 @@ function EditUser() {
 
   const [data, setData] = useState({
     name: "",
-    userRole : "",
+    userRole: "",
     employeeId: "",
     userMobile: "",
   });
@@ -71,7 +71,7 @@ function EditUser() {
     if (previousData) {
       setData({
         name: previousData.name,
-        userRole : previousData.userRole,
+        userRole: previousData.userRole,
         employeeId: previousData.employeeId,
         userEmail: previousData.userEmail,
         userMobile: previousData.userMobile,
@@ -94,10 +94,17 @@ function EditUser() {
     const nameRegex = /^[A-Za-z\s]+$/;
     const regex = /^[a-zA-Z0-9\s._()-]+$/;
 
-    if (!values.name || values.name == "" || !values.userRole || values.userRole == ""|| !values.employeeId || values.employeeId == "") {
+    if (
+      !values.name ||
+      values.name == "" ||
+      !values.userRole ||
+      values.userRole == "" ||
+      !values.employeeId ||
+      values.employeeId == ""
+    ) {
       setError("Mandatory fields are missing");
       hasError = true;
-    }else{
+    } else {
       if (!nameRegex.test(values.name)) {
         setError("Invalid Name (allow only alphabets)!");
         hasError = true;
@@ -106,11 +113,12 @@ function EditUser() {
         setError("Invalid Employee Id!");
         hasError = true;
       }
-    }    
+    }
     if (values.userMobile) {
-       if (values.userMobile.length !== 10) {
-        setError("Please fill the correct contact number !"); hasError = true;
-       }
+      if (values.userMobile.length !== 10) {
+        setError("Please fill the correct contact number !");
+        hasError = true;
+      }
     }
     return hasError;
   };
@@ -123,7 +131,7 @@ function EditUser() {
     try {
       let hasError = validation(data);
       if (!hasError && previousData.id > 0) {
-        setLoading(true);        
+        setLoading(true);
         let body = {
           userId: previousData.id,
           name: data.name,
@@ -140,7 +148,7 @@ function EditUser() {
             if (response.data.status === "success") {
               setData({
                 name: "",
-                userRole : "",
+                userRole: "",
                 employeeId: "",
                 // userEmail: "",
                 userMobile: "",
@@ -193,10 +201,9 @@ function EditUser() {
     var k = event ? event.which : window.event.keyCode;
     if (k === 32) {
       event.preventDefault();
-
     }
-  }
-  
+  };
+
   return (
     <>
       {loading == true ? (
@@ -220,83 +227,83 @@ function EditUser() {
         {error && <Alert variant="danger">⚠️{error}</Alert>}
         {successMsg && <Alert variant="success">{successMsg}</Alert>}
 
-        <Form
-          onSubmit={handleSubmit}
-          className="login-form p-xl-0 p-md-5 p-4 col-xl-12 m-auto"
-        >
+        <Form onSubmit={handleSubmit}>
           {/* <Alert alert={alert} /> */}
 
           <Row>
-            <Col md={12} className="ps-md-5">
-              <Row>
-                <Col md={6}>
-                  <Form.Group className="mb-4">
-                    <Form.Label className="fw-medium">
-                      Name<span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="name"
-                      value={data.name}
-                      placeholder="Enter Name"
-                      onChange={handleChange} maxLength={35} minLength={4} 
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group className="mb-4">
-                    <Form.Label className="fw-medium">
-                      Role<span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Select name="userRole" onChange={handleChange} value={data. userRole} >
-                          <option value="">Select</option>
-                          <option value="ROM">ROM</option>
-                          <option value="BOSM">BOSM</option>
-                    </Form.Select>
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group className="mb-4">
-                    <Form.Label className="fw-medium">
-                      Employee Id<span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="employeeId"
-                      value={data.employeeId}
-                      placeholder="Enter Employee Id"
-                      onChange={handleChange} maxLength={35}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group className="mb-4">
-                    <Form.Label className="fw-medium">
-                      Mobile Number
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="userMobile"
-                      value={data.userMobile}
-                      placeholder="Enter Mobile Number"
-                      onChange={handleChange} onKeyPress={avoidAlphabets} maxLength={10}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={12}>
-                  <Form.Group className="text-end">
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      disabled={isSubmit}
-                      className="pill"
-                      size="lg"
-                    >
-                      <span>Submit</span>
-                    </Button>
-                  </Form.Group>
-                </Col>
-              </Row>
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="fw-medium">
+                  Name<span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  value={data.name}
+                  placeholder="Enter Name"
+                  onChange={handleChange}
+                  maxLength={35}
+                  minLength={4}
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="fw-medium">
+                  Role<span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Select
+                  name="userRole"
+                  onChange={handleChange}
+                  value={data.userRole}
+                >
+                  <option value="">Select</option>
+                  <option value="ROM">ROM</option>
+                  <option value="BOSM">BOSM</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="fw-medium">
+                  Employee Id<span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="employeeId"
+                  value={data.employeeId}
+                  placeholder="Enter Employee Id"
+                  onChange={handleChange}
+                  maxLength={35}
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="fw-medium">Mobile Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="userMobile"
+                  value={data.userMobile}
+                  placeholder="Enter Mobile Number"
+                  onChange={handleChange}
+                  onKeyPress={avoidAlphabets}
+                  maxLength={10}
+                />
+              </Form.Group>
+            </Col>
+            <Col md={12}>
+              <Form.Group className="text-end">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  disabled={isSubmit}
+                  className="pill"
+                  size="lg"
+                >
+                  <span>Submit</span>
+                </Button>
+              </Form.Group>
             </Col>
           </Row>
         </Form>

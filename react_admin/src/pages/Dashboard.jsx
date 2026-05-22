@@ -57,7 +57,7 @@ const Dashboard = () => {
 
   return (
     <div className="d-flex align-items-center justify-content-center h-100 dash-widget">
-      <Row className="w-100 g-md-5 g-4">
+      <Row className="w-100 g-xl-5 g-4 justify-content-center">
         <Col md={4}>
           <Card>
             <Card.Body>
@@ -90,41 +90,44 @@ const Dashboard = () => {
           </Card>
         </Col>
 
-        { hasAccess && userData?.map((item, index) => {
-          return (
-            <>
-              <Col md={4} key={index}>
-                <Card>
-                  <Card.Body>
-                    <div className="card-icon">
-                      <BiUser size={48} />
-                    </div>
-                    <Card.Title>{item.userRole}</Card.Title>
-                    <Row className="mt-5">
-                      <Col xs={6} className="d-flex flex-column">
-                        <small className="text-muted">ACTIVE</small>
-                        <span className="fs-3 fw-bold">{item.activeCount}</span>
-                      </Col>
-                      <Col xs={6} className="d-flex flex-column">
-                        <small className="text-muted">INACTIVE</small>
-                        <span className="fs-3 fw-bold">
-                          {item.inactiveCount}
+        {hasAccess &&
+          userData?.map((item, index) => {
+            return (
+              <>
+                <Col md={4} key={index}>
+                  <Card>
+                    <Card.Body>
+                      <div className="card-icon">
+                        <BiUser size={48} />
+                      </div>
+                      <Card.Title>{item.userRole}</Card.Title>
+                      <Row className="mt-5">
+                        <Col xs={6} className="d-flex flex-column">
+                          <small className="text-muted">ACTIVE</small>
+                          <span className="fs-3 fw-bold">
+                            {item.activeCount}
+                          </span>
+                        </Col>
+                        <Col xs={6} className="d-flex flex-column">
+                          <small className="text-muted">INACTIVE</small>
+                          <span className="fs-3 fw-bold">
+                            {item.inactiveCount}
+                          </span>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                    <Card.Footer>
+                      <Link to="/admin/users" className="btn btn-primary w-100">
+                        <span>
+                          View All <BiRightArrowAlt size={20} />
                         </span>
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                  <Card.Footer>
-                    <Link to="/admin/users" className="btn btn-primary w-100">
-                      <span>
-                        View All <BiRightArrowAlt size={20} />
-                      </span>
-                    </Link>
-                  </Card.Footer>
-                </Card>
-              </Col>
-            </>
-          );
-        })}
+                      </Link>
+                    </Card.Footer>
+                  </Card>
+                </Col>
+              </>
+            );
+          })}
       </Row>
     </div>
   );

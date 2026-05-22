@@ -43,10 +43,13 @@ function BranchInfo() {
         setLoading(false);
         if (response.data.status === "success") {
           setPreviousData(response?.data?.data);
-        }else if (response.data.status === "false" && user.userType == 'branch') {
+        } else if (
+          response.data.status === "false" &&
+          user.userType == "branch"
+        ) {
           // setPreviousData(response?.data?.data);
           window.location.href = `${adminAlias}/dashboard`;
-        } 
+        }
       })
       .catch((error) => {
         // console.log('>>> ', error.status, error);
@@ -104,21 +107,20 @@ function BranchInfo() {
     complainEmailHindi: "",
     complainAddressHindi: "",
 
-    officerName : "",
-    branchName : "",
-    branchMangerName : "",
-    branchMangerContact : "",
-    branchServiceMangerName : "",
-    branchServiceMangerContact : "",
-    policeName : "",
-    policeContact : "",
-    fireName : "",
-    fireContact : "",
-    hospitalName : "",
-    hospitalContact : "",
-    ambulanceName : "",
-    ambulanceContact : "",
-
+    officerName: "",
+    branchName: "",
+    branchMangerName: "",
+    branchMangerContact: "",
+    branchServiceMangerName: "",
+    branchServiceMangerContact: "",
+    policeName: "",
+    policeContact: "",
+    fireName: "",
+    fireContact: "",
+    hospitalName: "",
+    hospitalContact: "",
+    ambulanceName: "",
+    ambulanceContact: "",
   });
   useEffect(() => {
     if (previousData) {
@@ -166,21 +168,20 @@ function BranchInfo() {
         complainEmailHindi: previousData.complainEmailHindi,
         complainAddressHindi: previousData.complainAddressHindi,
 
-        officerName : previousData.officerName,
-        branchName : previousData.branchName,
-        branchMangerName : previousData.branchMangerName,
-        branchMangerContact : previousData.branchMangerContact,
-        branchServiceMangerName : previousData.branchServiceMangerName,
-        branchServiceMangerContact : previousData.branchServiceMangerContact,
-        policeName : previousData.policeName,
-        policeContact : previousData.policeContact,
-        fireName : previousData.fireName,
-        fireContact : previousData.fireContact,
-        hospitalName : previousData.hospitalName,
-        hospitalContact : previousData.hospitalContact,
-        ambulanceName : previousData.ambulanceName,
-        ambulanceContact : previousData.ambulanceContact,
-
+        officerName: previousData.officerName,
+        branchName: previousData.branchName,
+        branchMangerName: previousData.branchMangerName,
+        branchMangerContact: previousData.branchMangerContact,
+        branchServiceMangerName: previousData.branchServiceMangerName,
+        branchServiceMangerContact: previousData.branchServiceMangerContact,
+        policeName: previousData.policeName,
+        policeContact: previousData.policeContact,
+        fireName: previousData.fireName,
+        fireContact: previousData.fireContact,
+        hospitalName: previousData.hospitalName,
+        hospitalContact: previousData.hospitalContact,
+        ambulanceName: previousData.ambulanceName,
+        ambulanceContact: previousData.ambulanceContact,
       });
     }
   }, [previousData]);
@@ -300,14 +301,12 @@ function BranchInfo() {
         {error && <Alert variant="danger">⚠️{error}</Alert>}
         {successMsg && <Alert variant="success">{successMsg}</Alert>}
 
-        <Form
-          onSubmit={handleSubmit}
-          className="login-form p-xl-0 p-md-5 p-4 col-xl-12 m-auto"
-        >
+        <Form onSubmit={handleSubmit}>
+          <h2 className="text-center mb-4">Notice - C</h2>
           {/* <Alert alert={alert} /> */}
 
           <Row>
-            {/* <Col md={6}>
+            {/* <Col xs={6}>
                 <Form.Group className="mb-4">
                 <Form.Label className="fw-medium">
                     Branch Code<span className="text-danger">*</span>
@@ -321,7 +320,7 @@ function BranchInfo() {
                 />
                 </Form.Group>
             </Col>
-            <Col md={6}>
+            <Col xs={6}>
                 <Form.Group className="mb-4">
                 <Form.Label className="fw-medium">
                     Serial Number
@@ -335,24 +334,28 @@ function BranchInfo() {
                 />
                 </Form.Group>
             </Col> */}
-            <div className="col-md-12 mb-2 justify text-center">
-              <h2>Notice - C</h2>
-            </div>
-            <Col md={6} className="mb-4 fw-bold">
-              While we always strive to provide the best of customer service,
-              there may be occasions, when our customers’ requirement might not
-              be fully met. Such incidents may please be brought to the notice
-              of the Branch Manager.
-            </Col>
-            <Col md={6} className="mb-4 fw-bold">
-              हम हमेशा सर्वश्रेष्ठ ग्राहक सेवा प्रदान करने का प्रयास करते हैं,
-              परन्तु कई बार ऐसे अवसर हो सकते है, जब हमारे ग्राहकों की आवश्यकताओं
-              को पूरा नही किया गया है। ऐसी घटनाओं को कृपया शाखा प्रबंधक के ध्यान
-              में लेकर आये।
-            </Col>
 
-            {/* English */}
-            <div className="col-md-6">
+            <Col sm={6}>
+              <div className="mb-sm-4 mb-2 fw-bold">
+                While we always strive to provide the best of customer service,
+                there may be occasions, when our customers’ requirement might
+                not be fully met. Such incidents may please be brought to the
+                notice of the Branch Manager.
+              </div>
+            </Col>
+            <Col sm={6}>
+              <div className="mb-4 fw-bold">
+                हम हमेशा सर्वश्रेष्ठ ग्राहक सेवा प्रदान करने का प्रयास करते हैं,
+                परन्तु कई बार ऐसे अवसर हो सकते है, जब हमारे ग्राहकों की
+                आवश्यकताओं को पूरा नही किया गया है। ऐसी घटनाओं को कृपया शाखा
+                प्रबंधक के ध्यान में लेकर आये।
+              </div>
+            </Col>
+          </Row>
+
+          {/* English */}
+          <Row>
+            <Col sm={6}>
               <input
                 type="text"
                 name="managerName"
@@ -361,38 +364,8 @@ function BranchInfo() {
                 value={data.managerName}
                 onChange={handleChange}
               />
-
-              <textarea
-                name="address"
-                placeholder="Address"
-                className="form-control mb-3"
-                value={data.address}
-                onChange={handleChange}
-              />
-
-              <input
-                type="text"
-                name="contactNumber"
-                placeholder="Contact Number"
-                className="form-control mb-3"
-                value={data.contactNumber}
-                onChange={handleChange}
-                maxLength={10}
-              />
-
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                className="form-control mb-3"
-                value={data.email}
-                onChange={handleChange}
-                maxLength={55}
-              />
-            </div>
-
-            {/* Hindi */}
-            <div className="col-md-6">
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="शाखा प्रबंधक का नाम"
                 value={data.managerNameHindi}
@@ -406,7 +379,19 @@ function BranchInfo() {
                 name="managerNameHindi"
                 className="form-control mb-3"
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <textarea
+                name="address"
+                placeholder="Address"
+                className="form-control mb-3"
+                value={data.address}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="पता"
                 value={data.addressHindi}
@@ -428,7 +413,22 @@ function BranchInfo() {
                   />
                 )}
               />
+            </Col>
+          </Row>
 
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="contactNumber"
+                placeholder="Contact Number"
+                className="form-control mb-3"
+                value={data.contactNumber}
+                onChange={handleChange}
+                maxLength={10}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="संपर्क संख्या"
                 value={data.contactNumberHindi}
@@ -443,7 +443,21 @@ function BranchInfo() {
                 className="form-control mb-3"
                 maxLength={10}
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                className="form-control mb-3"
+                value={data.email}
+                onChange={handleChange}
+                maxLength={55}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="ईमेल आईडी"
                 value={data.emailHindi}
@@ -458,20 +472,28 @@ function BranchInfo() {
                 className="form-control mb-3"
                 maxLength={55}
               />
-            </div>
-            <Col md={6} className="mb-4 fw-bold">
-              In case of non-resolution of grievances within 7 days to your
-              satisfaction, our customers may escalate their grievance to the
-              Regional Nodal Officer(s) and thereafter to the Principal Nodal
-              Officer after expiry of further 7 days. .
             </Col>
-            <Col md={6} className="mb-4 fw-bold">
-              यदि आपकी शिकायत ७ दिनो के भीतर हल नही होती हैं, तो आप हमारे
-              क्षेत्रीए नोडल अधिकारी से संपर्क कर सकते हैं। अतिरिक्त ७ दिन की
-              समाप्ति के बाद प्रमुख नोडल अिधकारी से संपर्क किया जा सकता है |
+          </Row>
+
+          <Row>
+            <Col sm={6}>
+              <div className="mb-sm-4 mb-2 fw-bold">
+                In case of non-resolution of grievances within 7 days to your
+                satisfaction, our customers may escalate their grievance to the
+                Regional Nodal Officer(s) and thereafter to the Principal Nodal
+                Officer after expiry of further 7 days. .
+              </div>
             </Col>
-            {/* English */}
-            <div className="col-md-6">
+            <Col sm={6}>
+              <div className="mb-4 fw-bold">
+                यदि आपकी शिकायत ७ दिनो के भीतर हल नही होती हैं, तो आप हमारे
+                क्षेत्रीए नोडल अधिकारी से संपर्क कर सकते हैं। अतिरिक्त ७ दिन की
+                समाप्ति के बाद प्रमुख नोडल अिधकारी से संपर्क किया जा सकता है |
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
               <input
                 type="text"
                 name="regionalOfficer"
@@ -480,46 +502,8 @@ function BranchInfo() {
                 value={data.regionalOfficer}
                 onChange={handleChange}
               />
-
-              <input
-                type="text"
-                name="regionalName"
-                placeholder="Name"
-                className="form-control mb-3"
-                value={data.regionalName}
-                onChange={handleChange}
-              />
-
-              <textarea
-                name="regionalAddress"
-                placeholder="Address"
-                className="form-control mb-3"
-                value={data.regionalAddress}
-                onChange={handleChange}
-              />
-
-              <input
-                type="text"
-                name="regionalContactNumber"
-                placeholder="Contact Number"
-                className="form-control mb-3"
-                value={data.regionalContactNumber}
-                onChange={handleChange}
-                maxLength={10}
-              />
-
-              <input
-                type="text"
-                name="regionalEmail"
-                placeholder="Email"
-                className="form-control mb-3"
-                value={data.regionalEmail}
-                onChange={handleChange}
-                maxLength={55}
-              />
-            </div>
-            {/* Hindi */}
-            <div className="col-md-6">
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="क्षेत्रीय नोडल अधिकारी"
                 value={data.regionalOfficerHindi}
@@ -533,6 +517,20 @@ function BranchInfo() {
                 name="regionalOfficerHindi"
                 className="form-control mb-3"
               />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="regionalName"
+                placeholder="Name"
+                className="form-control mb-3"
+                value={data.regionalName}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="नाम"
                 value={data.regionalNameHindi}
@@ -546,7 +544,19 @@ function BranchInfo() {
                 name="regionalNameHindi"
                 className="form-control mb-3"
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <textarea
+                name="regionalAddress"
+                placeholder="Address"
+                className="form-control mb-3"
+                value={data.regionalAddress}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="पता"
                 value={data.regionalAddressHindi}
@@ -568,7 +578,21 @@ function BranchInfo() {
                   />
                 )}
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="regionalContactNumber"
+                placeholder="Contact Number"
+                className="form-control mb-3"
+                value={data.regionalContactNumber}
+                onChange={handleChange}
+                maxLength={10}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="संपर्क संख्या"
                 value={data.regionalContactNumberHindi}
@@ -583,7 +607,21 @@ function BranchInfo() {
                 className="form-control mb-3"
                 maxLength={10}
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="regionalEmail"
+                placeholder="Email"
+                className="form-control mb-3"
+                value={data.regionalEmail}
+                onChange={handleChange}
+                maxLength={55}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="ईमेल आईडी"
                 value={data.regionalEmailHindi}
@@ -598,9 +636,10 @@ function BranchInfo() {
                 className="form-control mb-3"
                 maxLength={55}
               />
-            </div>
-            {/* English */}
-            <div className="col-md-6">
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
               <input
                 type="text"
                 name="principalOfficer"
@@ -609,46 +648,8 @@ function BranchInfo() {
                 value={data.principalOfficer}
                 onChange={handleChange}
               />
-
-              <input
-                type="text"
-                name="principalName"
-                placeholder="Name"
-                className="form-control mb-3"
-                value={data.principalName}
-                onChange={handleChange}
-              />
-
-              <textarea
-                name="principalAddress"
-                placeholder="Address"
-                className="form-control mb-3"
-                value={data.principalAddress}
-                onChange={handleChange}
-              />
-
-              <input
-                type="text"
-                name="principalContactNumber"
-                placeholder="Contact Number"
-                className="form-control mb-3"
-                value={data.principalContactNumber}
-                onChange={handleChange}
-                maxLength={10}
-              />
-
-              <input
-                type="text"
-                name="principalEmail"
-                placeholder="Email"
-                className="form-control mb-3"
-                value={data.principalEmail}
-                onChange={handleChange}
-                maxLength={55}
-              />
-            </div>
-            {/* Hindi */}
-            <div className="col-md-6">
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="प्रधान नोडल अधिकारी"
                 value={data.principalOfficerHindi}
@@ -662,6 +663,20 @@ function BranchInfo() {
                 name="principalOfficerHindi"
                 className="form-control mb-3"
               />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="principalName"
+                placeholder="Name"
+                className="form-control mb-3"
+                value={data.principalName}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="नाम"
                 value={data.principalNameHindi}
@@ -675,7 +690,19 @@ function BranchInfo() {
                 name="principalNameHindi"
                 className="form-control mb-3"
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <textarea
+                name="principalAddress"
+                placeholder="Address"
+                className="form-control mb-3"
+                value={data.principalAddress}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="पता"
                 value={data.principalAddressHindi}
@@ -697,7 +724,21 @@ function BranchInfo() {
                   />
                 )}
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="principalContactNumber"
+                placeholder="Contact Number"
+                className="form-control mb-3"
+                value={data.principalContactNumber}
+                onChange={handleChange}
+                maxLength={10}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="संपर्क संख्या"
                 value={data.principalContactNumberHindi}
@@ -712,7 +753,21 @@ function BranchInfo() {
                 className="form-control mb-3"
                 maxLength={10}
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="principalEmail"
+                placeholder="Email"
+                className="form-control mb-3"
+                value={data.principalEmail}
+                onChange={handleChange}
+                maxLength={55}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="ईमेल आईडी"
                 value={data.principalEmailHindi}
@@ -727,16 +782,23 @@ function BranchInfo() {
                 className="form-control mb-3"
                 maxLength={55}
               />
-            </div>
-            <hr />
-            <Col md={6} className="mb-4 fw-bold">
-              Complaint can be lodged through below details.
             </Col>
-            <Col md={6} className="mb-4 fw-bold">
-              निम्नलिखित विवरण के माध्यम से शिकायत दर्ज की जा सकती है
+          </Row>
+          <hr />
+          <Row>
+            <Col sm={6}>
+              <div className="mb-sm-4 mb-2 fw-bold">
+                Complaint can be lodged through below details.
+              </div>
             </Col>
-            {/* English */}
-            <div className="col-md-6">
+            <Col sm={6}>
+              <div className="mb-4 fw-bold">
+                निम्नलिखित विवरण के माध्यम से शिकायत दर्ज की जा सकती है
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
               <input
                 type="text"
                 name="complainUrl"
@@ -745,28 +807,8 @@ function BranchInfo() {
                 value={data.complainUrl}
                 onChange={handleChange}
               />
-
-              <input
-                type="text"
-                name="complainEmail"
-                placeholder="Email"
-                className="form-control mb-3"
-                value={data.complainEmail}
-                onChange={handleChange}
-                maxLength={55}
-              />
-
-              <input
-                type="text"
-                name="complainAddress"
-                placeholder="Address"
-                className="form-control mb-3"
-                value={data.complainAddress}
-                onChange={handleChange}
-              />
-            </div>
-            {/* Hindi */}
-            <div className="col-md-6">
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="यू. आर. एल."
                 value={data.complainUrlHindi}
@@ -780,6 +822,21 @@ function BranchInfo() {
                 name="complainUrlHindi"
                 className="form-control mb-3"
               />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="complainEmail"
+                placeholder="Email"
+                className="form-control mb-3"
+                value={data.complainEmail}
+                onChange={handleChange}
+                maxLength={55}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="ईमेल आईडी"
                 value={data.complainEmailHindi}
@@ -794,7 +851,20 @@ function BranchInfo() {
                 className="form-control mb-3"
                 maxLength={55}
               />
-
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="complainAddress"
+                placeholder="Address"
+                className="form-control mb-3"
+                value={data.complainAddress}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
               <ReactTransliterate
                 placeholder="पता"
                 value={data.complainAddressHindi}
@@ -808,13 +878,15 @@ function BranchInfo() {
                 name="complainAddressHindi"
                 className="form-control mb-3"
               />
-            </div>
-            <Col md={6} className="mb-4">
-              <h5 className="mb-4 text-primary">
+            </Col>
+          </Row>
+          <Row>
+            <Col xl={6}>
+              <h5 className="mt-xl-0 mt-4 mb-4 text-primary">
                 Authority to receive notices on behalf of AU Small Finance
                 Bank{" "}
               </h5>
-              <div className="">
+              <div className="mb-5">
                 It is hereby notified that all notices under the payment of
                 GratuityAct, 1972 may be sent to{" "}
                 <Form.Control
@@ -823,7 +895,8 @@ function BranchInfo() {
                   placeholder="Officer's Name"
                   name="officerName"
                   value={data.officerName}
-                  onChange={handleChange} maxLength={55}
+                  onChange={handleChange}
+                  maxLength={55}
                 />{" "}
                 (Officer’s Name) associated with the Bank as Bank Manager
                 (Designation), who is authorized to receive all such Notices on
@@ -832,15 +905,18 @@ function BranchInfo() {
                 Rules), 1972.
               </div>
             </Col>
-            <Col md={6} className="mb-3">
+            <Col xl={6} className="mb-3">
               <h5 className="mb-4 text-primary">Emergency Contact Number </h5>
               <Form.Group className="mb-3">
-                <Form.Control 
-                name="branchName"
-                value={data.branchName}
-                onChange={handleChange} maxLength={155} placeholder="Branch Name / शाखा" />
+                <Form.Control
+                  name="branchName"
+                  value={data.branchName}
+                  onChange={handleChange}
+                  maxLength={155}
+                  placeholder="Branch Name / शाखा"
+                />
               </Form.Group>
-              <Row className="g-3">
+              <Row className="g-3 d-md-flex d-none">
                 <Col md={4}>
                   <label htmlFor="">Particulars / विवरण</label>
                 </Col>
@@ -850,20 +926,28 @@ function BranchInfo() {
                 <Col md={4}>
                   <label htmlFor="">Phone No. / फोन नंबर</label>
                 </Col>
+              </Row>
+              <Row className="g-3">
                 <Col md={4}>
                   <label htmlFor=""> Branch Manager / शाखा प्रबंधक </label>
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="branchMangerName"
-                  value={data.branchMangerName}
-                  onChange={handleChange} maxLength={155} placeholder="Name / नाम" />
+                  <Form.Control
+                    name="branchMangerName"
+                    value={data.branchMangerName}
+                    onChange={handleChange}
+                    maxLength={155}
+                    placeholder="Name / नाम"
+                  />
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="branchMangerContact"
-                  value={data.branchMangerContact}
-                  onChange={handleChange} maxLength={10} placeholder="Phone No. / फोन नंबर" />
+                  <Form.Control
+                    name="branchMangerContact"
+                    value={data.branchMangerContact}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="Phone No. / फोन नंबर"
+                  />
                 </Col>
                 <Col md={4}>
                   <label htmlFor="">
@@ -872,89 +956,119 @@ function BranchInfo() {
                   </label>
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="branchServiceMangerName"
-                  value={data.branchServiceMangerName}
-                  onChange={handleChange} maxLength={155} placeholder="Name / नाम" />
+                  <Form.Control
+                    name="branchServiceMangerName"
+                    value={data.branchServiceMangerName}
+                    onChange={handleChange}
+                    maxLength={155}
+                    placeholder="Name / नाम"
+                  />
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="branchServiceMangerContact"
-                  value={data.branchServiceMangerContact}
-                  onChange={handleChange} maxLength={10} placeholder="Phone No. / फोन नंबर" />
+                  <Form.Control
+                    name="branchServiceMangerContact"
+                    value={data.branchServiceMangerContact}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="Phone No. / फोन नंबर"
+                  />
                 </Col>
                 <Col md={4}>
                   <label htmlFor="">Police / पुलिस</label>
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="policeName"
-                  value={data.policeName}
-                  onChange={handleChange} maxLength={155} placeholder="Name / नाम" />
+                  <Form.Control
+                    name="policeName"
+                    value={data.policeName}
+                    onChange={handleChange}
+                    maxLength={155}
+                    placeholder="Name / नाम"
+                  />
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="policeContact"
-                  value={data.policeContact}
-                  onChange={handleChange} maxLength={10} placeholder="Phone No. / फोन नंबर" />
+                  <Form.Control
+                    name="policeContact"
+                    value={data.policeContact}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="Phone No. / फोन नंबर"
+                  />
                 </Col>
                 <Col md={4}>
                   <label htmlFor="">Fire / आग </label>
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="fireName"
-                  value={data.fireName}
-                  onChange={handleChange} maxLength={155} placeholder="Name / नाम" />
+                  <Form.Control
+                    name="fireName"
+                    value={data.fireName}
+                    onChange={handleChange}
+                    maxLength={155}
+                    placeholder="Name / नाम"
+                  />
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="fireContact"
-                  value={data.fireContact}
-                  onChange={handleChange} maxLength={10} placeholder="Phone No. / फोन नंबर" />
+                  <Form.Control
+                    name="fireContact"
+                    value={data.fireContact}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="Phone No. / फोन नंबर"
+                  />
                 </Col>
                 <Col md={4}>
                   <label htmlFor="">Nearest Hospital / निकटतम अस्पताल </label>
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="hospitalName"
-                  value={data.hospitalName}
-                  onChange={handleChange} maxLength={155} placeholder="Name / नाम" />
+                  <Form.Control
+                    name="hospitalName"
+                    value={data.hospitalName}
+                    onChange={handleChange}
+                    maxLength={155}
+                    placeholder="Name / नाम"
+                  />
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="hospitalContact"
-                  value={data.hospitalContact}
-                  onChange={handleChange} maxLength={10} placeholder="Phone No. / फोन नंबर" />
+                  <Form.Control
+                    name="hospitalContact"
+                    value={data.hospitalContact}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="Phone No. / फोन नंबर"
+                  />
                 </Col>
                 <Col md={4}>
                   <label htmlFor="">Ambulance / रोगी वाहन</label>
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="ambulanceName"
-                  value={data.ambulanceName}
-                  onChange={handleChange} maxLength={155} placeholder="Name / नाम" />
+                  <Form.Control
+                    name="ambulanceName"
+                    value={data.ambulanceName}
+                    onChange={handleChange}
+                    maxLength={155}
+                    placeholder="Name / नाम"
+                  />
                 </Col>
                 <Col md={4}>
-                  <Form.Control 
-                  name="ambulanceContact"
-                  value={data.ambulanceContact}
-                  onChange={handleChange} maxLength={10} placeholder="Phone No. / फोन नंबर" />
+                  <Form.Control
+                    name="ambulanceContact"
+                    value={data.ambulanceContact}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="Phone No. / फोन नंबर"
+                  />
                 </Col>
               </Row>
             </Col>
 
-            <Col md={6}>
+            <Col sm={6}>
               <img src={sign} alt="Signature" />
               <p>
                 <strong>Name: Mr. Yogesh Soni</strong> <br />
                 Designation: Head of Branch Banking Operations
               </p>
             </Col>
-            <Col md={6}>
-              <Form.Group className="text-end mt-4">
+            <Col sm={6}>
+              <Form.Group className="text-sm-end mt-4">
                 <Button
                   type="submit"
                   variant="primary"

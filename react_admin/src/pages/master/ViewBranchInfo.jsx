@@ -17,7 +17,7 @@ import { decode as base64_decode, encode as base64_encode } from "base-64";
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
 import { ReactTransliterate } from "react-transliterate";
-import  axios  from "axios";
+import axios from "axios";
 
 function BranchInfo() {
   const params = useParams();
@@ -44,7 +44,7 @@ function BranchInfo() {
         }
       })
       .catch((error) => {
-        console.log('Error>>> ', error.status, error);
+        console.log("Error>>> ", error.status, error);
         if (error.status === 403) {
           // handleLogout();
         }
@@ -196,10 +196,11 @@ function BranchInfo() {
       ) : (
         ""
       )}
-      <section className="container py-5">
-        <img src={logo} alt="logo" />
-
-        <div className="table-view bg-white rounded-4 p-5 mt-4">
+      <section className="container branch-form-preview py-5">
+        <div className="text-md-start text-center">
+          <img src={logo} alt="logo" />
+        </div>
+        <div className="table-view bg-white rounded-4 p-md-5 p-4 mt-4">
           {error && <Alert variant="danger">⚠️{error}</Alert>}
           {successMsg && <Alert variant="success">{successMsg}</Alert>}
 
@@ -215,13 +216,13 @@ function BranchInfo() {
             </div>
 
             <Row>
-              <Col md={6} className="mb-4 fw-bold">
+              <Col md={6} className="mb-md-4 mb-2 fw-bold">
                 While we always strive to provide the best of customer service,
                 there may be occasions, when our customers’ requirement might
                 not be fully met. Such incidents may please be brought to the
                 notice of the Branch Manager.
               </Col>
-              <Col md={6} className="mb-4 fw-bold">
+              <Col md={6} className="mb-md-4 mb-2 fw-bold">
                 हम हमेशा सर्वश्रेष्ठ ग्राहक सेवा प्रदान करने का प्रयास करते हैं,
                 परन्तु कई बार ऐसे अवसर हो सकते है, जब हमारे ग्राहकों की
                 आवश्यकताओं को पूरा नही किया गया है। ऐसी घटनाओं को कृपया शाखा
@@ -232,11 +233,11 @@ function BranchInfo() {
             <ListGroup as="ul" variant="flush" className="mb-5">
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Branch Manager Name</small>
                     <p className="fw-medium m-0">{data.managerName}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">शाखा प्रबंधक का नाम</small>
                     <p className="fw-medium m-0">{data.managerNameHindi}</p>
                   </Col>
@@ -244,11 +245,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Address</small>
                     <p className="fw-medium m-0">{data.address}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">पता</small>
                     <p className="fw-medium m-0">{data.addressHindi}</p>
                   </Col>
@@ -256,11 +257,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Contact Number</small>
                     <p className="fw-medium m-0">{data.contactNumber}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">संपर्क संख्या</small>
                     <p className="fw-medium m-0">{data.contactNumberHindi}</p>
                   </Col>
@@ -268,11 +269,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Email</small>
                     <p className="fw-medium m-0">{data.email}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">ईमेल</small>
                     <p className="fw-medium m-0">{data.emailHindi}</p>
                   </Col>
@@ -280,26 +281,26 @@ function BranchInfo() {
               </ListGroup.Item>
             </ListGroup>
             <Row>
-              <Col md={6} className="mb-4 fw-bold">
+              <Col md={6} className="mb-md-4 mb-2 fw-bold">
                 In case of non-resolution of grievances within 7 days to your
                 satisfaction, our customers may escalate their grievance to the
                 Regional Nodal Officer(s) and thereafter to the Principal Nodal
                 Officer after expiry of further 7 days.
               </Col>
-              <Col md={6} className="mb-4 fw-bold">
+              <Col md={6} className="mb-md-4 mb-2 fw-bold">
                 यदि आपकी शिकायत ७ दिनो के भीतर हल नही होती हैं, तो आप हमारे
                 क्षेत्रीए नोडल अधिकारी से संपर्क कर सकते हैं। अतिरिक्त ७ दिन की
                 समाप्ति के बाद प्रमुख नोडल अिधकारी से संपर्क किया जा सकता है |
               </Col>
             </Row>
-            <ListGroup as="ul" variant="flush" className="mb-5">
+            <ListGroup as="ul" variant="flush" className="mb-md-5">
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Regional Nodal Officer</small>
                     <p className="fw-medium m-0">{data.regionalOfficer}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">क्षेत्रीय नोडल अधिकारी</small>
                     <p className="fw-medium m-0">{data.regionalOfficerHindi}</p>
                   </Col>
@@ -307,11 +308,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Name</small>
                     <p className="fw-medium m-0">{data.regionalName}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">नाम</small>
                     <p className="fw-medium m-0">{data.regionalNameHindi}</p>
                   </Col>
@@ -319,11 +320,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Address</small>
                     <p className="fw-medium m-0">{data.regionalAddress}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">पता</small>
                     <p className="fw-medium m-0">{data.regionalAddressHindi}</p>
                   </Col>
@@ -331,13 +332,13 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Contact Number</small>
                     <p className="fw-medium m-0">
                       {data.regionalContactNumber}
                     </p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">संपर्क संख्या</small>
                     <p className="fw-medium m-0">
                       {data.regionalContactNumberHindi}
@@ -347,11 +348,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Email</small>
                     <p className="fw-medium m-0">{data.regionalEmail}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">ईमेल</small>
                     <p className="fw-medium m-0">{data.regionalEmailHindi}</p>
                   </Col>
@@ -362,13 +363,13 @@ function BranchInfo() {
             <ListGroup as="ul" variant="flush" className="mb-5">
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">
                       Principal Nodal Officer
                     </small>
                     <p className="fw-medium m-0">{data.principalOfficer}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">क्षेत्रीय नोडल अधिकारी</small>
                     <p className="fw-medium m-0">
                       {data.principalOfficerHindi}
@@ -378,11 +379,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Name</small>
                     <p className="fw-medium m-0">{data.principalName}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">नाम</small>
                     <p className="fw-medium m-0">{data.principalNameHindi}</p>
                   </Col>
@@ -390,11 +391,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Address</small>
                     <p className="fw-medium m-0">{data.principalAddress}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">पता</small>
                     <p className="fw-medium m-0">
                       {data.principalAddressHindi}
@@ -404,13 +405,13 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Contact Number</small>
                     <p className="fw-medium m-0">
                       {data.principalContactNumber}
                     </p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">संपर्क संख्या</small>
                     <p className="fw-medium m-0">
                       {data.principalContactNumberHindi}
@@ -420,11 +421,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Email</small>
                     <p className="fw-medium m-0">{data.principalEmail}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">ईमेल</small>
                     <p className="fw-medium m-0">{data.principalEmailHindi}</p>
                   </Col>
@@ -433,21 +434,21 @@ function BranchInfo() {
             </ListGroup>
 
             <Row>
-              <Col md={6} className="mb-4 fw-bold">
+              <Col md={6} className="mb-md-4 mb-2 fw-bold">
                 Complaint can be lodged through below details.
               </Col>
-              <Col md={6} className="mb-4 fw-bold">
+              <Col md={6} className="mb-md-4 mb-2 fw-bold">
                 निम्नलिखित विवरण के माध्यम से शिकायत दर्ज की जा सकती है
               </Col>
             </Row>
             <ListGroup as="ul" variant="flush" className="mb-5">
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Complain URL</small>
                     <p className="fw-medium m-0">{data.complainUrl}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">यू. आर. एल.</small>
                     <p className="fw-medium m-0">{data.complainUrlHindi}</p>
                   </Col>
@@ -455,11 +456,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Email</small>
                     <p className="fw-medium m-0">{data.complainEmail}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">ईमेल</small>
                     <p className="fw-medium m-0">{data.complainEmailHindi}</p>
                   </Col>
@@ -467,11 +468,11 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">Address</small>
                     <p className="fw-medium m-0">{data.complainAddress}</p>
                   </Col>
-                  <Col sm={6}>
+                  <Col md={6}>
                     <small className="text-muted">पता</small>
                     <p className="fw-medium m-0">{data.complainAddressHindi}</p>
                   </Col>
@@ -499,7 +500,7 @@ function BranchInfo() {
                 <small className="text-muted">Branch Name / शाखा नाम</small>
                 <p className="fw-medium m-0">{data.branchName}</p>
               </ListGroup.Item>
-              <ListGroup.Item as="li">
+              <ListGroup.Item as="li" className="d-md-block d-none">
                 <Row className="g-4">
                   <Col sm={4}>Particulars / विवरण</Col>
                   <Col sm={4}>Name / नाम</Col>
@@ -508,47 +509,99 @@ function BranchInfo() {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={4}>Branch Manager / शाखा प्रबंधक</Col>
-                  <Col sm={4}>{data.branchMangerName}</Col>
-                  <Col sm={4}>{data.branchMangerContact}</Col>
+                  <Col md={4}>Branch Manager / शाखा प्रबंधक</Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">Name / नाम</small>
+                    <p className="fw-medium m-0">{data.branchMangerName}</p>
+                  </Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">
+                      Phone No. / फोन नंबर
+                    </small>
+                    <p className="fw-medium m-0">{data.branchMangerContact}</p>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={4}>
+                  <Col md={4}>
                     Branch Operations & Service Manager / शाखा संचालन एवं सेवा
                     प्रबंधक
                   </Col>
-                  <Col sm={4}>{data.branchServiceMangerName}</Col>
-                  <Col sm={4}>{data.branchServiceMangerContact}</Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">Name / नाम</small>
+                    <p className="fw-medium m-0">
+                      {data.branchServiceMangerName}
+                    </p>
+                  </Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">
+                      Phone No. / फोन नंबर
+                    </small>
+                    <p className="fw-medium m-0">
+                      {data.branchServiceMangerContact}
+                    </p>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={4}>Police / पुलिस</Col>
-                  <Col sm={4}>{data.policeName}</Col>
-                  <Col sm={4}>{data.policeContact}</Col>
+                  <Col md={4}>Police / पुलिस</Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">Name / नाम</small>
+                    <p className="fw-medium m-0">{data.policeName}</p>
+                  </Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">
+                      Phone No. / फोन नंबर
+                    </small>
+                    <p className="fw-medium m-0">{data.policeContact}</p>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={4}>Fire / आग</Col>
-                  <Col sm={4}>{data.fireName}</Col>
-                  <Col sm={4}>{data.fireContact}</Col>
+                  <Col md={4}>Fire / आग</Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">Name / नाम</small>
+                    <p className="fw-medium m-0">{data.fireName}</p>
+                  </Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">
+                      Phone No. / फोन नंबर
+                    </small>
+                    <p className="fw-medium m-0">{data.fireContact}</p>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={4}>Nearest Hospital / निकटतम अस्पताल</Col>
-                  <Col sm={4}>{data.hospitalName}</Col>
-                  <Col sm={4}>{data.hospitalContact}</Col>
+                  <Col md={4}>Nearest Hospital / निकटतम अस्पताल</Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">Name / नाम</small>
+                    <p className="fw-medium m-0">{data.hospitalName}</p>
+                  </Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">
+                      Phone No. / फोन नंबर
+                    </small>
+                    <p className="fw-medium m-0">{data.hospitalContact}</p>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 <Row className="g-4">
-                  <Col sm={4}>Ambulance / रोगी वाहन</Col>
-                  <Col sm={4}>{data.ambulanceName}</Col>
-                  <Col sm={4}>{data.ambulanceContact}</Col>
+                  <Col md={4}>Ambulance / रोगी वाहन</Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">Name / नाम</small>
+                    <p className="fw-medium m-0">{data.ambulanceName}</p>
+                  </Col>
+                  <Col md={4} xs={6}>
+                    <small className="text-muted d-md-none">
+                      Phone No. / फोन नंबर
+                    </small>
+                    <p className="fw-medium m-0">{data.ambulanceContact}</p>
+                  </Col>
                 </Row>
               </ListGroup.Item>
             </ListGroup>

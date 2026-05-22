@@ -1,5 +1,6 @@
 import {
-  Badge, Alert,
+  Badge,
+  Alert,
   Row,
   Col,
   Button,
@@ -36,7 +37,7 @@ function Branch() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  
+
   const authToken = localStorage.getItem("auth-token");
   const user = jwtDecode(authToken);
   let hasAccess = true;
@@ -147,7 +148,6 @@ function Branch() {
   };
 
   const deleteBranch = async (index, branchId) => {
-    
     const result = await Swal.fire({
       title: "Are you sure to delete Branch?",
       text: "This action cannot be undone.",
@@ -175,7 +175,7 @@ function Branch() {
     await axiosInstance
       .post(`/branch/delete`, body)
       .then((response) => {
-        console.log('>>> ', response.data);
+        console.log(">>> ", response.data);
         setSuccessMsg(response?.data?.message);
         setIsLoading(false);
         if (response.data.status === "success") {
@@ -253,28 +253,32 @@ function Branch() {
                     <td>{item.serialNumber}</td>
                     <td>{item.category}</td>
                     <td>
-                      <OverlayTrigger overlay={<Tooltip>Form URL</Tooltip>}>
-                        <Link
-                          to={`${adminAlias}/branchInfo/${base64_encode(
-                            `Hvg_myg8Bbg5vvdgvpp+` + item.id,
-                          )}`}
-                          className="btn btn-icon btn-light"
+                      <div className="d-flex gap-2">
+                        <OverlayTrigger overlay={<Tooltip>Form URL</Tooltip>}>
+                          <Link
+                            to={`${adminAlias}/branchInfo/${base64_encode(
+                              `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                            )}`}
+                            className="btn btn-icon btn-light"
+                          >
+                            <BiLink />
+                          </Link>
+                        </OverlayTrigger>
+
+                        <OverlayTrigger
+                          overlay={<Tooltip>Form Preview</Tooltip>}
                         >
-                          <BiLink />
-                        </Link>
-                      </OverlayTrigger>
-                      &nbsp;
-                      <OverlayTrigger overlay={<Tooltip>Form Preview</Tooltip>}>
-                        <Link
-                          target="_blank"
-                          to={`${adminAlias}/viewBranchInfo/${base64_encode(
-                            `Hvg_myg8Bbg5vvdgvpp+` + item.id,
-                          )}`}
-                          className="btn btn-icon btn-light"
-                        >
-                          <BiFile />
-                        </Link>
-                      </OverlayTrigger>
+                          <Link
+                            target="_blank"
+                            to={`${adminAlias}/viewBranchInfo/${base64_encode(
+                              `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                            )}`}
+                            className="btn btn-icon btn-light"
+                          >
+                            <BiFile />
+                          </Link>
+                        </OverlayTrigger>
+                      </div>
                     </td>
                     <td>
                       <OverlayTrigger
@@ -297,29 +301,31 @@ function Branch() {
                     </td>
                     <td className="col-fixed">
                       <div className="d-flex gap-2">
-                      <OverlayTrigger overlay={<Tooltip>Edit Branch</Tooltip>}>
-                        <Link
-                          to={`${adminAlias}/editBranch/${base64_encode(
-                            `Hvg_myg8Bbg5vvdgvpp+` + item.id,
-                          )}`}
-                          className="btn btn-icon btn-light"
-                        >
-                          <BiPencil />
-                        </Link>
-                      </OverlayTrigger>
-                      &nbsp;
-                      {
-                        hasAccess && 
                         <OverlayTrigger
-                        overlay={<Tooltip>Delete Branch</Tooltip>}
+                          overlay={<Tooltip>Edit Branch</Tooltip>}
                         >
-                          <Link className="btn btn-icon btn-light"  onClick={() =>
-                            deleteBranch($index, item.id)
-                          }>
-                            <BiTrash />
+                          <Link
+                            to={`${adminAlias}/editBranch/${base64_encode(
+                              `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                            )}`}
+                            className="btn btn-icon btn-light"
+                          >
+                            <BiPencil />
                           </Link>
                         </OverlayTrigger>
-                      }
+
+                        {hasAccess && (
+                          <OverlayTrigger
+                            overlay={<Tooltip>Delete Branch</Tooltip>}
+                          >
+                            <Link
+                              className="btn btn-icon btn-light"
+                              onClick={() => deleteBranch($index, item.id)}
+                            >
+                              <BiTrash />
+                            </Link>
+                          </OverlayTrigger>
+                        )}
                       </div>
                     </td>
                   </tr>
