@@ -19,6 +19,7 @@ import {
   BiTrash,
   BiSolidCheckCircle,
   BiSolidXCircle,
+  BiDesktop,
 } from "react-icons/bi";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import axiosInstance from "../../helper/constants/axiosInstance";
@@ -288,7 +289,7 @@ function Branch() {
                             )}`}
                             className="btn btn-icon btn-light"
                           >
-                            <BiFile />
+                            <BiDesktop />
                           </Link>
                         </OverlayTrigger>
                       </div>

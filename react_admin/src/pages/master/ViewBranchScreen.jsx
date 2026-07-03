@@ -8,6 +8,7 @@ import {
   Button,
   ListGroup,
 } from "react-bootstrap";
+import "../../scss/components/_preview.scss";
 import sign from "../../assets/sign.jpg";
 import logo from "../../assets/logo.svg";
 import { useNavigate, useParams, Link } from "react-router-dom";
@@ -20,6 +21,13 @@ import { ReactTransliterate } from "react-transliterate";
 import axios from "axios";
 
 function BranchScreen() {
+  useEffect(() => {
+    document.body.classList.add("preview-page");
+
+    return () => {
+      document.body.classList.remove("preview-page");
+    };
+  }, []);
   const params = useParams();
   const decode = base64_decode(params.id);
   let id = decode.split("+")[1];
@@ -196,16 +204,16 @@ function BranchScreen() {
       ) : (
         ""
       )}
-      <section className="container branch-form-preview py-5">
+      <section className="container branch-form-preview">
         <div className="text-md-start text-center">
           <img src={logo} alt="logo" />
         </div>
-        <div className="table-view bg-white rounded-4 p-md-5 p-4 mt-4">
+        <div className="table-view bg-white rounded-4">
           {error && <Alert variant="danger">⚠️{error}</Alert>}
           {successMsg && <Alert variant="success">{successMsg}</Alert>}
 
           <Form>
-            <div className="text-center mb-4 bg-light rounded-4 p-3 h3 fw-normal">
+            <div className="text-center bg-light rounded-4 form-header fw-normal">
               <b>NOTICE - C</b>
               <h1
                 className="h6 opacity-50 text-center fw-medium mt-2 mb-0"
@@ -216,13 +224,13 @@ function BranchScreen() {
             </div>
 
             <Row>
-              <Col md={6} className="mb-md-4 mb-2 fw-bold">
+              <Col md={6} className="form-head fw-bold">
                 While we always strive to provide the best of customer service,
                 there may be occasions, when our customers’ requirement might
                 not be fully met. Such incidents may please be brought to the
                 notice of the Branch Manager.
               </Col>
-              <Col md={6} className="mb-md-4 mb-2 fw-bold">
+              <Col md={6} className="form-head fw-bold">
                 हम हमेशा सर्वश्रेष्ठ ग्राहक सेवा प्रदान करने का प्रयास करते हैं,
                 परन्तु कई बार ऐसे अवसर हो सकते है, जब हमारे ग्राहकों की
                 आवश्यकताओं को पूरा नही किया गया है। ऐसी घटनाओं को कृपया शाखा
@@ -230,16 +238,20 @@ function BranchScreen() {
               </Col>
             </Row>
 
-            <ListGroup as="ul" variant="flush" className="mb-5">
+            <ListGroup as="ul" variant="flush">
               <ListGroup.Item as="li">
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Branch Manager Name</small>
-                    <p className="fw-medium m-0">{data.managerName}</p>
+                    <p className="fw-medium m-0">
+                      {data.managerName?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">शाखा प्रबंधक का नाम</small>
-                    <p className="fw-medium m-0">{data.managerNameHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.managerNameHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -247,11 +259,15 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Address</small>
-                    <p className="fw-medium m-0">{data.address}</p>
+                    <p className="fw-medium m-0">
+                      {data.address?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">पता</small>
-                    <p className="fw-medium m-0">{data.addressHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.addressHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -259,11 +275,15 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Contact Number</small>
-                    <p className="fw-medium m-0">{data.contactNumber}</p>
+                    <p className="fw-medium m-0">
+                      {data.contactNumber?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">संपर्क संख्या</small>
-                    <p className="fw-medium m-0">{data.contactNumberHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.contactNumberHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -271,38 +291,46 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Email</small>
-                    <p className="fw-medium m-0">{data.email}</p>
+                    <p className="fw-medium m-0">
+                      {data.email?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">ईमेल</small>
-                    <p className="fw-medium m-0">{data.emailHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.emailHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
             </ListGroup>
             <Row>
-              <Col md={6} className="mb-md-4 mb-2 fw-bold">
+              <Col md={6} className="form-head fw-bold">
                 In case of non-resolution of grievances within 7 days to your
                 satisfaction, our customers may escalate their grievance to the
                 Regional Nodal Officer(s) and thereafter to the Principal Nodal
                 Officer after expiry of further 7 days.
               </Col>
-              <Col md={6} className="mb-md-4 mb-2 fw-bold">
+              <Col md={6} className="form-head fw-bold">
                 यदि आपकी शिकायत ७ दिनो के भीतर हल नही होती हैं, तो आप हमारे
                 क्षेत्रीए नोडल अधिकारी से संपर्क कर सकते हैं। अतिरिक्त ७ दिन की
                 समाप्ति के बाद प्रमुख नोडल अिधकारी से संपर्क किया जा सकता है |
               </Col>
             </Row>
-            <ListGroup as="ul" variant="flush" className="mb-md-5">
+            <ListGroup as="ul" variant="flush">
               <ListGroup.Item as="li">
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Regional Nodal Officer</small>
-                    <p className="fw-medium m-0">{data.regionalOfficer}</p>
+                    <p className="fw-medium m-0">
+                      {data.regionalOfficer?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">क्षेत्रीय नोडल अधिकारी</small>
-                    <p className="fw-medium m-0">{data.regionalOfficerHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.regionalOfficerHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -310,11 +338,15 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Name</small>
-                    <p className="fw-medium m-0">{data.regionalName}</p>
+                    <p className="fw-medium m-0">
+                      {data.regionalName?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">नाम</small>
-                    <p className="fw-medium m-0">{data.regionalNameHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.regionalNameHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -322,11 +354,15 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Address</small>
-                    <p className="fw-medium m-0">{data.regionalAddress}</p>
+                    <p className="fw-medium m-0">
+                      {data.regionalAddress?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">पता</small>
-                    <p className="fw-medium m-0">{data.regionalAddressHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.regionalAddressHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -335,13 +371,13 @@ function BranchScreen() {
                   <Col md={6}>
                     <small className="text-muted">Contact Number</small>
                     <p className="fw-medium m-0">
-                      {data.regionalContactNumber}
+                      {data.regionalContactNumber?.trim() || "--"}
                     </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">संपर्क संख्या</small>
                     <p className="fw-medium m-0">
-                      {data.regionalContactNumberHindi}
+                      {data.regionalContactNumberHindi?.trim() || "--"}
                     </p>
                   </Col>
                 </Row>
@@ -350,29 +386,35 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Email</small>
-                    <p className="fw-medium m-0">{data.regionalEmail}</p>
+                    <p className="fw-medium m-0">
+                      {data.regionalEmail?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">ईमेल</small>
-                    <p className="fw-medium m-0">{data.regionalEmailHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.regionalEmailHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
             </ListGroup>
 
-            <ListGroup as="ul" variant="flush" className="mb-5">
+            <ListGroup as="ul" variant="flush">
               <ListGroup.Item as="li">
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">
                       Principal Nodal Officer
                     </small>
-                    <p className="fw-medium m-0">{data.principalOfficer}</p>
+                    <p className="fw-medium m-0">
+                      {data.principalOfficer?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">क्षेत्रीय नोडल अधिकारी</small>
                     <p className="fw-medium m-0">
-                      {data.principalOfficerHindi}
+                      {data.principalOfficerHindi?.trim() || "--"}
                     </p>
                   </Col>
                 </Row>
@@ -381,11 +423,15 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Name</small>
-                    <p className="fw-medium m-0">{data.principalName}</p>
+                    <p className="fw-medium m-0">
+                      {data.principalName?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">नाम</small>
-                    <p className="fw-medium m-0">{data.principalNameHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.principalNameHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -393,12 +439,14 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Address</small>
-                    <p className="fw-medium m-0">{data.principalAddress}</p>
+                    <p className="fw-medium m-0">
+                      {data.principalAddress?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">पता</small>
                     <p className="fw-medium m-0">
-                      {data.principalAddressHindi}
+                      {data.principalAddressHindi?.trim() || "--"}
                     </p>
                   </Col>
                 </Row>
@@ -408,13 +456,13 @@ function BranchScreen() {
                   <Col md={6}>
                     <small className="text-muted">Contact Number</small>
                     <p className="fw-medium m-0">
-                      {data.principalContactNumber}
+                      {data.principalContactNumber?.trim() || "--"}
                     </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">संपर्क संख्या</small>
                     <p className="fw-medium m-0">
-                      {data.principalContactNumberHindi}
+                      {data.principalContactNumberHindi?.trim() || "--"}
                     </p>
                   </Col>
                 </Row>
@@ -423,34 +471,42 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Email</small>
-                    <p className="fw-medium m-0">{data.principalEmail}</p>
+                    <p className="fw-medium m-0">
+                      {data.principalEmail?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">ईमेल</small>
-                    <p className="fw-medium m-0">{data.principalEmailHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.principalEmailHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
             </ListGroup>
 
             <Row>
-              <Col md={6} className="mb-md-4 mb-2 fw-bold">
+              <Col md={6} className="form-head fw-bold">
                 Complaint can be lodged through below details.
               </Col>
-              <Col md={6} className="mb-md-4 mb-2 fw-bold">
+              <Col md={6} className="form-head fw-bold">
                 निम्नलिखित विवरण के माध्यम से शिकायत दर्ज की जा सकती है
               </Col>
             </Row>
-            <ListGroup as="ul" variant="flush" className="mb-5">
+            <ListGroup as="ul" variant="flush">
               <ListGroup.Item as="li">
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Complain URL</small>
-                    <p className="fw-medium m-0">{data.complainUrl}</p>
+                    <p className="fw-medium m-0">
+                      {data.complainUrl?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">यू. आर. एल.</small>
-                    <p className="fw-medium m-0">{data.complainUrlHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.complainUrlHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -458,11 +514,15 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Email</small>
-                    <p className="fw-medium m-0">{data.complainEmail}</p>
+                    <p className="fw-medium m-0">
+                      {data.complainEmail?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">ईमेल</small>
-                    <p className="fw-medium m-0">{data.complainEmailHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.complainEmailHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -470,11 +530,15 @@ function BranchScreen() {
                 <Row className="g-4">
                   <Col md={6}>
                     <small className="text-muted">Address</small>
-                    <p className="fw-medium m-0">{data.complainAddress}</p>
+                    <p className="fw-medium m-0">
+                      {data.complainAddress?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={6}>
                     <small className="text-muted">पता</small>
-                    <p className="fw-medium m-0">{data.complainAddressHindi}</p>
+                    <p className="fw-medium m-0">
+                      {data.complainAddressHindi?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -495,10 +559,12 @@ function BranchScreen() {
             </div>
 
             <h5 className="mb-4 text-primary">Emergency Contact Number </h5>
-            <ListGroup as="ul" variant="flush" className="mb-5">
+            <ListGroup as="ul" variant="flush">
               <ListGroup.Item as="li">
                 <small className="text-muted">Branch Name / शाखा नाम</small>
-                <p className="fw-medium m-0">{data.branchName}</p>
+                <p className="fw-medium m-0">
+                  {data.branchName?.trim() || "--"}
+                </p>
               </ListGroup.Item>
               <ListGroup.Item as="li" className="d-md-block d-none">
                 <Row className="g-4">
@@ -512,13 +578,17 @@ function BranchScreen() {
                   <Col md={4}>Branch Manager / शाखा प्रबंधक</Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">{data.branchMangerName}</p>
+                    <p className="fw-medium m-0">
+                      {data.branchMangerName?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">
                       Phone No. / फोन नंबर
                     </small>
-                    <p className="fw-medium m-0">{data.branchMangerContact}</p>
+                    <p className="fw-medium m-0">
+                      {data.branchMangerContact?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -531,7 +601,7 @@ function BranchScreen() {
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">Name / नाम</small>
                     <p className="fw-medium m-0">
-                      {data.branchServiceMangerName}
+                      {data.branchServiceMangerName?.trim() || "--"}
                     </p>
                   </Col>
                   <Col md={4} xs={6}>
@@ -539,7 +609,7 @@ function BranchScreen() {
                       Phone No. / फोन नंबर
                     </small>
                     <p className="fw-medium m-0">
-                      {data.branchServiceMangerContact}
+                      {data.branchServiceMangerContact?.trim() || "--"}
                     </p>
                   </Col>
                 </Row>
@@ -549,13 +619,17 @@ function BranchScreen() {
                   <Col md={4}>Police / पुलिस</Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">{data.policeName}</p>
+                    <p className="fw-medium m-0">
+                      {data.policeName?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">
                       Phone No. / फोन नंबर
                     </small>
-                    <p className="fw-medium m-0">{data.policeContact}</p>
+                    <p className="fw-medium m-0">
+                      {data.policeContact?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -564,13 +638,17 @@ function BranchScreen() {
                   <Col md={4}>Fire / आग</Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">{data.fireName}</p>
+                    <p className="fw-medium m-0">
+                      {data.fireName?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">
                       Phone No. / फोन नंबर
                     </small>
-                    <p className="fw-medium m-0">{data.fireContact}</p>
+                    <p className="fw-medium m-0">
+                      {data.fireContact?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -579,13 +657,17 @@ function BranchScreen() {
                   <Col md={4}>Nearest Hospital / निकटतम अस्पताल</Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">{data.hospitalName}</p>
+                    <p className="fw-medium m-0">
+                      {data.hospitalName?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">
                       Phone No. / फोन नंबर
                     </small>
-                    <p className="fw-medium m-0">{data.hospitalContact}</p>
+                    <p className="fw-medium m-0">
+                      {data.hospitalContact?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -594,13 +676,17 @@ function BranchScreen() {
                   <Col md={4}>Ambulance / रोगी वाहन</Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">{data.ambulanceName}</p>
+                    <p className="fw-medium m-0">
+                      {data.ambulanceName?.trim() || "--"}
+                    </p>
                   </Col>
                   <Col md={4} xs={6}>
                     <small className="text-muted d-md-none">
                       Phone No. / फोन नंबर
                     </small>
-                    <p className="fw-medium m-0">{data.ambulanceContact}</p>
+                    <p className="fw-medium m-0">
+                      {data.ambulanceContact?.trim() || "--"}
+                    </p>
                   </Col>
                 </Row>
               </ListGroup.Item>
