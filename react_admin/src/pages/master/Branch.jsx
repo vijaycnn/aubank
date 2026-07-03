@@ -278,6 +278,19 @@ function Branch() {
                             <BiFile />
                           </Link>
                         </OverlayTrigger>
+                        <OverlayTrigger
+                          overlay={<Tooltip>Screen Preview</Tooltip>}
+                        >
+                          <Link
+                            target="_blank"
+                            to={`${adminAlias}/viewBranchScreen/${base64_encode(
+                              `Hvg_myg8Bbg5vvdgvpp+` + item.id,
+                            )}`}
+                            className="btn btn-icon btn-light"
+                          >
+                            <BiFile />
+                          </Link>
+                        </OverlayTrigger>
                       </div>
                     </td>
                     <td>

@@ -24,6 +24,7 @@ import AddBranch from "./pages/master/AddBranch";
 import EditBranch from "./pages/master/EditBranch";
 import BranchInfo from "./pages/master/BranchInfo";
 import ViewBranchInfo from "./pages/master/ViewBranchInfo";
+import ViewBranchScreen from "./pages/master/ViewBranchScreen";
 
 const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
 
@@ -123,6 +124,10 @@ function App() {
                   <ViewBranchInfo />
               // </ProtectedRoute>
             }
+          />
+          <Route
+            path={`${adminAlias}/viewBranchScreen/:id`}
+            element={ <ViewBranchScreen /> }
           />
           <Route
             path={`${adminAlias}/users`}
