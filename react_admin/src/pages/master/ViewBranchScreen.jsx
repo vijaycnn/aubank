@@ -40,28 +40,32 @@ function BranchScreen() {
   const [previousData, setPreviousData] = useState(null);
 
   const getBranchDetails = async () => {
-    setLoading(true);
-    setPreviousData(null);
-    await axios
-      .get(`${baseURL}/branch/getBranchDetailById/${id}`)
-      .then((response) => {
-        // console.log(">>> ", response.data);
-        setLoading(false);
-        if (response.data.status === "success") {
-          setPreviousData(response?.data?.data);
-        }
-      })
-      .catch((error) => {
-        console.log("Error>>> ", error.status, error);
-        if (error.status === 403) {
-          // handleLogout();
-        }
-        setLoading(false);
-      });
+    try {
+      const response = await axios.get(
+        `${baseURL}/branch/getBranchDetailById/${id}`,
+      );
+
+      if (response.data.status === "success") {
+        setPreviousData(response.data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   useEffect(() => {
+    // Initial API call
     getBranchDetails();
-  }, []);
+
+    // Refresh every 3 seconds
+    const interval = setInterval(() => {
+      getBranchDetails();
+      // setLoading(true);
+      setPreviousData(null);
+    }, 3000);
+
+    // Cleanup on unmount
+    return () => clearInterval(interval);
+  }, [id]);
 
   const [data, setData] = useState({
     managerName: "",
