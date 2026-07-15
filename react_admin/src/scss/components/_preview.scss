@@ -4,6 +4,13 @@
   height: 100vw;
   transform: rotate(-90deg) translateX(-100vh);
   transform-origin: top left;
+  line-height: 1.2;
+  & .form-logo {
+    width: 15vh;
+  }
+  & .form-sign {
+    width: 10vh;
+  }
 
   & .branch-form-preview {
     padding: 2vh;
@@ -14,21 +21,22 @@
     margin-top: 1vh;
   }
   & .form-header {
-    font-size: 4vh;
-    padding: 1vh;
-    margin-bottom: 1vh;
+    font-size: 3vh;
+    padding: 0.7vh;
+    margin-bottom: 0.5vh;
+    border-radius: 1vh !important;
   }
   & h5 {
     font-size: 1.5vh;
   }
   & .h6 {
-    font-size: 1.5vh;
+    font-size: 1.25vh;
   }
   & .list-group {
-    margin-bottom: 1.5vh;
+    margin-bottom: 1.25vh;
   }
   & .form-head {
-    font-size: 1.5vh;
+    font-size: 1.25vh;
     margin-bottom: 1vh;
   }
   & .g-4,
