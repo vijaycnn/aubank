@@ -206,7 +206,7 @@ function BranchScreen() {
       )}
       <section className="container branch-form-preview">
         <div className="text-md-start text-center">
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" className="form-logo" />
         </div>
         <div className="table-view bg-white rounded-4">
           {error && <Alert variant="danger">⚠️{error}</Alert>}
@@ -216,7 +216,7 @@ function BranchScreen() {
             <div className="text-center bg-light rounded-4 form-header fw-normal">
               <b>NOTICE - C</b>
               <h1
-                className="h6 opacity-50 text-center fw-medium mt-2 mb-0"
+                className="h6 opacity-50 text-center fw-medium mb-0"
                 style={{ letterSpacing: "2px" }}
               >
                 GRIEVANCE REDRESSAL MECHANISM
@@ -693,7 +693,7 @@ function BranchScreen() {
             </ListGroup>
 
             <div className="text-end">
-              <img src={sign} alt="Signature" />
+              <img src={sign} alt="Signature" className="form-sign" />
               <p>
                 <strong>Name: Mr. Yogesh Soni</strong> <br />
                 Designation: Head of Branch Banking Operations
