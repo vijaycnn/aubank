@@ -602,3 +602,63 @@ textarea {
     }
   }
 }
+/////////
+.notice-b{
+    background:#f7e6e6;
+    padding:0;
+    border:1px solid #ccc;
+}
+
+.notice-header{
+    background:#6f1d80;
+    color:#fff;
+    font-size:52px;
+    font-weight:bold;
+    text-align:center;
+    padding:18px;
+}
+
+.left-column{
+    border-right:2px solid #7f3187;
+    padding:25px;
+}
+
+.right-column{
+    padding:25px;
+}
+
+.notice-section{
+    border-bottom:2px solid #9b6aa3;
+    padding-bottom:20px;
+    margin-bottom:25px;
+}
+
+.notice-section h5{
+    color:#ef7d1a;
+    text-align:center;
+    // font-weight:700;
+    font-size:20px;
+    margin-bottom:15px;
+}
+
+.notice-section p,
+.notice-section li{
+    font-size:15px;
+    line-height:1.6;
+}
+
+.notice-section table{
+    margin-top:15px;
+    border-color: #0000 !important;
+    border-style: solid 2px #000 !important;
+}
+.notice-section table tr td{
+    background-color: transparent;
+    border-color: #0000;
+    border-style: solid 2px #000 !important;
+}
+
+.footer{
+    text-align:center;
+    padding:20px;
+}

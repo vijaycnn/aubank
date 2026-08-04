@@ -99,6 +99,18 @@ function BranchInfo() {
     principalAddressHindi: "",
     principalContactNumberHindi: "",
     principalEmailHindi: "",
+    //ombudsman detail
+    ombudsmanPost: "",
+    ombudsmanName: "",
+    ombudsmanAddress: "",
+    ombudsmanContact: "",
+    ombudsmanEmail: "",
+
+    ombudsmanPostHindi: "",
+    ombudsmanNameHindi: "",
+    ombudsmanAddressHindi: "",
+    ombudsmanContactHindi: "",
+    ombudsmanEmailHindi: "",
 
     complainUrl: "",
     complainEmail: "",
@@ -160,6 +172,18 @@ function BranchInfo() {
         principalAddressHindi: previousData.principalAddressHindi,
         principalContactNumberHindi: previousData.principalContactNumberHindi,
         principalEmailHindi: previousData.principalEmailHindi,
+
+        ombudsmanPost: previousData.ombudsmanPost,
+        ombudsmanName: previousData.ombudsmanName,
+        ombudsmanAddress: previousData.ombudsmanAddress,
+        ombudsmanContact: previousData.ombudsmanContact,
+        ombudsmanEmail: previousData.ombudsmanEmail,
+
+        ombudsmanPostHindi: previousData.ombudsmanPostHindi,
+        ombudsmanNameHindi: previousData.ombudsmanNameHindi,
+        ombudsmanAddressHindi: previousData.ombudsmanAddressHindi,
+        ombudsmanContactHindi: previousData.ombudsmanContactHindi,
+        ombudsmanEmailHindi: previousData.ombudsmanEmailHindi,
 
         complainUrl: previousData.complainUrl,
         complainEmail: previousData.complainEmail,
@@ -784,6 +808,167 @@ function BranchInfo() {
               />
             </Col>
           </Row>
+          <hr />
+          <Row>
+            <Col sm={6}>
+              <div className="mb-sm-4 mb-2 fw-bold">
+                If you are still not satisified with the resolution provided, you may approach the Banking Ombudsman in whose territorial jurisdiction the matter falls.
+              </div>
+            </Col>
+            <Col sm={6}>
+              <div className="mb-4 fw-bold">
+                यदि आप अभी भी प्रदान किये गए समाधान से संतुष्ट नहीं है, तो आप उस छेत्रीय अधिकार के बैंकिंग लोकपाल से संपर्क कर सकते हैं | 
+                
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="ombudsmanPost"
+                placeholder="Ombudsman Officer"
+                className="form-control mb-3"
+                value={data.ombudsmanPost}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
+              <ReactTransliterate
+                placeholder="लोकपाल अधिकारी"
+                value={data.ombudsmanPostHindi}
+                onChangeText={(text) =>
+                  setData({
+                    ...data,
+                    ombudsmanPostHindi: text,
+                  })
+                }
+                lang="hi"
+                name="ombudsmanPostHindi"
+                className="form-control mb-3"
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="ombudsmanName"
+                placeholder="Name"
+                className="form-control mb-3"
+                value={data.ombudsmanName}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
+              <ReactTransliterate
+                placeholder="नाम"
+                value={data.ombudsmanNameHindi}
+                onChangeText={(text) =>
+                  setData({
+                    ...data,
+                    ombudsmanNameHindi: text,
+                  })
+                }
+                lang="hi"
+                name="ombudsmanNameHindi"
+                className="form-control mb-3"
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <textarea
+                name="ombudsmanAddress"
+                placeholder="Address"
+                className="form-control mb-3"
+                value={data.ombudsmanAddress}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col sm={6}>
+              <ReactTransliterate
+                placeholder="पता"
+                value={data.ombudsmanAddressHindi}
+                onChangeText={(text) =>
+                  setData({
+                    ...data,
+                    ombudsmanAddressHindi: text,
+                  })
+                }
+                lang="hi"
+                name="ombudsmanAddressHindi"
+                className="form-control mb-3"
+                renderComponent={(props) => (
+                  <textarea
+                    {...props}
+                    rows={4}
+                    className="form-control mb-3"
+                    placeholder="पता"
+                  />
+                )}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="ombudsmanContact"
+                placeholder="Contact Number"
+                className="form-control mb-3"
+                value={data.ombudsmanContact}
+                onChange={handleChange}
+                maxLength={10}
+              />
+            </Col>
+            <Col sm={6}>
+              <ReactTransliterate
+                placeholder="संपर्क संख्या"
+                value={data.ombudsmanContactHindi}
+                onChangeText={(text) =>
+                  setData({
+                    ...data,
+                    ombudsmanContactHindi: text,
+                  })
+                }
+                lang="hi"
+                name="ombudsmanContactHindi"
+                className="form-control mb-3"
+                maxLength={10}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <input
+                type="text"
+                name="ombudsmanEmail"
+                placeholder="Email"
+                className="form-control mb-3"
+                value={data.ombudsmanEmail}
+                onChange={handleChange}
+                maxLength={55}
+              />
+            </Col>
+            <Col sm={6}>
+              <ReactTransliterate
+                placeholder="ईमेल आईडी"
+                value={data.ombudsmanEmailHindi}
+                onChangeText={(text) =>
+                  setData({
+                    ...data,
+                    ombudsmanEmailHindi: text,
+                  })
+                }
+                lang="hi"
+                name="ombudsmanEmailHindi"
+                className="form-control mb-3"
+                maxLength={55}
+              />
+            </Col>
+          </Row> 
           <hr />
           <Row>
             <Col sm={6}>

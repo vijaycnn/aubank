@@ -214,7 +214,46 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true, 
       type: DataTypes.STRING,
     },
-
+    ombudsmanPost: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    ombudsmanPostHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    ombudsmanName: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    ombudsmanNameHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    ombudsmanAddress: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
+    ombudsmanAddressHindi: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
+    ombudsmanContact: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    ombudsmanContactHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    ombudsmanEmail: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    ombudsmanEmailHindi: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
     status:{
       type:DataTypes.INTEGER,
       defaultValue:1
