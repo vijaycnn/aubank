@@ -812,13 +812,15 @@ function BranchInfo() {
           <Row>
             <Col sm={6}>
               <div className="mb-sm-4 mb-2 fw-bold">
-                If you are still not satisified with the resolution provided, you may approach the Banking Ombudsman in whose territorial jurisdiction the matter falls.
+                If you are still not satisified with the resolution provided,
+                you may approach the Banking Ombudsman in whose territorial
+                jurisdiction the matter falls.
               </div>
             </Col>
             <Col sm={6}>
               <div className="mb-4 fw-bold">
-                यदि आप अभी भी प्रदान किये गए समाधान से संतुष्ट नहीं है, तो आप उस छेत्रीय अधिकार के बैंकिंग लोकपाल से संपर्क कर सकते हैं | 
-                
+                यदि आप अभी भी प्रदान किये गए समाधान से संतुष्ट नहीं है, तो आप उस
+                छेत्रीय अधिकार के बैंकिंग लोकपाल से संपर्क कर सकते हैं |
               </div>
             </Col>
           </Row>
@@ -968,7 +970,7 @@ function BranchInfo() {
                 maxLength={55}
               />
             </Col>
-          </Row> 
+          </Row>
           <hr />
           <Row>
             <Col sm={6}>

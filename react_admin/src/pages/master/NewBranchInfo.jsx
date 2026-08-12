@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { decode as base64_decode } from "base-64";
 import axios from "axios";
 import logo from "../../assets/logo.svg";
+import { Container } from "react-bootstrap";
 
 import axiosInstance from "../../helper/constants/axiosInstance";
 const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
@@ -12,20 +13,19 @@ import NoticeB from "../../components/NoticeB";
 import NoticeC from "../../components/NoticeC";
 
 function BranchInfo() {
+  // const [currentNotice, setCurrentNotice] = useState(0);      // [0 / 1 / 2 ] for one by one notice section
 
-const [currentNotice, setCurrentNotice] = useState(0);      // [0 / 1 / 2 ] for one by one notice section
-
-useEffect(() => {
-    //comment below lines to prevent Notice section one by one
-    const interval = setInterval(() => {
-        setCurrentNotice(prev => {
-            if (prev === 2)
-                return 0;
-            return prev + 1;
-        });
-    }, 5000);
-    return () => clearInterval(interval);
-}, []);
+  // useEffect(() => {
+  //     //comment below lines to prevent Notice section one by one
+  //     const interval = setInterval(() => {
+  //         setCurrentNotice(prev => {
+  //             if (prev === 2)
+  //                 return 0;
+  //             return prev + 1;
+  //         });
+  //     }, 5000);
+  //     return () => clearInterval(interval);
+  // }, []);
 
   const params = useParams();
   const decode = base64_decode(params.id);
@@ -131,9 +131,9 @@ useEffect(() => {
     getBranchDetails();
   }, []);
 
-return (
+  return (
     <>
-        {loading == true ? (
+      {loading == true ? (
         <>
           <div className="loader">
             <div className="loader-spinner"></div>
@@ -141,20 +141,20 @@ return (
         </>
       ) : (
         ""
-      )}      
-    <section className="container branch-form-preview py-0">
-        {currentNotice === 0 && <NoticeA data={data} />}
+      )}
+      <section className="branch-form-preview">
+        <Container>
+          <NoticeA data={data} />
+          <NoticeB data={data} />
+          <NoticeC data={data} />
 
-        {currentNotice === 1 && <NoticeB data={data} />}
-
-        {currentNotice === 2 && <NoticeC data={data} />}
-
-        <div className="text-md-start text-center">
+          <div className="form-logo text-center">
             <img src={logo} alt="logo" />
-        </div>
-    </section>
+          </div>
+        </Container>
+      </section>
     </>
-);
+  );
 }
 
 export default BranchInfo;
