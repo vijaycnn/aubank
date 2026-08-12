@@ -5,40 +5,82 @@
   transform: rotate(-90deg) translateX(-100vh);
   transform-origin: top left;
   line-height: 1.2;
-  & .form-logo {
-    width: 15vh;
+  background: #fee4e3;
+  & .signature {
+    width: 10vh;
+  }
+  & ul,
+  & ol {
+    margin-bottom: 1.25vh;
+    padding: 0 0 0 25px;
+  }
+  & li {
+    margin-bottom: 0.5vh;
+  }
+  & p {
+    margin-bottom: 1.25vh;
+  }
+  & .table-view {
+    & .dynamic-table {
+      & td {
+        padding: 0.6vh 0;
+        font-size: 1.25vh;
+        &:nth-child(2n) {
+          padding: 0.6vh 2vh;
+        }
+      }
+      & .form-head {
+        font-size: 1.25vh;
+      }
+    }
+    & .notice-table {
+      & th,
+      & td {
+        padding: 0.5vh;
+        font-size: 1.5vh;
+      }
+    }
+  }
+  & hr {
+    margin: 2vh 0;
+  }
+  & .form-sub-title {
+    font-size: 2vh;
+  }
+
+  & .text-muted {
+    color: #ef7d1a !important;
+  }
+  & .form-logo img {
+    width: 20vh;
   }
   & .form-sign {
     width: 10vh;
   }
-
   & .branch-form-preview {
     padding: 2vh;
     max-width: inherit;
-  }
-  & .table-view {
-    padding: 2vh;
-    margin-top: 1vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   & .form-header {
     font-size: 3vh;
     padding: 0.7vh;
     margin-bottom: 0.5vh;
     border-radius: 1vh !important;
+    & h1 {
+      font-size: 3vh;
+    }
   }
-  & h5 {
-    font-size: 1.5vh;
-  }
-  & .h6 {
-    font-size: 1.25vh;
-  }
+
   & .list-group {
     margin-bottom: 1.25vh;
+    &-item {
+      color: #000;
+    }
   }
-  & .form-head {
-    font-size: 1.25vh;
-    margin-bottom: 1vh;
-  }
+
   & .g-4,
   .gy-4 {
     --bs-gutter-y: 0;

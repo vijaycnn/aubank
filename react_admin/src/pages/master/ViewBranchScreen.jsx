@@ -1,26 +1,30 @@
-import {
-  Container,
-  Alert,
-  Form,
-  Badge,
-  Row,
-  Col,
-  Button,
-  ListGroup,
-} from "react-bootstrap";
-import "../../scss/components/_preview.scss";
-import sign from "../../assets/sign.jpg";
-import logo from "../../assets/logo.svg";
-import { useNavigate, useParams, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../../helper/constants/axiosInstance";
-import { decode as base64_decode, encode as base64_encode } from "base-64";
-const adminAlias = import.meta.env.VITE_API_ADMIN_ALIAS;
-const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
-import { ReactTransliterate } from "react-transliterate";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { decode as base64_decode } from "base-64";
 import axios from "axios";
+import logo from "../../assets/logo.svg";
+import "../../scss/components/_preview.scss";
 
-function BranchScreen() {
+import axiosInstance from "../../helper/constants/axiosInstance";
+const baseURL = import.meta.env.VITE_API_BASE_URL_BACKEND + "/api";
+
+import NoticeA from "../../components/NoticeA";
+import NoticeB from "../../components/NoticeB";
+import NoticeC from "../../components/NoticeC";
+
+function BranchInfo() {
+  const [currentNotice, setCurrentNotice] = useState(0); // [0 / 1 / 2 ] for one by one notice section
+  useEffect(() => {
+    //comment below lines to prevent Notice section one by one
+    const interval = setInterval(() => {
+      setCurrentNotice((prev) => {
+        if (prev === 2) return 0;
+        return prev + 1;
+      });
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     document.body.classList.add("preview-page");
 
@@ -28,6 +32,7 @@ function BranchScreen() {
       document.body.classList.remove("preview-page");
     };
   }, []);
+
   const params = useParams();
   const decode = base64_decode(params.id);
   let id = decode.split("+")[1];
@@ -37,36 +42,26 @@ function BranchScreen() {
   const [successMsg, setSuccessMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [previousData, setPreviousData] = useState(null);
 
   const getBranchDetails = async () => {
-    try {
-      const response = await axios.get(
-        `${baseURL}/branch/getBranchDetailById/${id}`,
-      );
-
-      if (response.data.status === "success") {
-        setPreviousData(response.data.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    setLoading(true);
+    await axios
+      .get(`${baseURL}/branch/getBranchDetailById/${id}`)
+      .then((response) => {
+        // console.log(">>> ", response.data);
+        setLoading(false);
+        if (response.data.status === "success") {
+          setData(response?.data?.data);
+        }
+      })
+      .catch((error) => {
+        console.log("Error>>> ", error.status, error);
+        if (error.status === 403) {
+          // handleLogout();
+        }
+        setLoading(false);
+      });
   };
-  useEffect(() => {
-    // Initial API call
-    getBranchDetails();
-
-    // Refresh every 3 seconds
-    const interval = setInterval(() => {
-      getBranchDetails();
-      // setLoading(true);
-      setPreviousData(null);
-    }, 3000);
-
-    // Cleanup on unmount
-    return () => clearInterval(interval);
-  }, [id]);
-
   const [data, setData] = useState({
     managerName: "",
     managerNameHindi: "",
@@ -104,6 +99,18 @@ function BranchScreen() {
     principalContactNumberHindi: "",
     principalEmailHindi: "",
 
+    ombudsmanPost: "",
+    ombudsmanName: "",
+    ombudsmanAddress: "",
+    ombudsmanContact: "",
+    ombudsmanEmail: "",
+
+    ombudsmanPostHindi: "",
+    ombudsmanNameHindi: "",
+    ombudsmanAddressHindi: "",
+    ombudsmanContactHindi: "",
+    ombudsmanEmailHindi: "",
+
     complainUrl: "",
     complainEmail: "",
     complainAddress: "",
@@ -127,587 +134,44 @@ function BranchScreen() {
     ambulanceContact: "",
   });
   useEffect(() => {
-    if (previousData) {
-      setData({
-        managerName: previousData.managerName,
-        managerNameHindi: previousData.managerNameHindi,
+    // Initial API call
+    getBranchDetails();
 
-        address: previousData.address,
-        addressHindi: previousData.addressHindi,
+    // Refresh every 3 seconds
+    const interval = setInterval(() => {
+      getBranchDetails();
+      // setLoading(true);
+      setPreviousData(null);
+    }, 5000);
 
-        contactNumber: previousData.contactNumber,
-        contactNumberHindi: previousData.contactNumberHindi,
-
-        email: previousData.email,
-        emailHindi: previousData.emailHindi,
-
-        regionalOfficer: previousData.regionalOfficer,
-        regionalName: previousData.regionalName,
-        regionalAddress: previousData.regionalAddress,
-        regionalContactNumber: previousData.regionalContactNumber,
-        regionalEmail: previousData.regionalEmail,
-
-        regionalOfficerHindi: previousData.regionalOfficerHindi,
-        regionalNameHindi: previousData.regionalNameHindi,
-        regionalAddressHindi: previousData.regionalAddressHindi,
-        regionalContactNumberHindi: previousData.regionalContactNumberHindi,
-        regionalEmailHindi: previousData.regionalEmailHindi,
-
-        principalOfficer: previousData.principalOfficer,
-        principalName: previousData.principalName,
-        principalAddress: previousData.principalAddress,
-        principalContactNumber: previousData.principalContactNumber,
-        principalEmail: previousData.principalEmail,
-
-        principalOfficerHindi: previousData.principalOfficerHindi,
-        principalNameHindi: previousData.principalNameHindi,
-        principalAddressHindi: previousData.principalAddressHindi,
-        principalContactNumberHindi: previousData.principalContactNumberHindi,
-        principalEmailHindi: previousData.principalEmailHindi,
-
-        complainUrl: previousData.complainUrl,
-        complainEmail: previousData.complainEmail,
-        complainAddress: previousData.complainAddress,
-        complainUrlHindi: previousData.complainUrlHindi,
-        complainEmailHindi: previousData.complainEmailHindi,
-        complainAddressHindi: previousData.complainAddressHindi,
-
-        officerName: previousData.officerName,
-        branchName: previousData.branchName,
-        branchMangerName: previousData.branchMangerName,
-        branchMangerContact: previousData.branchMangerContact,
-        branchServiceMangerName: previousData.branchServiceMangerName,
-        branchServiceMangerContact: previousData.branchServiceMangerContact,
-        policeName: previousData.policeName,
-        policeContact: previousData.policeContact,
-        fireName: previousData.fireName,
-        fireContact: previousData.fireContact,
-        hospitalName: previousData.hospitalName,
-        hospitalContact: previousData.hospitalContact,
-        ambulanceName: previousData.ambulanceName,
-        ambulanceContact: previousData.ambulanceContact,
-      });
-    }
-  }, [previousData]);
-
-  // const handleLogout = () => {
-  //   sessionStorage.removeItem("isAuthenticated");
-  //   localStorage.clear("auth-token");
-  //   localStorage.clear();
-  //   navigate(adminAlias);
-  // };
+    // Cleanup on unmount
+    return () => clearInterval(interval);
+  }, [id]);
 
   return (
     <>
       {loading == true ? (
         <>
-          <div className="loader">
+          {/* <div className="loader">
             <div className="loader-spinner"></div>
-          </div>
+          </div> */}
         </>
       ) : (
         ""
       )}
-      <section className="container branch-form-preview">
-        <div className="text-md-start text-center">
-          <img src={logo} alt="logo" className="form-logo" />
-        </div>
-        <div className="table-view bg-white rounded-4">
-          {error && <Alert variant="danger">⚠️{error}</Alert>}
-          {successMsg && <Alert variant="success">{successMsg}</Alert>}
+      <section className="branch-form-preview">
+        {currentNotice === 0 && <NoticeA data={data} />}
 
-          <Form>
-            <div className="text-center bg-light rounded-4 form-header fw-normal">
-              <b>NOTICE - C</b>
-              <h1
-                className="h6 opacity-50 text-center fw-medium mb-0"
-                style={{ letterSpacing: "2px" }}
-              >
-                GRIEVANCE REDRESSAL MECHANISM
-              </h1>
-            </div>
+        {currentNotice === 1 && <NoticeB data={data} />}
 
-            <Row>
-              <Col md={6} className="form-head fw-bold">
-                While we always strive to provide the best of customer service,
-                there may be occasions, when our customers’ requirement might
-                not be fully met. Such incidents may please be brought to the
-                notice of the Branch Manager.
-              </Col>
-              <Col md={6} className="form-head fw-bold">
-                हम हमेशा सर्वश्रेष्ठ ग्राहक सेवा प्रदान करने का प्रयास करते हैं,
-                परन्तु कई बार ऐसे अवसर हो सकते है, जब हमारे ग्राहकों की
-                आवश्यकताओं को पूरा नही किया गया है। ऐसी घटनाओं को कृपया शाखा
-                प्रबंधक के ध्यान में लेकर आये।
-              </Col>
-            </Row>
+        {currentNotice === 2 && <NoticeC data={data} />}
 
-            <ListGroup as="ul" variant="flush">
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Branch Manager Name</small>
-                    <p className="fw-medium m-0">
-                      {data.managerName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">शाखा प्रबंधक का नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.managerNameHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Address</small>
-                    <p className="fw-medium m-0">
-                      {data.address?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">पता</small>
-                    <p className="fw-medium m-0">
-                      {data.addressHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Contact Number</small>
-                    <p className="fw-medium m-0">
-                      {data.contactNumber?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">संपर्क संख्या</small>
-                    <p className="fw-medium m-0">
-                      {data.contactNumberHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Email</small>
-                    <p className="fw-medium m-0">
-                      {data.email?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">ईमेल</small>
-                    <p className="fw-medium m-0">
-                      {data.emailHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            </ListGroup>
-            <Row>
-              <Col md={6} className="form-head fw-bold">
-                In case of non-resolution of grievances within 7 days to your
-                satisfaction, our customers may escalate their grievance to the
-                Regional Nodal Officer(s) and thereafter to the Principal Nodal
-                Officer after expiry of further 7 days.
-              </Col>
-              <Col md={6} className="form-head fw-bold">
-                यदि आपकी शिकायत ७ दिनो के भीतर हल नही होती हैं, तो आप हमारे
-                क्षेत्रीए नोडल अधिकारी से संपर्क कर सकते हैं। अतिरिक्त ७ दिन की
-                समाप्ति के बाद प्रमुख नोडल अिधकारी से संपर्क किया जा सकता है |
-              </Col>
-            </Row>
-            <ListGroup as="ul" variant="flush">
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Regional Nodal Officer</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalOfficer?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">क्षेत्रीय नोडल अधिकारी</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalOfficerHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Name</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalNameHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Address</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalAddress?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">पता</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalAddressHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Contact Number</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalContactNumber?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">संपर्क संख्या</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalContactNumberHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Email</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalEmail?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">ईमेल</small>
-                    <p className="fw-medium m-0">
-                      {data.regionalEmailHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            </ListGroup>
-
-            <ListGroup as="ul" variant="flush">
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">
-                      Principal Nodal Officer
-                    </small>
-                    <p className="fw-medium m-0">
-                      {data.principalOfficer?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">क्षेत्रीय नोडल अधिकारी</small>
-                    <p className="fw-medium m-0">
-                      {data.principalOfficerHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Name</small>
-                    <p className="fw-medium m-0">
-                      {data.principalName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.principalNameHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Address</small>
-                    <p className="fw-medium m-0">
-                      {data.principalAddress?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">पता</small>
-                    <p className="fw-medium m-0">
-                      {data.principalAddressHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Contact Number</small>
-                    <p className="fw-medium m-0">
-                      {data.principalContactNumber?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">संपर्क संख्या</small>
-                    <p className="fw-medium m-0">
-                      {data.principalContactNumberHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Email</small>
-                    <p className="fw-medium m-0">
-                      {data.principalEmail?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">ईमेल</small>
-                    <p className="fw-medium m-0">
-                      {data.principalEmailHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            </ListGroup>
-
-            <Row>
-              <Col md={6} className="form-head fw-bold">
-                Complaint can be lodged through below details.
-              </Col>
-              <Col md={6} className="form-head fw-bold">
-                निम्नलिखित विवरण के माध्यम से शिकायत दर्ज की जा सकती है
-              </Col>
-            </Row>
-            <ListGroup as="ul" variant="flush">
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Complain URL</small>
-                    <p className="fw-medium m-0">
-                      {data.complainUrl?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">यू. आर. एल.</small>
-                    <p className="fw-medium m-0">
-                      {data.complainUrlHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Email</small>
-                    <p className="fw-medium m-0">
-                      {data.complainEmail?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">ईमेल</small>
-                    <p className="fw-medium m-0">
-                      {data.complainEmailHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={6}>
-                    <small className="text-muted">Address</small>
-                    <p className="fw-medium m-0">
-                      {data.complainAddress?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={6}>
-                    <small className="text-muted">पता</small>
-                    <p className="fw-medium m-0">
-                      {data.complainAddressHindi?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            </ListGroup>
-
-            <h5 className="mb-2 text-primary">
-              Authority to receive notices on behalf of AU Small Finance
-              Bank{" "}
-            </h5>
-            <div className="mb-4">
-              It is hereby notified that all notices under the payment of
-              GratuityAct, 1972 may be sent to <b>{data.officerName}</b>{" "}
-              (Officer’s Name) associated with the Bank as Bank Manager
-              (Designation), who is authorized to receive all such Notices on
-              behalf of AU Small Finance Bank (Company). This may be treated as
-              Notice under Rule 4 of the Payment of Gratuity (Central Rules),
-              1972.
-            </div>
-
-            <h5 className="mb-4 text-primary">Emergency Contact Number </h5>
-            <ListGroup as="ul" variant="flush">
-              <ListGroup.Item as="li">
-                <small className="text-muted">Branch Name / शाखा नाम</small>
-                <p className="fw-medium m-0">
-                  {data.branchName?.trim() || "--"}
-                </p>
-              </ListGroup.Item>
-              <ListGroup.Item as="li" className="d-md-block d-none">
-                <Row className="g-4">
-                  <Col sm={4}>Particulars / विवरण</Col>
-                  <Col sm={4}>Name / नाम</Col>
-                  <Col sm={4}>Phone No. / फोन नंबर</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={4}>Branch Manager / शाखा प्रबंधक</Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.branchMangerName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">
-                      Phone No. / फोन नंबर
-                    </small>
-                    <p className="fw-medium m-0">
-                      {data.branchMangerContact?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={4}>
-                    Branch Operations & Service Manager / शाखा संचालन एवं सेवा
-                    प्रबंधक
-                  </Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.branchServiceMangerName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">
-                      Phone No. / फोन नंबर
-                    </small>
-                    <p className="fw-medium m-0">
-                      {data.branchServiceMangerContact?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={4}>Police / पुलिस</Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.policeName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">
-                      Phone No. / फोन नंबर
-                    </small>
-                    <p className="fw-medium m-0">
-                      {data.policeContact?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={4}>Fire / आग</Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.fireName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">
-                      Phone No. / फोन नंबर
-                    </small>
-                    <p className="fw-medium m-0">
-                      {data.fireContact?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={4}>Nearest Hospital / निकटतम अस्पताल</Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.hospitalName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">
-                      Phone No. / फोन नंबर
-                    </small>
-                    <p className="fw-medium m-0">
-                      {data.hospitalContact?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <Row className="g-4">
-                  <Col md={4}>Ambulance / रोगी वाहन</Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">Name / नाम</small>
-                    <p className="fw-medium m-0">
-                      {data.ambulanceName?.trim() || "--"}
-                    </p>
-                  </Col>
-                  <Col md={4} xs={6}>
-                    <small className="text-muted d-md-none">
-                      Phone No. / फोन नंबर
-                    </small>
-                    <p className="fw-medium m-0">
-                      {data.ambulanceContact?.trim() || "--"}
-                    </p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            </ListGroup>
-
-            <div className="text-end">
-              <img src={sign} alt="Signature" className="form-sign" />
-              <p>
-                <strong>Name: Mr. Yogesh Soni</strong> <br />
-                Designation: Head of Branch Banking Operations
-              </p>
-            </div>
-          </Form>
+        <div className="text-center form-logo">
+          <img src={logo} alt="logo" />
         </div>
       </section>
     </>
   );
 }
 
-export default BranchScreen;
+export default BranchInfo;
