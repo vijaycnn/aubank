@@ -12,6 +12,36 @@ function NoticeA({ data }) {
         <Row className="h-100">
           <Col md={6} className="col-left">
             <h5 className="form-sub-title text-center">
+              AUTHORITY TO RECEIVE NOTICES ON BEHALF OF AU SFB
+            </h5>
+            <p>
+              It is hereby notified that all notices under the payment of
+              Gratuity Act, 1972 may be sent to{" "}
+              <b>
+                {data?.officerName != ""
+                  ? data?.officerName
+                  : "..............................................................."}
+              </b>{" "}
+              (Officer's Name) associated with the Bank as Branch Manager
+              (Designation), who is authorised to receive all such Notices on
+              behalf of AU Small Finance Bank (Company).
+            </p>
+            <p>
+              This may be treated as Notice under Rule 4 of the Payment of
+              Gratuity (Central Rules), 1972.
+            </p>
+            <div>
+              <img src={sign} alt="Signature" className="signature" />
+              <p>
+                (Signature)
+                <br />
+                <strong>Name: Mr. Yogesh Soni</strong> <br />
+                Designation: Head of Branch Banking Operations
+              </p>
+            </div>
+
+            <hr />
+            <h5 className="form-sub-title text-center">
               FACILTY FOR SENIOR CITIZEN & DIFFERENTLY ABLED PERSONS
             </h5>
             <p>
@@ -137,36 +167,6 @@ function NoticeA({ data }) {
           </Col>
 
           <Col md={6} className="col-right">
-            <h5 className="form-sub-title text-center">
-              AUTHORITY TO RECEIVE NOTICES ON BEHALF OF AU SFB
-            </h5>
-            <p>
-              It is hereby notified that all notices under the payment of
-              Gratuity Act, 1972 may be sent to{" "}
-              <b>
-                {data?.officerName != ""
-                  ? data?.officerName
-                  : "..............................................................."}
-              </b>{" "}
-              (Officer's Name) associated with the Bank as Branch Manager
-              (Designation), who is authorised to receive all such Notices on
-              behalf of AU Small Finance Bank (Company).
-            </p>
-            <p>
-              This may be treated as Notice under Rule 4 of the Payment of
-              Gratuity (Central Rules), 1972.
-            </p>
-            <div>
-              <img src={sign} alt="Signature" className="signature" />
-              <p>
-                (Signature)
-                <br />
-                <strong>Name: Mr. Yogesh Soni</strong> <br />
-                Designation: Head of Branch Banking Operations
-              </p>
-            </div>
-
-            <hr />
             <h5 className="form-sub-title text-center">
               INFORMATION ABOUT TDS ON CASH WITHDRAWAL*
             </h5>

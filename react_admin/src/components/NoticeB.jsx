@@ -38,9 +38,8 @@ function NoticeB({ data }) {
               <li>
                 Natural Calamities like Earthquake, Flood, Cyclonic storm, etc.
               </li>
-              <li>Fire</li>
-              <li>Robbery</li>
-              <li>Mob</li>
+              <li>Fire •Robbery •Mob</li>
+
               <li>In case hooter/fire alarms are activated</li>
             </ul>
             <p>
