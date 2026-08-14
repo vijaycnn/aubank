@@ -15,7 +15,6 @@ import NoticeC from "../../components/NoticeC";
 function BranchInfo() {
   const [currentNotice, setCurrentNotice] = useState(0); // [0 / 1 / 2 ] for one by one notice section
   useEffect(() => {
-    //comment below lines to prevent Notice section one by one
     const interval = setInterval(() => {
       setCurrentNotice((prev) => {
         if (prev === 2) return 0;
@@ -161,9 +160,7 @@ function BranchInfo() {
       )}
       <section className="branch-form-preview">
         {currentNotice === 0 && <NoticeA data={data} />}
-
         {currentNotice === 1 && <NoticeB data={data} />}
-
         {currentNotice === 2 && <NoticeC data={data} />}
 
         <div className="text-center form-logo">
