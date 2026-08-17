@@ -24,10 +24,10 @@
     margin-bottom: 0;
     & .dynamic-table {
       & td {
-        padding: 0.3vh 0;
+        padding: 0.2vh 0.5vh;
         font-size: 1.25vh;
         &:nth-child(2n) {
-          padding: 0.3vh 2vh;
+          padding: 0.2vh 1vh;
         }
       }
       & .form-head {
@@ -37,8 +37,8 @@
     & .notice-table {
       & th,
       & td {
-        padding: 0.3vh;
-        font-size: 1.15vh;
+        padding: 0.2vh 0.5vh;
+        font-size: 1vh;
       }
     }
   }
@@ -46,8 +46,8 @@
     margin: 1.5vh 0;
   }
   & .form-sub-title {
-    font-size: 1.75vh;
-    margin-bottom: 0.7vh;
+    font-size: 1.5vh;
+    margin-bottom: 0.5vh;
   }
 
   & .text-muted {
@@ -73,6 +73,7 @@
     border-radius: 1vh !important;
     & h1 {
       font-size: 3vh;
+      margin: 0;
     }
   }
 
