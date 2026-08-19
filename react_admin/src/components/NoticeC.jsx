@@ -25,7 +25,7 @@ function NoticeC({ data }) {
             <h5 className="form-sub-title text-center">
               BANKING FOR THE COMMON MAN
             </h5>
-            {/*<img src={infoImage} alt="Info Graphics Notice C" />*/}
+            <img src={infoImage} alt="Info Graphics Notice C" />
           </Col>
           <Col md={6} className="col-right">
             <h5 className="form-sub-title text-center">
