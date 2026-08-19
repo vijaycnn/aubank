@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { decode as base64_decode } from "base-64";
 import axios from "axios";
@@ -24,7 +24,7 @@ function BranchInfo() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.classList.add("preview-page");
 
     return () => {
