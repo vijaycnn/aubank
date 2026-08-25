@@ -618,9 +618,9 @@ textarea {
         background: none;
         border: none;
         padding: 0.25rem 0;
-
-        &:nth-child(2n) {
-          padding: 0.75rem 2rem;
+        width: 70%;
+        &:first-child {
+          width: 30%;
         }
       }
       & .form-head {
